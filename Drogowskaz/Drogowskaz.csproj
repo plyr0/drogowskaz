@@ -201,7 +201,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
-    <Compile Include="ChurchSet.cs">
+    <Compile Include="Church.cs">
       <DependentUpon>DbModel1.tt</DependentUpon>
     </Compile>
     <Compile Include="Controllers\AccountController.cs" />
@@ -225,7 +225,10 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="MassRuleSet.cs">
+    <Compile Include="Mass.cs">
+      <DependentUpon>DbModel1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MassRule.cs">
       <DependentUpon>DbModel1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
@@ -244,6 +247,7 @@
       <DependentUpon>DbModel1.edmx</DependentUpon>
       <LastGenOutput>DbModel1.Context.cs</LastGenOutput>
     </Content>
+    <Content Include="DbModel1.edmx.sql" />
     <Content Include="DbModel1.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>DbModel1.edmx</DependentUpon>
@@ -265,7 +269,6 @@
     <Content Include="Content\bootstrap-theme.css.map" />
     <EntityDeploy Include="DbModel1.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>DbModel1.Designer.cs</LastGenOutput>
     </EntityDeploy>
     <Content Include="DbModel1.edmx.diagram">
       <DependentUpon>DbModel1.edmx</DependentUpon>

@@ -12,17 +12,10 @@ namespace Drogowskaz
     using System;
     using System.Collections.Generic;
     
-    public partial class ChurchSet
+    public partial class Mass
     {
         public System.Guid Id { get; set; }
-        public string Name { get; set; }
-        public string Address { get; set; }
-        public string Diocese { get; set; }
-        public string Deanery { get; set; }
-        public string Parish { get; set; }
-        public System.Data.Entity.Spatial.DbGeography Location { get; set; }
-        public int MassRuleChurch_Church_Id { get; set; }
     
-        public virtual MassRuleSet MassRuleSet { get; set; }
+        public virtual MassRule MassRule { get; set; }
     }
 }

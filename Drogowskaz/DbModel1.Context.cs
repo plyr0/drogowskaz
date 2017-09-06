@@ -25,7 +25,8 @@ namespace Drogowskaz
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<ChurchSet> ChurchSet { get; set; }
-        public virtual DbSet<MassRuleSet> MassRuleSet { get; set; }
+        public virtual DbSet<Church> Churches { get; set; }
+        public virtual DbSet<MassRule> MassRules { get; set; }
+        public virtual DbSet<Mass> Masses { get; set; }
     }
 }

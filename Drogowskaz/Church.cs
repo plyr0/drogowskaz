@@ -12,17 +12,23 @@ namespace Drogowskaz
     using System;
     using System.Collections.Generic;
     
-    public partial class MassRuleSet
+    public partial class Church
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public MassRuleSet()
+        public Church()
         {
-            this.ChurchSet = new HashSet<ChurchSet>();
+            this.MassRules = new HashSet<MassRule>();
         }
     
-        public int Id { get; set; }
+        public System.Guid Id { get; set; }
+        public string Name { get; set; }
+        public string Address { get; set; }
+        public string Diocese { get; set; }
+        public string Deanery { get; set; }
+        public string Parish { get; set; }
+        public System.Data.Entity.Spatial.DbGeography Location { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ChurchSet> ChurchSet { get; set; }
+        public virtual ICollection<MassRule> MassRules { get; set; }
     }
 }
