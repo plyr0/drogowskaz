@@ -2,13 +2,13 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 09/06/2017 21:00:25
--- Generated from EDMX file: C:\Users\plyr0\git\drogowskaz\Drogowskaz\DbModel1.edmx
+-- Date Created: 09/07/2017 09:31:06
+-- Generated from EDMX file: C:\Users\s384064\Source\Repos\drogowskaz\Drogowskaz\DbModel1.edmx
 -- --------------------------------------------------
 
 SET QUOTED_IDENTIFIER OFF;
 GO
-USE [aspnet-Drogowskaz-20170906052219];
+USE [drogowskaz];
 GO
 IF SCHEMA_ID(N'dbo') IS NULL EXECUTE(N'CREATE SCHEMA [dbo]');
 GO
@@ -21,18 +21,18 @@ IF OBJECT_ID(N'[dbo].[FK_MassRuleMass]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[Masses] DROP CONSTRAINT [FK_MassRuleMass];
 GO
 IF OBJECT_ID(N'[dbo].[FK_ChurchMassRule]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[MassRuleSet] DROP CONSTRAINT [FK_ChurchMassRule];
+    ALTER TABLE [dbo].[MassRules] DROP CONSTRAINT [FK_ChurchMassRule];
 GO
 
 -- --------------------------------------------------
 -- Dropping existing tables
 -- --------------------------------------------------
 
-IF OBJECT_ID(N'[dbo].[ChurchSet]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[ChurchSet];
+IF OBJECT_ID(N'[dbo].[Churches]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Churches];
 GO
-IF OBJECT_ID(N'[dbo].[MassRuleSet]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[MassRuleSet];
+IF OBJECT_ID(N'[dbo].[MassRules]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[MassRules];
 GO
 IF OBJECT_ID(N'[dbo].[Masses]', 'U') IS NOT NULL
     DROP TABLE [dbo].[Masses];

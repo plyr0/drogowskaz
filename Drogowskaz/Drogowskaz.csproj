@@ -222,6 +222,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>DbModel1.edmx</DependentUpon>
     </Compile>
+    <Compile Include="DbModel11.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DbModel1.edmx</DependentUpon>
+    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -269,6 +274,7 @@
     <Content Include="Content\bootstrap-theme.css.map" />
     <EntityDeploy Include="DbModel1.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>DbModel11.Designer.cs</LastGenOutput>
     </EntityDeploy>
     <Content Include="DbModel1.edmx.diagram">
       <DependentUpon>DbModel1.edmx</DependentUpon>
