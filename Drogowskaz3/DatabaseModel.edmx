@@ -11,20 +11,12 @@
     <EntitySet Name="Masses" EntityType="drogowskazModel.Store.Masses" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Cycles" EntityType="drogowskazModel.Store.Cycles" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="ExceptionsRules" EntityType="drogowskazModel.Store.ExceptionsRules" store:Type="Tables" Schema="dbo" />
-    <AssociationSet Name="RuleMass" Association="drogowskazModel.Store.RuleMass">
-      <End Role="Rule" EntitySet="Rules" />
+    <AssociationSet Name="MassRule" Association="drogowskazModel.Store.MassRule">
       <End Role="Mass" EntitySet="Masses" />
+      <End Role="Rule" EntitySet="Rules" />
     </AssociationSet>
     <AssociationSet Name="ChurchRule" Association="drogowskazModel.Store.ChurchRule">
       <End Role="Church" EntitySet="Churches" />
-      <End Role="Rule" EntitySet="Rules" />
-    </AssociationSet>
-    <AssociationSet Name="LiturgicalCycleRule" Association="drogowskazModel.Store.LiturgicalCycleRule">
-      <End Role="LiturgicalCycle" EntitySet="Cycles" />
-      <End Role="Rule" EntitySet="Rules" />
-    </AssociationSet>
-    <AssociationSet Name="ExceptionsRulesRule" Association="drogowskazModel.Store.ExceptionsRulesRule">
-      <End Role="ExceptionsRules" EntitySet="ExceptionsRules" />
       <End Role="Rule" EntitySet="Rules" />
     </AssociationSet>
   </EntityContainer>
@@ -32,7 +24,7 @@
     <Key>
       <PropertyRef Name="Id" />
     </Key>
-    <Property Name="Id" Type="uniqueidentifier" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="50" />
     <Property Name="Address" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Location" Type="nvarchar(max)" Nullable="false" />
@@ -41,7 +33,7 @@
     <Key>
       <PropertyRef Name="Id" />
     </Key>
-    <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="MassType" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Monday" Type="bit" Nullable="false" />
     <Property Name="Tuesday" Type="bit" Nullable="false" />
@@ -77,39 +69,46 @@
     <Property Name="Hour" Type="datetime" Nullable="false" />
     <Property Name="CyclicalWeekday" Type="nvarchar(max)" Nullable="false" />
     <Property Name="CyclicalMonthday" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="DateShift" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="DateShift" Type="int" Nullable="false" />
+    <Property Name="RepeatDateFirst" Type="datetime" Nullable="false" />
+    <Property Name="RepeatEveryDays" Type="int" Nullable="false" />
+    <Property Name="RepeatEveryMonths" Type="int" Nullable="false" />
+    <Property Name="RepeatFlag" Type="bit" Nullable="false" />
+    <Property Name="CycleId1" Type="bigint" Nullable="false" />
+    <Property Name="ChurchId1" Type="bigint" Nullable="false" />
   </EntityType>
   <EntityType Name="Masses">
     <Key>
       <PropertyRef Name="Id" />
     </Key>
-    <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="RuleId" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="Date" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Rule_Id" Type="bigint" Nullable="false" />
   </EntityType>
   <EntityType Name="Cycles">
     <Key>
       <PropertyRef Name="Id" />
     </Key>
-    <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
   </EntityType>
   <EntityType Name="ExceptionsRules">
     <Key>
       <PropertyRef Name="Id" />
     </Key>
-    <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Date" Type="datetime" Nullable="false" />
-    <Property Name="Rule_Id" Type="uniqueidentifier" Nullable="false" />
   </EntityType>
-  <Association Name="RuleMass">
-    <End Role="Rule" Type="drogowskazModel.Store.Rules" Multiplicity="1" />
+  <Association Name="MassRule">
     <End Role="Mass" Type="drogowskazModel.Store.Masses" Multiplicity="*" />
+    <End Role="Rule" Type="drogowskazModel.Store.Rules" Multiplicity="1" />
     <ReferentialConstraint>
       <Principal Role="Rule">
         <PropertyRef Name="Id" />
       </Principal>
       <Dependent Role="Mass">
-        <PropertyRef Name="RuleId" />
+        <PropertyRef Name="Rule_Id" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -121,31 +120,7 @@
         <PropertyRef Name="Id" />
       </Principal>
       <Dependent Role="Rule">
-        <PropertyRef Name="ChurchId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="LiturgicalCycleRule">
-    <End Role="LiturgicalCycle" Type="drogowskazModel.Store.Cycles" Multiplicity="1" />
-    <End Role="Rule" Type="drogowskazModel.Store.Rules" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="LiturgicalCycle">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="Rule">
-        <PropertyRef Name="CycleId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="ExceptionsRulesRule">
-    <End Role="ExceptionsRules" Type="drogowskazModel.Store.ExceptionsRules" Multiplicity="*" />
-    <End Role="Rule" Type="drogowskazModel.Store.Rules" Multiplicity="1" />
-    <ReferentialConstraint>
-      <Principal Role="Rule">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="ExceptionsRules">
-        <PropertyRef Name="Rule_Id" />
+        <PropertyRef Name="ChurchId1" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -157,7 +132,7 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="Guid" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Location" Type="String" Nullable="false" />
@@ -167,22 +142,14 @@
           <EntitySet Name="Churches" EntityType="Self.Church" />
           <EntitySet Name="Rules" EntityType="drogowskazModel.Rule" />
           <EntitySet Name="Masses" EntityType="drogowskazModel.Mass" />
-          <AssociationSet Name="RuleMass" Association="drogowskazModel.RuleMass">
-            <End Role="Rule" EntitySet="Rules" />
-            <End Role="Mass" EntitySet="Masses" />
-          </AssociationSet>
           <EntitySet Name="Cycles" EntityType="drogowskazModel.Cycle" />
+          <EntitySet Name="ExceptionsRules" EntityType="drogowskazModel.ExceptionsRules" />
+          <AssociationSet Name="MassRule" Association="drogowskazModel.MassRule">
+            <End Role="Mass" EntitySet="Masses" />
+            <End Role="Rule" EntitySet="Rules" />
+          </AssociationSet>
           <AssociationSet Name="ChurchRule" Association="drogowskazModel.ChurchRule">
             <End Role="Church" EntitySet="Churches" />
-            <End Role="Rule" EntitySet="Rules" />
-          </AssociationSet>
-          <AssociationSet Name="LiturgicalCycleRule" Association="drogowskazModel.LiturgicalCycleRule">
-            <End Role="LiturgicalCycle" EntitySet="Cycles" />
-            <End Role="Rule" EntitySet="Rules" />
-          </AssociationSet>
-          <EntitySet Name="ExceptionsRules" EntityType="drogowskazModel.ExceptionsRules" />
-          <AssociationSet Name="ExceptionsRulesRule" Association="drogowskazModel.ExceptionsRulesRule">
-            <End Role="ExceptionsRules" EntitySet="ExceptionsRules" />
             <End Role="Rule" EntitySet="Rules" />
           </AssociationSet>
         </EntityContainer>
@@ -190,8 +157,7 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="Guid" Nullable="false" annotation:StoreGeneratedPattern="None" />
-          <NavigationProperty Name="Masses" Relationship="drogowskazModel.RuleMass" FromRole="Rule" ToRole="Mass" />
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="MassType" Type="String" Nullable="false" />
           <Property Name="Monday" Type="Boolean" Nullable="false" />
           <Property Name="Tuesday" Type="Boolean" Nullable="false" />
@@ -219,47 +185,47 @@
           <Property Name="Week5" Type="Boolean" Nullable="false" />
           <Property Name="WeekLast" Type="String" Nullable="false" />
           <Property Name="CycleType" Type="String" Nullable="false" />
-          <NavigationProperty Name="Church" Relationship="drogowskazModel.ChurchRule" FromRole="Rule" ToRole="Church" />
           <Property Name="ChurchId" Type="Guid" Nullable="false" />
-          <NavigationProperty Name="LiturgicalCycle" Relationship="drogowskazModel.LiturgicalCycleRule" FromRole="Rule" ToRole="LiturgicalCycle" />
           <Property Name="CycleId" Type="Guid" Nullable="false" />
           <Property Name="SingularMass" Type="String" Nullable="false" />
           <Property Name="DateBegin" Type="DateTime" Nullable="false" />
           <Property Name="DateEnd" Type="DateTime" Nullable="false" />
           <Property Name="Hour" Type="DateTime" Nullable="false" />
-          <Property Name="CyclicalWeekday" Type="String" Nullable="false" />
-          <Property Name="CyclicalMonthday" Type="String" Nullable="false" />
-          <Property Name="DateShift" Type="String" Nullable="false" />
-          <NavigationProperty Name="ExceptionsRules" Relationship="drogowskazModel.ExceptionsRulesRule" FromRole="Rule" ToRole="ExceptionsRules" />
+          <Property Name="DateShift" Type="Int32" Nullable="false" />
+          <Property Name="RepeatDateFirst" Type="DateTime" Nullable="false" />
+          <Property Name="RepeatDays" Type="Int32" Nullable="false" />
+          <Property Name="RepeatMonths" Type="Int32" Nullable="false" />
+          <Property Name="RepeatFlag" Type="String" Nullable="false" />
+          <NavigationProperty Name="Masses" Relationship="drogowskazModel.MassRule" FromRole="Rule" ToRole="Mass" />
+          <NavigationProperty Name="Church" Relationship="drogowskazModel.ChurchRule" FromRole="Rule" ToRole="Church" />
         </EntityType>
         <EntityType Name="Mass">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="Guid" Nullable="false" annotation:StoreGeneratedPattern="None" />
-          <NavigationProperty Name="Rule" Relationship="drogowskazModel.RuleMass" FromRole="Mass" ToRole="Rule" />
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="RuleId" Type="Guid" Nullable="false" />
+          <Property Name="Date" Type="String" Nullable="false" />
+          <NavigationProperty Name="Rule" Relationship="drogowskazModel.MassRule" FromRole="Mass" ToRole="Rule" />
         </EntityType>
-        <Association Name="RuleMass">
-          <End Type="drogowskazModel.Rule" Role="Rule" Multiplicity="1" />
-          <End Type="drogowskazModel.Mass" Role="Mass" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Rule">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Mass">
-              <PropertyRef Name="RuleId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityType Name="Cycle">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="Guid" Nullable="false" annotation:StoreGeneratedPattern="None" />
-          <NavigationProperty Name="Rules" Relationship="drogowskazModel.LiturgicalCycleRule" FromRole="LiturgicalCycle" ToRole="Rule" />
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" Nullable="false" />
         </EntityType>
+        <EntityType Name="ExceptionsRules">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Date" Nullable="false" Type="DateTime" />
+        </EntityType>
+        <Association Name="MassRule">
+          <End Type="drogowskazModel.Mass" Role="Mass" Multiplicity="*" />
+          <End Type="drogowskazModel.Rule" Role="Rule" Multiplicity="1" />
+        </Association>
         <Association Name="ChurchRule">
           <End Type="drogowskazModel.Church" Role="Church" Multiplicity="1" />
           <End Type="drogowskazModel.Rule" Role="Rule" Multiplicity="*" />
@@ -268,33 +234,9 @@
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="Rule">
-              <PropertyRef Name="ChurchId" />
+              <PropertyRef Name="ChurchId1" />
             </Dependent>
           </ReferentialConstraint>
-        </Association>
-        <Association Name="LiturgicalCycleRule">
-          <End Type="drogowskazModel.Cycle" Role="LiturgicalCycle" Multiplicity="1" />
-          <End Type="drogowskazModel.Rule" Role="Rule" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="LiturgicalCycle">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Rule">
-              <PropertyRef Name="CycleId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityType Name="ExceptionsRules">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Guid" Nullable="false" annotation:StoreGeneratedPattern="None" />
-          <Property Name="Date" Nullable="false" Type="DateTime" />
-          <NavigationProperty Name="Rule" Relationship="drogowskazModel.ExceptionsRulesRule" FromRole="ExceptionsRules" ToRole="Rule" />
-        </EntityType>
-        <Association Name="ExceptionsRulesRule">
-          <End Type="drogowskazModel.ExceptionsRules" Role="ExceptionsRules" Multiplicity="*" />
-          <End Type="drogowskazModel.Rule" Role="Rule" Multiplicity="1" />
         </Association>
       </Schema>
     </edmx:ConceptualModels>
@@ -349,9 +291,11 @@
           <ScalarProperty Name="DateBegin" ColumnName="DateBegin" />
           <ScalarProperty Name="DateEnd" ColumnName="DateEnd" />
           <ScalarProperty Name="Hour" ColumnName="Hour" />
-          <ScalarProperty Name="CyclicalWeekday" ColumnName="CyclicalWeekday" />
-          <ScalarProperty Name="CyclicalMonthday" ColumnName="CyclicalMonthday" />
           <ScalarProperty Name="DateShift" ColumnName="DateShift" />
+          <ScalarProperty Name="RepeatDateFirst" ColumnName="RepeatDateFirst" />
+          <ScalarProperty Name="RepeatDays" ColumnName="RepeatEveryDays" />
+          <ScalarProperty Name="RepeatMonths" ColumnName="RepeatEveryMonths" />
+          <ScalarProperty Name="RepeatFlag" ColumnName="RepeatFlag" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -360,6 +304,7 @@
         <MappingFragment StoreEntitySet="Masses">
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="RuleId" ColumnName="RuleId" />
+          <ScalarProperty Name="Date" ColumnName="Date" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -379,11 +324,11 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <AssociationSetMapping Name="ExceptionsRulesRule" TypeName="drogowskazModel.ExceptionsRulesRule" StoreEntitySet="ExceptionsRules">
+    <AssociationSetMapping Name="MassRule" TypeName="drogowskazModel.MassRule" StoreEntitySet="Masses">
       <EndProperty Name="Rule">
         <ScalarProperty Name="Id" ColumnName="Rule_Id" />
       </EndProperty>
-      <EndProperty Name="ExceptionsRules">
+      <EndProperty Name="Mass">
         <ScalarProperty Name="Id" ColumnName="Id" />
       </EndProperty>
     </AssociationSetMapping>

@@ -6,14 +6,12 @@
     <edmx:Diagrams>
       <Diagram DiagramId="05a6f579e9fc4061843d0fd67c45d684" Name="Diagram1">
         <EntityTypeShape EntityType="drogowskazModel.Church" Width="1.5" PointX="0.5" PointY="0.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="drogowskazModel.Rule" Width="1.5" PointX="2.875" PointY="0.5" />
-        <EntityTypeShape EntityType="drogowskazModel.Mass" Width="1.5" PointX="6.875" PointY="1.625" />
-        <AssociationConnector Association="drogowskazModel.RuleMass" />
-        <EntityTypeShape EntityType="drogowskazModel.Cycle" Width="1.5" PointX="6.375" PointY="3.875" />
-        <AssociationConnector Association="drogowskazModel.ChurchRule" />
-        <AssociationConnector Association="drogowskazModel.LiturgicalCycleRule" />
+        <EntityTypeShape EntityType="drogowskazModel.Rule" Width="2" PointX="2.625" PointY="0.5" />
+        <EntityTypeShape EntityType="drogowskazModel.Mass" Width="1.5" PointX="5.25" PointY="0.75" />
+        <EntityTypeShape EntityType="drogowskazModel.Cycle" Width="1.5" PointX="5.125" PointY="3.25" />
         <EntityTypeShape EntityType="drogowskazModel.ExceptionsRules" Width="1.5" PointX="5.125" PointY="5.875" />
-        <AssociationConnector Association="drogowskazModel.ExceptionsRulesRule" />
+        <AssociationConnector Association="drogowskazModel.MassRule" />
+        <AssociationConnector Association="drogowskazModel.ChurchRule" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

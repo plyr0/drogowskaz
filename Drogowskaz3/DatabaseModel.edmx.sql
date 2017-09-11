@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 09/11/2017 10:49:27
+-- Date Created: 09/11/2017 11:52:41
 -- Generated from EDMX file: C:\Users\s384064\Source\Repos\drogowskaz\Drogowskaz3\DatabaseModel.edmx
 -- --------------------------------------------------
 
@@ -17,8 +17,14 @@ GO
 -- Dropping existing FOREIGN KEY constraints
 -- --------------------------------------------------
 
-IF OBJECT_ID(N'[dbo].[FK_RuleMass]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[Masses] DROP CONSTRAINT [FK_RuleMass];
+IF OBJECT_ID(N'[dbo].[FK_ExceptionsRulesRule]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[ExceptionsRules] DROP CONSTRAINT [FK_ExceptionsRulesRule];
+GO
+IF OBJECT_ID(N'[dbo].[FK_MassRule]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Masses] DROP CONSTRAINT [FK_MassRule];
+GO
+IF OBJECT_ID(N'[dbo].[FK_CycleRule]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Rules] DROP CONSTRAINT [FK_CycleRule];
 GO
 IF OBJECT_ID(N'[dbo].[FK_ChurchRule]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[Rules] DROP CONSTRAINT [FK_ChurchRule];
@@ -37,6 +43,12 @@ GO
 IF OBJECT_ID(N'[dbo].[Masses]', 'U') IS NOT NULL
     DROP TABLE [dbo].[Masses];
 GO
+IF OBJECT_ID(N'[dbo].[Cycles]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Cycles];
+GO
+IF OBJECT_ID(N'[dbo].[ExceptionsRules]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[ExceptionsRules];
+GO
 
 -- --------------------------------------------------
 -- Creating all tables
@@ -44,7 +56,7 @@ GO
 
 -- Creating table 'Churches'
 CREATE TABLE [dbo].[Churches] (
-    [Id] uniqueidentifier  NOT NULL,
+    [Id] bigint IDENTITY(1,1) NOT NULL,
     [Name] nvarchar(50)  NOT NULL,
     [Address] nvarchar(max)  NOT NULL,
     [Location] nvarchar(max)  NOT NULL
@@ -53,7 +65,7 @@ GO
 
 -- Creating table 'Rules'
 CREATE TABLE [dbo].[Rules] (
-    [Id] uniqueidentifier  NOT NULL,
+    [Id] bigint IDENTITY(1,1) NOT NULL,
     [MassType] nvarchar(max)  NOT NULL,
     [Monday] bit  NOT NULL,
     [Tuesday] bit  NOT NULL,
@@ -89,29 +101,36 @@ CREATE TABLE [dbo].[Rules] (
     [Hour] datetime  NOT NULL,
     [CyclicalWeekday] nvarchar(max)  NOT NULL,
     [CyclicalMonthday] nvarchar(max)  NOT NULL,
-    [DateShift] nvarchar(max)  NOT NULL
+    [DateShift] int  NOT NULL,
+    [RepeatDateFirst] datetime  NOT NULL,
+    [RepeatEveryDays] int  NOT NULL,
+    [RepeatEveryMonths] int  NOT NULL,
+    [RepeatFlag] bit  NOT NULL,
+    [CycleId1] bigint  NOT NULL,
+    [ChurchId1] bigint  NOT NULL
 );
 GO
 
 -- Creating table 'Masses'
 CREATE TABLE [dbo].[Masses] (
-    [Id] uniqueidentifier  NOT NULL,
-    [RuleId] uniqueidentifier  NOT NULL
+    [Id] bigint IDENTITY(1,1) NOT NULL,
+    [RuleId] uniqueidentifier  NOT NULL,
+    [Date] nvarchar(max)  NOT NULL,
+    [Rule_Id] bigint  NOT NULL
 );
 GO
 
 -- Creating table 'Cycles'
 CREATE TABLE [dbo].[Cycles] (
-    [Id] uniqueidentifier  NOT NULL,
+    [Id] bigint IDENTITY(1,1) NOT NULL,
     [Name] nvarchar(max)  NOT NULL
 );
 GO
 
 -- Creating table 'ExceptionsRules'
 CREATE TABLE [dbo].[ExceptionsRules] (
-    [Id] uniqueidentifier  NOT NULL,
-    [Date] datetime  NOT NULL,
-    [Rule_Id] uniqueidentifier  NOT NULL
+    [Id] bigint IDENTITY(1,1) NOT NULL,
+    [Date] datetime  NOT NULL
 );
 GO
 
@@ -153,25 +172,25 @@ GO
 -- Creating all FOREIGN KEY constraints
 -- --------------------------------------------------
 
--- Creating foreign key on [RuleId] in table 'Masses'
+-- Creating foreign key on [Rule_Id] in table 'Masses'
 ALTER TABLE [dbo].[Masses]
-ADD CONSTRAINT [FK_RuleMass]
-    FOREIGN KEY ([RuleId])
+ADD CONSTRAINT [FK_MassRule]
+    FOREIGN KEY ([Rule_Id])
     REFERENCES [dbo].[Rules]
         ([Id])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
 GO
 
--- Creating non-clustered index for FOREIGN KEY 'FK_RuleMass'
-CREATE INDEX [IX_FK_RuleMass]
+-- Creating non-clustered index for FOREIGN KEY 'FK_MassRule'
+CREATE INDEX [IX_FK_MassRule]
 ON [dbo].[Masses]
-    ([RuleId]);
+    ([Rule_Id]);
 GO
 
--- Creating foreign key on [ChurchId] in table 'Rules'
+-- Creating foreign key on [ChurchId1] in table 'Rules'
 ALTER TABLE [dbo].[Rules]
 ADD CONSTRAINT [FK_ChurchRule]
-    FOREIGN KEY ([ChurchId])
+    FOREIGN KEY ([ChurchId1])
     REFERENCES [dbo].[Churches]
         ([Id])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
@@ -180,37 +199,7 @@ GO
 -- Creating non-clustered index for FOREIGN KEY 'FK_ChurchRule'
 CREATE INDEX [IX_FK_ChurchRule]
 ON [dbo].[Rules]
-    ([ChurchId]);
-GO
-
--- Creating foreign key on [CycleId] in table 'Rules'
-ALTER TABLE [dbo].[Rules]
-ADD CONSTRAINT [FK_LiturgicalCycleRule]
-    FOREIGN KEY ([CycleId])
-    REFERENCES [dbo].[Cycles]
-        ([Id])
-    ON DELETE NO ACTION ON UPDATE NO ACTION;
-GO
-
--- Creating non-clustered index for FOREIGN KEY 'FK_LiturgicalCycleRule'
-CREATE INDEX [IX_FK_LiturgicalCycleRule]
-ON [dbo].[Rules]
-    ([CycleId]);
-GO
-
--- Creating foreign key on [Rule_Id] in table 'ExceptionsRules'
-ALTER TABLE [dbo].[ExceptionsRules]
-ADD CONSTRAINT [FK_ExceptionsRulesRule]
-    FOREIGN KEY ([Rule_Id])
-    REFERENCES [dbo].[Rules]
-        ([Id])
-    ON DELETE NO ACTION ON UPDATE NO ACTION;
-GO
-
--- Creating non-clustered index for FOREIGN KEY 'FK_ExceptionsRulesRule'
-CREATE INDEX [IX_FK_ExceptionsRulesRule]
-ON [dbo].[ExceptionsRules]
-    ([Rule_Id]);
+    ([ChurchId1]);
 GO
 
 -- --------------------------------------------------
