@@ -4,127 +4,127 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="drogowskazModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-  <EntityContainer Name="drogowskazModelStoreContainer">
-    <EntitySet Name="Churches" EntityType="drogowskazModel.Store.Churches" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="Rules" EntityType="drogowskazModel.Store.Rules" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="Masses" EntityType="drogowskazModel.Store.Masses" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="Cycles" EntityType="drogowskazModel.Store.Cycles" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="ExceptionsRules" EntityType="drogowskazModel.Store.ExceptionsRules" store:Type="Tables" Schema="dbo" />
-    <AssociationSet Name="MassRule" Association="drogowskazModel.Store.MassRule">
-      <End Role="Mass" EntitySet="Masses" />
-      <End Role="Rule" EntitySet="Rules" />
-    </AssociationSet>
-    <AssociationSet Name="ChurchRule" Association="drogowskazModel.Store.ChurchRule">
-      <End Role="Church" EntitySet="Churches" />
-      <End Role="Rule" EntitySet="Rules" />
-    </AssociationSet>
-  </EntityContainer>
-  <EntityType Name="Churches">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="50" />
-    <Property Name="Address" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="Location" Type="nvarchar(max)" Nullable="false" />
-  </EntityType>
-  <EntityType Name="Rules">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="MassType" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="Monday" Type="bit" Nullable="false" />
-    <Property Name="Tuesday" Type="bit" Nullable="false" />
-    <Property Name="Wednesday" Type="bit" Nullable="false" />
-    <Property Name="Thursday" Type="bit" Nullable="false" />
-    <Property Name="Friday" Type="bit" Nullable="false" />
-    <Property Name="Saturday" Type="bit" Nullable="false" />
-    <Property Name="Sunday" Type="bit" Nullable="false" />
-    <Property Name="I" Type="bit" Nullable="false" />
-    <Property Name="II" Type="bit" Nullable="false" />
-    <Property Name="III" Type="bit" Nullable="false" />
-    <Property Name="IV" Type="bit" Nullable="false" />
-    <Property Name="V" Type="bit" Nullable="false" />
-    <Property Name="VI" Type="bit" Nullable="false" />
-    <Property Name="VII" Type="bit" Nullable="false" />
-    <Property Name="VIII" Type="bit" Nullable="false" />
-    <Property Name="IX" Type="bit" Nullable="false" />
-    <Property Name="X" Type="bit" Nullable="false" />
-    <Property Name="XI" Type="bit" Nullable="false" />
-    <Property Name="XII" Type="bit" Nullable="false" />
-    <Property Name="Week1" Type="bit" Nullable="false" />
-    <Property Name="Week2" Type="bit" Nullable="false" />
-    <Property Name="Week3" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="Week4" Type="bit" Nullable="false" />
-    <Property Name="Week5" Type="bit" Nullable="false" />
-    <Property Name="WeekLast" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="CycleType" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="ChurchId" Type="uniqueidentifier" Nullable="false" />
-    <Property Name="CycleId" Type="uniqueidentifier" Nullable="false" />
-    <Property Name="SingularMass" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="DateBegin" Type="datetime" Nullable="false" />
-    <Property Name="DateEnd" Type="datetime" Nullable="false" />
-    <Property Name="Hour" Type="datetime" Nullable="false" />
-    <Property Name="CyclicalWeekday" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="CyclicalMonthday" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="DateShift" Type="int" Nullable="false" />
-    <Property Name="RepeatDateFirst" Type="datetime" Nullable="false" />
-    <Property Name="RepeatEveryDays" Type="int" Nullable="false" />
-    <Property Name="RepeatEveryMonths" Type="int" Nullable="false" />
-    <Property Name="RepeatFlag" Type="bit" Nullable="false" />
-    <Property Name="CycleId1" Type="bigint" Nullable="false" />
-    <Property Name="ChurchId1" Type="bigint" Nullable="false" />
-  </EntityType>
-  <EntityType Name="Masses">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="RuleId" Type="uniqueidentifier" Nullable="false" />
-    <Property Name="Date" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="Rule_Id" Type="bigint" Nullable="false" />
-  </EntityType>
-  <EntityType Name="Cycles">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
-  </EntityType>
-  <EntityType Name="ExceptionsRules">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Date" Type="datetime" Nullable="false" />
-  </EntityType>
-  <Association Name="MassRule">
-    <End Role="Mass" Type="drogowskazModel.Store.Masses" Multiplicity="*" />
-    <End Role="Rule" Type="drogowskazModel.Store.Rules" Multiplicity="1" />
-    <ReferentialConstraint>
-      <Principal Role="Rule">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="Mass">
-        <PropertyRef Name="Rule_Id" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="ChurchRule">
-    <End Role="Church" Type="drogowskazModel.Store.Churches" Multiplicity="1" />
-    <End Role="Rule" Type="drogowskazModel.Store.Rules" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Church">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="Rule">
-        <PropertyRef Name="ChurchId1" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-</Schema></edmx:StorageModels>
+    <Schema Namespace="drogowskazModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Churches">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Address" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Location" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Cycles">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ExceptionsRules">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Date" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Masses">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RuleId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Date" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Rule_Id" Type="bigint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Rules">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MassType" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Monday" Type="bit" Nullable="false" />
+          <Property Name="Tuesday" Type="bit" Nullable="false" />
+          <Property Name="Wednesday" Type="bit" Nullable="false" />
+          <Property Name="Thursday" Type="bit" Nullable="false" />
+          <Property Name="Friday" Type="bit" Nullable="false" />
+          <Property Name="Saturday" Type="bit" Nullable="false" />
+          <Property Name="Sunday" Type="bit" Nullable="false" />
+          <Property Name="I" Type="bit" Nullable="false" />
+          <Property Name="II" Type="bit" Nullable="false" />
+          <Property Name="III" Type="bit" Nullable="false" />
+          <Property Name="IV" Type="bit" Nullable="false" />
+          <Property Name="V" Type="bit" Nullable="false" />
+          <Property Name="VI" Type="bit" Nullable="false" />
+          <Property Name="VII" Type="bit" Nullable="false" />
+          <Property Name="VIII" Type="bit" Nullable="false" />
+          <Property Name="IX" Type="bit" Nullable="false" />
+          <Property Name="X" Type="bit" Nullable="false" />
+          <Property Name="XI" Type="bit" Nullable="false" />
+          <Property Name="XII" Type="bit" Nullable="false" />
+          <Property Name="Week1" Type="bit" Nullable="false" />
+          <Property Name="Week2" Type="bit" Nullable="false" />
+          <Property Name="Week3" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Week4" Type="bit" Nullable="false" />
+          <Property Name="Week5" Type="bit" Nullable="false" />
+          <Property Name="WeekLast" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="CycleType" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="ChurchId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="CycleId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="SingularMass" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="DateBegin" Type="datetime" Nullable="false" />
+          <Property Name="DateEnd" Type="datetime" Nullable="false" />
+          <Property Name="Hour" Type="datetime" Nullable="false" />
+          <Property Name="CyclicalWeekday" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="CyclicalMonthday" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="DateShift" Type="int" Nullable="false" />
+          <Property Name="RepeatDateFirst" Type="datetime" Nullable="false" />
+          <Property Name="RepeatEveryDays" Type="int" Nullable="false" />
+          <Property Name="RepeatEveryMonths" Type="int" Nullable="false" />
+          <Property Name="RepeatFlag" Type="bit" Nullable="false" />
+          <Property Name="CycleId1" Type="bigint" Nullable="false" />
+          <Property Name="ChurchId1" Type="bigint" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_ChurchRule">
+          <End Role="Churches" Type="Self.Churches" Multiplicity="1" />
+          <End Role="Rules" Type="Self.Rules" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Churches">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Rules">
+              <PropertyRef Name="ChurchId1" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MassRule">
+          <End Role="Rules" Type="Self.Rules" Multiplicity="1" />
+          <End Role="Masses" Type="Self.Masses" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Rules">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Masses">
+              <PropertyRef Name="Rule_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="drogowskazModelStoreContainer">
+          <EntitySet Name="Churches" EntityType="Self.Churches" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Cycles" EntityType="Self.Cycles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ExceptionsRules" EntityType="Self.ExceptionsRules" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Masses" EntityType="Self.Masses" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Rules" EntityType="Self.Rules" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_ChurchRule" Association="Self.FK_ChurchRule">
+            <End Role="Churches" EntitySet="Churches" />
+            <End Role="Rules" EntitySet="Rules" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MassRule" Association="Self.FK_MassRule">
+            <End Role="Rules" EntitySet="Rules" />
+            <End Role="Masses" EntitySet="Masses" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="drogowskazModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -135,8 +135,7 @@
           <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Location" Type="String" Nullable="false" />
-          <NavigationProperty Name="Rules" Relationship="drogowskazModel.ChurchRule" FromRole="Church" ToRole="Rule" />
+          <Property Name="Location" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
         </EntityType>
         <EntityContainer Name="drogowskazEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Churches" EntityType="Self.Church" />
@@ -144,21 +143,13 @@
           <EntitySet Name="Masses" EntityType="drogowskazModel.Mass" />
           <EntitySet Name="Cycles" EntityType="drogowskazModel.Cycle" />
           <EntitySet Name="ExceptionsRules" EntityType="drogowskazModel.ExceptionsRules" />
-          <AssociationSet Name="MassRule" Association="drogowskazModel.MassRule">
-            <End Role="Mass" EntitySet="Masses" />
-            <End Role="Rule" EntitySet="Rules" />
-          </AssociationSet>
-          <AssociationSet Name="ChurchRule" Association="drogowskazModel.ChurchRule">
-            <End Role="Church" EntitySet="Churches" />
-            <End Role="Rule" EntitySet="Rules" />
-          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Rule">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="MassType" Type="String" Nullable="false" />
+          <Property Name="MassType" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
           <Property Name="Monday" Type="Boolean" Nullable="false" />
           <Property Name="Tuesday" Type="Boolean" Nullable="false" />
           <Property Name="Wednesday" Type="Boolean" Nullable="false" />
@@ -180,24 +171,20 @@
           <Property Name="XII" Type="Boolean" Nullable="false" />
           <Property Name="Week1" Type="Boolean" Nullable="false" />
           <Property Name="Week2" Type="Boolean" Nullable="false" />
-          <Property Name="Week3" Type="String" Nullable="false" />
+          <Property Name="Week3" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
           <Property Name="Week4" Type="Boolean" Nullable="false" />
           <Property Name="Week5" Type="Boolean" Nullable="false" />
-          <Property Name="WeekLast" Type="String" Nullable="false" />
-          <Property Name="CycleType" Type="String" Nullable="false" />
-          <Property Name="ChurchId" Type="Guid" Nullable="false" />
-          <Property Name="CycleId" Type="Guid" Nullable="false" />
-          <Property Name="SingularMass" Type="String" Nullable="false" />
-          <Property Name="DateBegin" Type="DateTime" Nullable="false" />
-          <Property Name="DateEnd" Type="DateTime" Nullable="false" />
-          <Property Name="Hour" Type="DateTime" Nullable="false" />
+          <Property Name="WeekLast" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="CycleType" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="SingularMass" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="DateBegin" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="DateEnd" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Hour" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="DateShift" Type="Int32" Nullable="false" />
-          <Property Name="RepeatDateFirst" Type="DateTime" Nullable="false" />
+          <Property Name="RepeatDateFirst" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="RepeatDays" Type="Int32" Nullable="false" />
           <Property Name="RepeatMonths" Type="Int32" Nullable="false" />
           <Property Name="RepeatFlag" Type="String" Nullable="false" />
-          <NavigationProperty Name="Masses" Relationship="drogowskazModel.MassRule" FromRole="Rule" ToRole="Mass" />
-          <NavigationProperty Name="Church" Relationship="drogowskazModel.ChurchRule" FromRole="Rule" ToRole="Church" />
         </EntityType>
         <EntityType Name="Mass">
           <Key>
@@ -205,39 +192,22 @@
           </Key>
           <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="RuleId" Type="Guid" Nullable="false" />
-          <Property Name="Date" Type="String" Nullable="false" />
-          <NavigationProperty Name="Rule" Relationship="drogowskazModel.MassRule" FromRole="Mass" ToRole="Rule" />
+          <Property Name="Date" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
         </EntityType>
         <EntityType Name="Cycle">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
         </EntityType>
         <EntityType Name="ExceptionsRules">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Date" Nullable="false" Type="DateTime" />
+          <Property Name="Date" Nullable="false" Type="DateTime" Precision="3" />
         </EntityType>
-        <Association Name="MassRule">
-          <End Type="drogowskazModel.Mass" Role="Mass" Multiplicity="*" />
-          <End Type="drogowskazModel.Rule" Role="Rule" Multiplicity="1" />
-        </Association>
-        <Association Name="ChurchRule">
-          <End Type="drogowskazModel.Church" Role="Church" Multiplicity="1" />
-          <End Type="drogowskazModel.Rule" Role="Rule" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Church">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Rule">
-              <PropertyRef Name="ChurchId1" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -285,8 +255,6 @@
           <ScalarProperty Name="Week5" ColumnName="Week5" />
           <ScalarProperty Name="WeekLast" ColumnName="WeekLast" />
           <ScalarProperty Name="CycleType" ColumnName="CycleType" />
-          <ScalarProperty Name="ChurchId" ColumnName="ChurchId" />
-          <ScalarProperty Name="CycleId" ColumnName="CycleId" />
           <ScalarProperty Name="SingularMass" ColumnName="SingularMass" />
           <ScalarProperty Name="DateBegin" ColumnName="DateBegin" />
           <ScalarProperty Name="DateEnd" ColumnName="DateEnd" />
@@ -324,14 +292,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <AssociationSetMapping Name="MassRule" TypeName="drogowskazModel.MassRule" StoreEntitySet="Masses">
-      <EndProperty Name="Rule">
-        <ScalarProperty Name="Id" ColumnName="Rule_Id" />
-      </EndProperty>
-      <EndProperty Name="Mass">
-        <ScalarProperty Name="Id" ColumnName="Id" />
-      </EndProperty>
-    </AssociationSetMapping>
   </EntityContainerMapping>
 </Mapping></edmx:Mappings>
   </edmx:Runtime>
