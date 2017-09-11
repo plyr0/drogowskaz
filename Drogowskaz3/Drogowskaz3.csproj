@@ -177,6 +177,7 @@
       <DependentUpon>DatabaseModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\ChurchesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Cycle.cs">
@@ -297,6 +298,11 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\Churches\Create.cshtml" />
+    <Content Include="Views\Churches\Delete.cshtml" />
+    <Content Include="Views\Churches\Details.cshtml" />
+    <Content Include="Views\Churches\Edit.cshtml" />
+    <Content Include="Views\Churches\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

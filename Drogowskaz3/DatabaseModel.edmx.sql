@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 09/11/2017 18:59:05
+-- Date Created: 09/11/2017 20:11:41
 -- Generated from EDMX file: C:\Users\plyr0\git\drogowskaz\Drogowskaz3\DatabaseModel.edmx
 -- --------------------------------------------------
 
@@ -117,9 +117,7 @@ GO
 -- Creating table 'Cycles'
 CREATE TABLE [dbo].[Cycles] (
     [Id] bigint IDENTITY(1,1) NOT NULL,
-    [Name] nvarchar(max)  NOT NULL,
-    [StartDate] nvarchar(max)  NULL,
-    [EndDate] nvarchar(max)  NULL
+    [Name] nvarchar(max)  NOT NULL
 );
 GO
 
