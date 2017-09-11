@@ -178,6 +178,7 @@
     </Compile>
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ChurchesController.cs" />
+    <Compile Include="Controllers\CyclesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Cycle.cs">
@@ -303,6 +304,11 @@
     <Content Include="Views\Churches\Details.cshtml" />
     <Content Include="Views\Churches\Edit.cshtml" />
     <Content Include="Views\Churches\Index.cshtml" />
+    <Content Include="Views\Cycles\Create.cshtml" />
+    <Content Include="Views\Cycles\Delete.cshtml" />
+    <Content Include="Views\Cycles\Details.cshtml" />
+    <Content Include="Views\Cycles\Edit.cshtml" />
+    <Content Include="Views\Cycles\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
