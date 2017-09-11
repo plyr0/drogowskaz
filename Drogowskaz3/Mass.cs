@@ -17,7 +17,6 @@ namespace WebApplication1
         public long Id { get; set; }
         public string DateAndTime { get; set; }
         public long RuleId { get; set; }
-        public string Type { get; set; }
     
         public virtual Rule Rule { get; set; }
     }

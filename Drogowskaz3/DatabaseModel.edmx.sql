@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 09/11/2017 18:39:28
+-- Date Created: 09/11/2017 18:59:05
 -- Generated from EDMX file: C:\Users\plyr0\git\drogowskaz\Drogowskaz3\DatabaseModel.edmx
 -- --------------------------------------------------
 
@@ -17,11 +17,17 @@ GO
 -- Dropping existing FOREIGN KEY constraints
 -- --------------------------------------------------
 
-IF OBJECT_ID(N'[dbo].[FK_ChurchRule]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[Rules] DROP CONSTRAINT [FK_ChurchRule];
+IF OBJECT_ID(N'[dbo].[FK_RuleChurch]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Rules] DROP CONSTRAINT [FK_RuleChurch];
 GO
 IF OBJECT_ID(N'[dbo].[FK_MassRule]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[Masses] DROP CONSTRAINT [FK_MassRule];
+GO
+IF OBJECT_ID(N'[dbo].[FK_RuleCycle]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Rules] DROP CONSTRAINT [FK_RuleCycle];
+GO
+IF OBJECT_ID(N'[dbo].[FK_ExceptionsRulesRule]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[ExceptionsRules] DROP CONSTRAINT [FK_ExceptionsRulesRule];
 GO
 
 -- --------------------------------------------------
@@ -31,17 +37,17 @@ GO
 IF OBJECT_ID(N'[dbo].[Churches]', 'U') IS NOT NULL
     DROP TABLE [dbo].[Churches];
 GO
+IF OBJECT_ID(N'[dbo].[Rules]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Rules];
+GO
+IF OBJECT_ID(N'[dbo].[Masses]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Masses];
+GO
 IF OBJECT_ID(N'[dbo].[Cycles]', 'U') IS NOT NULL
     DROP TABLE [dbo].[Cycles];
 GO
 IF OBJECT_ID(N'[dbo].[ExceptionsRules]', 'U') IS NOT NULL
     DROP TABLE [dbo].[ExceptionsRules];
-GO
-IF OBJECT_ID(N'[dbo].[Masses]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[Masses];
-GO
-IF OBJECT_ID(N'[dbo].[Rules]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[Rules];
 GO
 
 -- --------------------------------------------------
@@ -51,7 +57,7 @@ GO
 -- Creating table 'Churches'
 CREATE TABLE [dbo].[Churches] (
     [Id] bigint IDENTITY(1,1) NOT NULL,
-    [Name] nvarchar(50)  NOT NULL,
+    [Name] nvarchar(max)  NOT NULL,
     [Address] nvarchar(max)  NULL
 );
 GO
@@ -103,7 +109,7 @@ GO
 -- Creating table 'Masses'
 CREATE TABLE [dbo].[Masses] (
     [Id] bigint IDENTITY(1,1) NOT NULL,
-    [Date] nvarchar(max)  NOT NULL,
+    [DateAndTime] nvarchar(max)  NOT NULL,
     [RuleId] bigint  NOT NULL
 );
 GO
@@ -112,8 +118,8 @@ GO
 CREATE TABLE [dbo].[Cycles] (
     [Id] bigint IDENTITY(1,1) NOT NULL,
     [Name] nvarchar(max)  NOT NULL,
-    [StartDate] nvarchar(max)  NOT NULL,
-    [EndDate] nvarchar(max)  NOT NULL
+    [StartDate] nvarchar(max)  NULL,
+    [EndDate] nvarchar(max)  NULL
 );
 GO
 
