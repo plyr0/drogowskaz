@@ -18,6 +18,7 @@ namespace WebApplication1
         public Rule()
         {
             this.Masses = new HashSet<Mass>();
+            this.ExceptionsRules = new HashSet<ExceptionsRules>();
         }
     
         public System.Guid Id { get; set; }
@@ -49,11 +50,20 @@ namespace WebApplication1
         public string WeekLast { get; set; }
         public string CycleType { get; set; }
         public System.Guid ChurchId { get; set; }
-        public System.Guid LiturgicalCycleId { get; set; }
+        public System.Guid CycleId { get; set; }
+        public string SingularMass { get; set; }
+        public System.DateTime DateBegin { get; set; }
+        public System.DateTime DateEnd { get; set; }
+        public System.DateTime Hour { get; set; }
+        public string CyclicalWeekday { get; set; }
+        public string CyclicalMonthday { get; set; }
+        public string DateShift { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Mass> Masses { get; set; }
         public virtual Church Church { get; set; }
-        public virtual LiturgicalCycle LiturgicalCycle { get; set; }
+        public virtual Cycle LiturgicalCycle { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ExceptionsRules> ExceptionsRules { get; set; }
     }
 }

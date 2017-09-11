@@ -28,6 +28,7 @@ namespace WebApplication1
         public virtual DbSet<Church> Churches { get; set; }
         public virtual DbSet<Rule> Rules { get; set; }
         public virtual DbSet<Mass> Masses { get; set; }
-        public virtual DbSet<LiturgicalCycle> LiturgicalCycles { get; set; }
+        public virtual DbSet<Cycle> Cycles { get; set; }
+        public virtual DbSet<ExceptionsRules> ExceptionsRules { get; set; }
     }
 }

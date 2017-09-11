@@ -12,10 +12,10 @@ namespace WebApplication1
     using System;
     using System.Collections.Generic;
     
-    public partial class LiturgicalCycle
+    public partial class Cycle
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public LiturgicalCycle()
+        public Cycle()
         {
             this.Rules = new HashSet<Rule>();
         }
