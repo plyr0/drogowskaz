@@ -10,6 +10,10 @@
         <EntityTypeShape EntityType="drogowskazModel.Mass" Width="1.5" PointX="5.25" PointY="0.75" />
         <EntityTypeShape EntityType="drogowskazModel.Cycle" Width="1.5" PointX="5.125" PointY="3.25" />
         <EntityTypeShape EntityType="drogowskazModel.ExceptionsRules" Width="1.5" PointX="5.125" PointY="5.875" />
+        <AssociationConnector Association="drogowskazModel.RuleChurch" />
+        <AssociationConnector Association="drogowskazModel.MassRule" />
+        <AssociationConnector Association="drogowskazModel.RuleCycle" />
+        <AssociationConnector Association="drogowskazModel.ExceptionsRulesRule" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

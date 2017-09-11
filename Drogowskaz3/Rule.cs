@@ -14,42 +14,58 @@ namespace WebApplication1
     
     public partial class Rule
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Rule()
+        {
+            this.Masses = new HashSet<Mass>();
+            this.ExceptionsRules = new HashSet<ExceptionsRules>();
+        }
+    
         public long Id { get; set; }
         public string MassType { get; set; }
-        public bool Monday { get; set; }
-        public bool Tuesday { get; set; }
-        public bool Wednesday { get; set; }
-        public bool Thursday { get; set; }
-        public bool Friday { get; set; }
-        public bool Saturday { get; set; }
-        public bool Sunday { get; set; }
-        public bool I { get; set; }
-        public bool II { get; set; }
-        public bool III { get; set; }
-        public bool IV { get; set; }
-        public bool V { get; set; }
-        public bool VI { get; set; }
-        public bool VII { get; set; }
-        public bool VIII { get; set; }
-        public bool IX { get; set; }
-        public bool X { get; set; }
-        public bool XI { get; set; }
-        public bool XII { get; set; }
-        public bool Week1 { get; set; }
-        public bool Week2 { get; set; }
-        public string Week3 { get; set; }
-        public bool Week4 { get; set; }
-        public bool Week5 { get; set; }
-        public string WeekLast { get; set; }
+        public Nullable<bool> Monday { get; set; }
+        public Nullable<bool> Tuesday { get; set; }
+        public Nullable<bool> Wednesday { get; set; }
+        public Nullable<bool> Thursday { get; set; }
+        public Nullable<bool> Friday { get; set; }
+        public Nullable<bool> Saturday { get; set; }
+        public Nullable<bool> Sunday { get; set; }
+        public Nullable<bool> I { get; set; }
+        public Nullable<bool> II { get; set; }
+        public Nullable<bool> III { get; set; }
+        public Nullable<bool> IV { get; set; }
+        public Nullable<bool> V { get; set; }
+        public Nullable<bool> VI { get; set; }
+        public Nullable<bool> VII { get; set; }
+        public Nullable<bool> VIII { get; set; }
+        public Nullable<bool> IX { get; set; }
+        public Nullable<bool> X { get; set; }
+        public Nullable<bool> XI { get; set; }
+        public Nullable<bool> XII { get; set; }
+        public Nullable<bool> Week1 { get; set; }
+        public Nullable<bool> Week2 { get; set; }
+        public Nullable<bool> Week3 { get; set; }
+        public Nullable<bool> Week4 { get; set; }
+        public Nullable<bool> Week5 { get; set; }
+        public Nullable<bool> WeekLast { get; set; }
         public string CycleType { get; set; }
-        public string SingularMass { get; set; }
-        public System.DateTime DateBegin { get; set; }
-        public System.DateTime DateEnd { get; set; }
-        public System.DateTime Hour { get; set; }
-        public int DateShift { get; set; }
-        public System.DateTime RepeatDateFirst { get; set; }
-        public int RepeatDays { get; set; }
-        public int RepeatMonths { get; set; }
-        public string RepeatFlag { get; set; }
+        public Nullable<System.DateTime> SingularMass { get; set; }
+        public Nullable<System.DateTime> DateBegin { get; set; }
+        public Nullable<System.DateTime> DateEnd { get; set; }
+        public Nullable<System.TimeSpan> Hour { get; set; }
+        public Nullable<int> DateShift { get; set; }
+        public Nullable<System.DateTime> RepeatDateFirst { get; set; }
+        public Nullable<int> RepeatEveryDays { get; set; }
+        public Nullable<int> RepeatEveryDayInMonth { get; set; }
+        public string RepeatType { get; set; }
+        public long ChurchId { get; set; }
+        public long CycleId { get; set; }
+    
+        public virtual Church Church { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Mass> Masses { get; set; }
+        public virtual Cycle Cycle { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ExceptionsRules> ExceptionsRules { get; set; }
     }
 }

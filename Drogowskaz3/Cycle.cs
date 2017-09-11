@@ -14,7 +14,18 @@ namespace WebApplication1
     
     public partial class Cycle
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Cycle()
+        {
+            this.Rules = new HashSet<Rule>();
+        }
+    
         public long Id { get; set; }
         public string Name { get; set; }
+        public string StartDate { get; set; }
+        public string EndDate { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Rule> Rules { get; set; }
     }
 }

@@ -16,5 +16,8 @@ namespace WebApplication1
     {
         public long Id { get; set; }
         public System.DateTime Date { get; set; }
+        public long RuleId { get; set; }
+    
+        public virtual Rule Rule { get; set; }
     }
 }
