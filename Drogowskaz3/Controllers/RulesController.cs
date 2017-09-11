@@ -11,18 +11,19 @@ using WebApplication1;
 namespace WebApplication1.Controllers
 {
     [Authorize(Users = "a@a.a")]
-    public class CyclesController : Controller
+    public class RulesController : Controller
     {
         private drogowskazEntities db = new drogowskazEntities();
 
-        // GET: Cycles
+        // GET: Rules
         [AllowAnonymous]
         public ActionResult Index()
         {
-            return View(db.Cycles.ToList());
+            var rules = db.Rules.Include(r => r.Church).Include(r => r.Cycle);
+            return View(rules.ToList());
         }
 
-        // GET: Cycles/Details/5
+        // GET: Rules/Details/5
         [AllowAnonymous]
         public ActionResult Details(long? id)
         {
@@ -30,90 +31,98 @@ namespace WebApplication1.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Cycle cycle = db.Cycles.Find(id);
-            if (cycle == null)
+            Rule rule = db.Rules.Find(id);
+            if (rule == null)
             {
                 return HttpNotFound();
             }
-            return View(cycle);
+            return View(rule);
         }
 
-        // GET: Cycles/Create
+        // GET: Rules/Create
         public ActionResult Create()
         {
+            ViewBag.ChurchId = new SelectList(db.Churches, "Id", "Name");
+            ViewBag.CycleId = new SelectList(db.Cycles, "Id", "Name");
             return View();
         }
 
-        // POST: Cycles/Create
+        // POST: Rules/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Name")] Cycle cycle)
+        public ActionResult Create([Bind(Include = "Id,MassType,Monday,Tuesday,Wednesday,Thursday,Friday,Saturday,Sunday,I,II,III,IV,V,VI,VII,VIII,IX,X,XI,XII,Week1,Week2,Week3,Week4,Week5,WeekLast,CycleType,SingularMass,DateBegin,DateEnd,Hour,DateShift,RepeatDateFirst,RepeatEveryDays,RepeatEveryDayInMonth,RepeatType,ChurchId,CycleId")] Rule rule)
         {
             if (ModelState.IsValid)
             {
-                db.Cycles.Add(cycle);
+                db.Rules.Add(rule);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(cycle);
+            ViewBag.ChurchId = new SelectList(db.Churches, "Id", "Name", rule.ChurchId);
+            ViewBag.CycleId = new SelectList(db.Cycles, "Id", "Name", rule.CycleId);
+            return View(rule);
         }
 
-        // GET: Cycles/Edit/5
+        // GET: Rules/Edit/5
         public ActionResult Edit(long? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Cycle cycle = db.Cycles.Find(id);
-            if (cycle == null)
+            Rule rule = db.Rules.Find(id);
+            if (rule == null)
             {
                 return HttpNotFound();
             }
-            return View(cycle);
+            ViewBag.ChurchId = new SelectList(db.Churches, "Id", "Name", rule.ChurchId);
+            ViewBag.CycleId = new SelectList(db.Cycles, "Id", "Name", rule.CycleId);
+            return View(rule);
         }
 
-        // POST: Cycles/Edit/5
+        // POST: Rules/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Name")] Cycle cycle)
+        public ActionResult Edit([Bind(Include = "Id,MassType,Monday,Tuesday,Wednesday,Thursday,Friday,Saturday,Sunday,I,II,III,IV,V,VI,VII,VIII,IX,X,XI,XII,Week1,Week2,Week3,Week4,Week5,WeekLast,CycleType,SingularMass,DateBegin,DateEnd,Hour,DateShift,RepeatDateFirst,RepeatEveryDays,RepeatEveryDayInMonth,RepeatType,ChurchId,CycleId")] Rule rule)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(cycle).State = EntityState.Modified;
+                db.Entry(rule).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(cycle);
+            ViewBag.ChurchId = new SelectList(db.Churches, "Id", "Name", rule.ChurchId);
+            ViewBag.CycleId = new SelectList(db.Cycles, "Id", "Name", rule.CycleId);
+            return View(rule);
         }
 
-        // GET: Cycles/Delete/5
+        // GET: Rules/Delete/5
         public ActionResult Delete(long? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Cycle cycle = db.Cycles.Find(id);
-            if (cycle == null)
+            Rule rule = db.Rules.Find(id);
+            if (rule == null)
             {
                 return HttpNotFound();
             }
-            return View(cycle);
+            return View(rule);
         }
 
-        // POST: Cycles/Delete/5
+        // POST: Rules/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(long id)
         {
-            Cycle cycle = db.Cycles.Find(id);
-            db.Cycles.Remove(cycle);
+            Rule rule = db.Rules.Find(id);
+            db.Rules.Remove(rule);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
