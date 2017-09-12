@@ -27,6 +27,10 @@
       <End Role="ExceptionsRules" EntitySet="ExceptionsRules" />
       <End Role="Rule" EntitySet="Rules" />
     </AssociationSet>
+    <AssociationSet Name="MassChurch" Association="drogowskazModel.Store.MassChurch">
+      <End Role="Mass" EntitySet="Masses" />
+      <End Role="Church" EntitySet="Churches" />
+    </AssociationSet>
   </EntityContainer>
   <EntityType Name="Churches">
     <Key>
@@ -85,8 +89,10 @@
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="DateAndTime" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="DateAndTime" Type="datetime" Nullable="false" />
     <Property Name="RuleId" Type="bigint" Nullable="false" />
+    <Property Name="MassType" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="ChurchId" Type="bigint" Nullable="false" />
   </EntityType>
   <EntityType Name="Cycles">
     <Key>
@@ -151,6 +157,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="MassChurch">
+    <End Role="Mass" Type="drogowskazModel.Store.Masses" Multiplicity="*" />
+    <End Role="Church" Type="drogowskazModel.Store.Churches" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Church">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Mass">
+        <PropertyRef Name="ChurchId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
 </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
@@ -163,6 +181,7 @@
           <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="true" />
           <NavigationProperty Name="Rules" Relationship="drogowskazModel.RuleChurch" FromRole="Church" ToRole="Rule" />
+          <NavigationProperty Name="Masses" Relationship="drogowskazModel.MassChurch" FromRole="Church" ToRole="Mass" />
         </EntityType>
         <EntityContainer Name="drogowskazEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Churches" EntityType="Self.Church" />
@@ -185,6 +204,10 @@
           <AssociationSet Name="ExceptionsRulesRule" Association="drogowskazModel.ExceptionsRulesRule">
             <End Role="ExceptionsRules" EntitySet="ExceptionsRules" />
             <End Role="Rule" EntitySet="Rules" />
+          </AssociationSet>
+          <AssociationSet Name="MassChurch" Association="drogowskazModel.MassChurch">
+            <End Role="Mass" EntitySet="Masses" />
+            <End Role="Church" EntitySet="Churches" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="Rule">
@@ -240,9 +263,12 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="DateAndTime" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="DateAndTime" Type="DateTime" Nullable="false" />
           <NavigationProperty Name="Rule" Relationship="drogowskazModel.MassRule" FromRole="Mass" ToRole="Rule" />
           <Property Name="RuleId" Type="Int64" Nullable="false" />
+          <Property Name="MassType" Type="String" Nullable="true" />
+          <NavigationProperty Name="Church" Relationship="drogowskazModel.MassChurch" FromRole="Mass" ToRole="Church" />
+          <Property Name="ChurchId" Type="Int64" Nullable="false" />
         </EntityType>
         <EntityType Name="Cycle">
           <Key>
@@ -306,6 +332,18 @@
             </Principal>
             <Dependent Role="ExceptionsRules">
               <PropertyRef Name="RuleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="MassChurch">
+          <End Type="drogowskazModel.Mass" Role="Mass" Multiplicity="*" />
+          <End Type="drogowskazModel.Church" Role="Church" Multiplicity="1" />
+          <ReferentialConstraint>
+            <Principal Role="Church">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Mass">
+              <PropertyRef Name="ChurchId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -375,6 +413,8 @@
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="DateAndTime" ColumnName="DateAndTime" />
           <ScalarProperty Name="RuleId" ColumnName="RuleId" />
+          <ScalarProperty Name="MassType" ColumnName="MassType" />
+          <ScalarProperty Name="ChurchId" ColumnName="ChurchId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

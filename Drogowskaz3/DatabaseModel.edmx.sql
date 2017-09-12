@@ -2,8 +2,8 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 09/11/2017 20:11:41
--- Generated from EDMX file: C:\Users\plyr0\git\drogowskaz\Drogowskaz3\DatabaseModel.edmx
+-- Date Created: 09/12/2017 10:34:47
+-- Generated from EDMX file: C:\Users\s384064\Source\Repos\drogowskaz\Drogowskaz3\DatabaseModel.edmx
 -- --------------------------------------------------
 
 SET QUOTED_IDENTIFIER OFF;
@@ -109,8 +109,10 @@ GO
 -- Creating table 'Masses'
 CREATE TABLE [dbo].[Masses] (
     [Id] bigint IDENTITY(1,1) NOT NULL,
-    [DateAndTime] nvarchar(max)  NOT NULL,
-    [RuleId] bigint  NOT NULL
+    [DateAndTime] datetime  NOT NULL,
+    [RuleId] bigint  NOT NULL,
+    [MassType] nvarchar(max)  NULL,
+    [ChurchId] bigint  NOT NULL
 );
 GO
 
@@ -225,6 +227,21 @@ GO
 CREATE INDEX [IX_FK_ExceptionsRulesRule]
 ON [dbo].[ExceptionsRules]
     ([RuleId]);
+GO
+
+-- Creating foreign key on [ChurchId] in table 'Masses'
+ALTER TABLE [dbo].[Masses]
+ADD CONSTRAINT [FK_MassChurch]
+    FOREIGN KEY ([ChurchId])
+    REFERENCES [dbo].[Churches]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_MassChurch'
+CREATE INDEX [IX_FK_MassChurch]
+ON [dbo].[Masses]
+    ([ChurchId]);
 GO
 
 -- --------------------------------------------------

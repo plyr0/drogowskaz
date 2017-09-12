@@ -208,6 +208,7 @@
     <Compile Include="ExceptionsRules.cs">
       <DependentUpon>DatabaseModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Functions\CyclesUtilitiess.cs" />
     <Compile Include="Functions\GenerateDate.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
