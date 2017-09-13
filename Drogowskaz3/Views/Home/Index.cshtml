@@ -8,22 +8,16 @@
 </div>
 
 <div class="row">
-    <div class="col-md-4">
-        <h2>Kościoły</h2>
+    <div class="col-md-6">
+        <h2>Święta</h2>
         <p>
-            Lista kościołów...
+            @Html.Raw(ViewBag.Swieta)
         </p>
     </div>
-    <div class="col-md-4">
-        <h2>Reguły</h2>
+    <div class="col-md-6">
+        <h2>Okresy</h2>
         <p>
-            @Html.Raw(ViewBag.Swieta);
-        </p>
-    </div>
-    <div class="col-md-4">
-        <h2>Msze</h2>
-        <p>
-            Lista mszy...
+            @Html.Raw(ViewBag.Okresy)
         </p>
     </div>
 </div>

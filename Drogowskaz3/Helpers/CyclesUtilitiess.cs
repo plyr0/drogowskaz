@@ -1,5 +1,6 @@
 ﻿using DrogowskazSerwer.Helpers;
 using System;
+using System.Text;
 
 namespace WebApplication1.Helpers
 {
@@ -32,16 +33,16 @@ namespace WebApplication1.Helpers
             "Boże Narodzenie",
             "Św. Szczepana",
             "Sylwester", //25
-            "Wakacje",  //0
+            "Wakacje",  //0(26)
             "Rok Szkolny",
             "Okres Zwykły",
             "Adwent",
             "Okres Bożonarodzeniowy",
-            "Wielki Post", //5
+            "Wielki Post", //5(31)
             "Triduum Paschalne",
             "Okres Zmartwychwstania Pańskiego",
             "Czas letni",
-            "Czas zimowy" //9
+            "Czas zimowy" //9(35)
         };
 
         public static Func<int, DateTime>[] functionsFest = {
@@ -87,5 +88,35 @@ namespace WebApplication1.Helpers
             nilFunc,
             nilFunc
         };
+
+        public static string GenFests(int year)
+        {
+            string sep = "</br>";
+            StringBuilder sb = new StringBuilder();
+            for(int i=0; i<26; i++)
+            {
+                sb.Append(names[i]).Append(" : ").Append(functionsFest[i](year).ToString("d")).Append(sep);
+            }
+            return sb.ToString();
+        }
+
+        public static string GenCycles(int year)
+        {
+            string sep = "</br>";
+            StringBuilder sb = new StringBuilder();
+            for (int i = 26; i < 36; i++)
+            {
+                CycleFunc<int, DateTime, DateTime> cf = functionsCycles[i - 26];
+                if (cf != nilFunc)
+                {
+                    DateTime start;
+                    DateTime end;
+                    cf(year, out start, out end);
+                    sb.Append(names[i]).Append(" : ").Append(start.ToString("d")).Append(" - ")
+                        .Append(end.ToString("d")).Append(sep);
+                }
+            }
+            return sb.ToString();
+        }
     }
 }

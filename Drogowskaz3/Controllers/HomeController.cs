@@ -12,6 +12,7 @@ namespace WebApplication1.Controllers
     {
         public ActionResult Index()
         {
+            /*
             DateTime start;
             DateTime end;
             GenerateCycle.Adwent(2017,out start, out end);
@@ -24,6 +25,9 @@ namespace WebApplication1.Controllers
             ViewBag.Swieta += "</br> Triduum Paschalne przypada w: " + start.ToString("d") + " do " + end.ToString("d");
             GenerateCycle.WielkiPost(2017, out start, out end);
             ViewBag.Swieta += "</br> Wielki Post przypada w: " + start.ToString("d") + " do " + end.ToString("d");
+            */
+            ViewBag.Swieta = CyclesUtilitiess.GenFests(DateTime.Now.Year);
+            ViewBag.Okresy = CyclesUtilitiess.GenCycles(DateTime.Now.Year);
             return View();
         }
 
