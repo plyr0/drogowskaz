@@ -1,14 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
-namespace DrogowskazSerwer.Function
+namespace DrogowskazSerwer.Helpers
 {
     public static class GenerateDate
     {
 
-        public static void EasterSunday(int year, ref int month, ref int day)
+        static void EasterSunday(int year, ref int month, ref int day)
         {
             int g = year % 19;
             int c = year / 100;
@@ -28,7 +25,7 @@ namespace DrogowskazSerwer.Function
             }
         }
 
-        public static DateTime EasterSunday(int year) //Niedziela Wielkanocna/Wielkanoc
+        public static DateTime NiedzielaWielkanocna(int year) //Niedziela Wielkanocna/Wielkanoc
         {
             int month = 0;
             int day = 0;
@@ -36,51 +33,51 @@ namespace DrogowskazSerwer.Function
 
             return new DateTime(year, month, day);
         }
-        public static DateTime AshWednesday(int year) //Środa popielcowa
+        public static DateTime SrodaPopielcowa(int year) //Środa popielcowa
         {
-            return EasterSunday(year).AddDays(-46);
+            return NiedzielaWielkanocna(year).AddDays(-46);
         }
-        public static DateTime ThursdayDay(int year) //Wielki czwartek (40 dni po Zmartwychwstaniu -> plus 3 dni do niedzieli)
+        public static DateTime WielkiCzwartek(int year) //Wielki czwartek (40 dni po Zmartwychwstaniu -> plus 3 dni do niedzieli)
         {
-            return EasterSunday(year).AddDays(-3);
+            return NiedzielaWielkanocna(year).AddDays(-3);
         }
-        public static DateTime FridayDay(int year) //Wielki Piatek (40 dni po Zmartwychwstaniu -> plus 3 dni do niedzieli)
+        public static DateTime WielkiPiatek(int year) //Wielki Piatek (40 dni po Zmartwychwstaniu -> plus 3 dni do niedzieli)
         {
-            return EasterSunday(year).AddDays(-2);
+            return NiedzielaWielkanocna(year).AddDays(-2);
         }
-        public static DateTime PaschalDay(int year) //Wigilia Paschalna
+        public static DateTime WigiliaPaschalna(int year) //Wigilia Paschalna
         {
-            return EasterSunday(year).AddDays(-1);
+            return NiedzielaWielkanocna(year).AddDays(-1);
         }
-        public static DateTime EasterMonday(int year) //Poniedziałek
+        public static DateTime PoniedzialekWielkanocny(int year) //Poniedziałek
         {
-            return EasterSunday(year).AddDays(1);
+            return NiedzielaWielkanocna(year).AddDays(1);
         }
-        public static DateTime AscensionDay(int year) //Dzień Wniebowstąpienia (40 dni po Zmartwychwstaniu -> plus 3 dni do niedzieli)
+        public static DateTime Wniebowstapienie(int year) //Dzień Wniebowstąpienia (40 dni po Zmartwychwstaniu -> plus 3 dni do niedzieli)
         {
-            return EasterSunday(year).AddDays(42);
-        }
-
-        public static DateTime WhitSunday(int year) //Zesłanie Ducha Świętego (7 tygodni po Wielkanocy Niedzieli)  W niedziele
-        {
-            return EasterSunday(year).AddDays(49);
-        }
-        public static DateTime DayAfterWhitSunday(int year) ////Najświętszej Maryi Panny, Matki Kościoła, 1 dzień po Zesłaniu Ducha Świętego
-        {
-            return EasterSunday(year).AddDays(50);
+            return NiedzielaWielkanocna(year).AddDays(42);
         }
 
-        public static DateTime BodyOfChrist(int year) //Najświętszego Ciała i Krwi Pańskiej Boże Ciało
+        public static DateTime ZeslanieDuchaSwietego(int year) //Zesłanie Ducha Świętego (7 tygodni po Wielkanocy Niedzieli)  W niedziele
         {
-            return EasterSunday(year).AddDays(60);
+            return NiedzielaWielkanocna(year).AddDays(49);
+        }
+        public static DateTime NmpMatkiKosciola(int year) ////Najświętszej Maryi Panny, Matki Kościoła, 1 dzień po Zesłaniu Ducha Świętego
+        {
+            return NiedzielaWielkanocna(year).AddDays(50);
         }
 
-        public static DateTime SacredHeart(int year) ///Uroczystość Najświętszego Serca Pana Jezusa
+        public static DateTime BozeCialo(int year) //Najświętszego Ciała i Krwi Pańskiej Boże Ciało
         {
-            return DayAfterWhitSunday(year).AddDays(18);
+            return NiedzielaWielkanocna(year).AddDays(60);
         }
 
-        public static DateTime FirstSundayOfAdvent(int year) // Pierwsza Niedziela Adwentu
+        public static DateTime NajswietszegoSercaPanaJezusa(int year) ///Uroczystość Najświętszego Serca Pana Jezusa
+        {
+            return NmpMatkiKosciola(year).AddDays(18);
+        }
+
+        public static DateTime PierwszaNiedzielaAdwentu(int year) // Pierwsza Niedziela Adwentu
         {
             int weeks = 4;
             int correction = 0;
@@ -143,7 +140,7 @@ namespace DrogowskazSerwer.Function
             return new DateTime(year, 4, 23);
         }
 
-        public static DateTime NMPKrolowejPolski(int year)
+        public static DateTime NmpKrolowejPolski(int year)
         {
             return new DateTime(year, 5, 3);
         }
@@ -181,18 +178,18 @@ namespace DrogowskazSerwer.Function
 
         public static void GetDate(int year2)       
         { //11 Świąt i Pierwsza Niedziela Adwentu
-            Console.WriteLine("Środa Popielcowa : " + AshWednesday(year2).ToString("d"));
-            Console.WriteLine("Wielki Czwartek : " + ThursdayDay(year2).ToString("d"));
-            Console.WriteLine("Wielki Piątek : " + FridayDay(year2).ToString("d"));
-            Console.WriteLine("Wigilia Paschalna : " + PaschalDay(year2).ToString("d"));
-            Console.WriteLine("Niedziela Wielkanocna : " + EasterSunday(year2).ToString("d"));
-            Console.WriteLine("Poniedziałek Wielkanocny : " + EasterMonday(year2).ToString("d"));
-            Console.WriteLine("Wniebowstąpienie : " + AscensionDay(year2).ToString("d"));
-            Console.WriteLine("Zesłanie Ducha Świętego : " + WhitSunday(year2).ToString("d"));
-            Console.WriteLine("Najświętszej Maryi Panny, Matki Kościoła : " + DayAfterWhitSunday(year2).ToString("d"));
-            Console.WriteLine("Najświętszego Ciała i Krwi Pańskiej : " + BodyOfChrist(year2).ToString("d"));
-            Console.WriteLine("Uroczystość Najświętszego Serca Pana Jezusa : " + SacredHeart(year2).ToString("d"));
-            Console.WriteLine("Pierwsza Niedziela Adwentu : " + FirstSundayOfAdvent(year2).ToString("d"));
+            Console.WriteLine("Środa Popielcowa : " + SrodaPopielcowa(year2).ToString("d"));
+            Console.WriteLine("Wielki Czwartek : " + WielkiCzwartek(year2).ToString("d"));
+            Console.WriteLine("Wielki Piątek : " + WielkiPiatek(year2).ToString("d"));
+            Console.WriteLine("Wigilia Paschalna : " + WigiliaPaschalna(year2).ToString("d"));
+            Console.WriteLine("Niedziela Wielkanocna : " + NiedzielaWielkanocna(year2).ToString("d"));
+            Console.WriteLine("Poniedziałek Wielkanocny : " + PoniedzialekWielkanocny(year2).ToString("d"));
+            Console.WriteLine("Wniebowstąpienie : " + Wniebowstapienie(year2).ToString("d"));
+            Console.WriteLine("Zesłanie Ducha Świętego : " + ZeslanieDuchaSwietego(year2).ToString("d"));
+            Console.WriteLine("Najświętszej Maryi Panny, Matki Kościoła : " + NmpMatkiKosciola(year2).ToString("d"));
+            Console.WriteLine("Najświętszego Ciała i Krwi Pańskiej : " + BozeCialo(year2).ToString("d"));
+            Console.WriteLine("Uroczystość Najświętszego Serca Pana Jezusa : " + NajswietszegoSercaPanaJezusa(year2).ToString("d"));
+            Console.WriteLine("Pierwsza Niedziela Adwentu : " + PierwszaNiedzielaAdwentu(year2).ToString("d"));
         }
     }
 

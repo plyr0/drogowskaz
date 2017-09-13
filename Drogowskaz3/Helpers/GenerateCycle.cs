@@ -2,15 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using DrogowskazSerwer.Function;
+using DrogowskazSerwer.Helpers;
 
-namespace WebApplication1.Functions
+namespace WebApplication1.Helpers
 {
     public static class GenerateCycle 
     {
         public static void Adwent(int rok, out DateTime start, out DateTime end)
         {
-           start = GenerateDate.FirstSundayOfAdvent(rok);//TODO
+           start = GenerateDate.PierwszaNiedzielaAdwentu(rok);//TODO
             end = GenerateDate.BozeNarodzenie1(rok);
         }
 
@@ -22,19 +22,19 @@ namespace WebApplication1.Functions
 
         public static void WielkiPost(int rok, out DateTime start, out DateTime end)
         {
-            start = GenerateDate.AshWednesday(rok);
-            end = GenerateDate.ThursdayDay(rok);
+            start = GenerateDate.SrodaPopielcowa(rok);
+            end = GenerateDate.WielkiCzwartek(rok);
         }
 
         public static void TriduumPaschalne(int rok, out DateTime start, out DateTime end)
         {
-            start = GenerateDate.ThursdayDay(rok);
-            end = GenerateDate.EasterSunday(rok);//TODO
+            start = GenerateDate.WielkiCzwartek(rok);
+            end = GenerateDate.NiedzielaWielkanocna(rok);//TODO
         }
         public static void OkresZmartwychwstaniaPanskiego(int rok, out DateTime start, out DateTime end)
         {
-            start = GenerateDate.EasterSunday(rok);
-            end = GenerateDate.AscensionDay(rok);
+            start = GenerateDate.NiedzielaWielkanocna(rok);
+            end = GenerateDate.Wniebowstapienie(rok);
         }
     }
 }
