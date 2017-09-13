@@ -306,16 +306,16 @@
     <Content Include="Views\Churches\Details.cshtml" />
     <Content Include="Views\Churches\Edit.cshtml" />
     <Content Include="Views\Churches\Index.cshtml" />
-    <Content Include="Views\Cycles\Create.cshtml" />
-    <Content Include="Views\Cycles\Delete.cshtml" />
-    <Content Include="Views\Cycles\Details.cshtml" />
-    <Content Include="Views\Cycles\Edit.cshtml" />
-    <Content Include="Views\Cycles\Index.cshtml" />
     <Content Include="Views\Rules\Create.cshtml" />
     <Content Include="Views\Rules\Delete.cshtml" />
     <Content Include="Views\Rules\Details.cshtml" />
     <Content Include="Views\Rules\Edit.cshtml" />
     <Content Include="Views\Rules\Index.cshtml" />
+    <Content Include="Views\Cycles\Create.cshtml" />
+    <Content Include="Views\Cycles\Delete.cshtml" />
+    <Content Include="Views\Cycles\Details.cshtml" />
+    <Content Include="Views\Cycles\Edit.cshtml" />
+    <Content Include="Views\Cycles\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

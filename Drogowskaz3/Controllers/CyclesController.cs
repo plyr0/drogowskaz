@@ -10,20 +10,17 @@ using WebApplication1;
 
 namespace WebApplication1.Controllers
 {
-    [Authorize(Users = "a@a.a")]
     public class CyclesController : Controller
     {
         private drogowskazEntities db = new drogowskazEntities();
 
         // GET: Cycles
-        [AllowAnonymous]
         public ActionResult Index()
         {
             return View(db.Cycles.ToList());
         }
 
         // GET: Cycles/Details/5
-        [AllowAnonymous]
         public ActionResult Details(long? id)
         {
             if (id == null)
@@ -46,10 +43,10 @@ namespace WebApplication1.Controllers
 
         // POST: Cycles/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Name")] Cycle cycle)
+        public ActionResult Create([Bind(Include = "Id,Name,DateStart,DateEnd")] Cycle cycle)
         {
             if (ModelState.IsValid)
             {
@@ -78,10 +75,10 @@ namespace WebApplication1.Controllers
 
         // POST: Cycles/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Name")] Cycle cycle)
+        public ActionResult Edit([Bind(Include = "Id,Name,DateStart,DateEnd")] Cycle cycle)
         {
             if (ModelState.IsValid)
             {
