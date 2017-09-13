@@ -94,8 +94,84 @@ namespace DrogowskazSerwer.Function
             return christmas.AddDays(-1 * ((weeks * 7) + correction));
         }
 
+        public static DateTime Wigilia(int year)
+        {
+            return new DateTime(year, 12, 24);
+        }
+        public static DateTime BozeNarodzenie1(int year)
+        {
+            return new DateTime(year, 12, 25);
+        }
 
+        public static DateTime BozeNarodzenie2(int year)
+        {
+            return new DateTime(year, 12, 26);
+        }
 
+        public static DateTime Sylwester(int year)
+        {
+            return new DateTime(year, 12, 31);
+        }
+
+        public static DateTime NowyRok(int year)
+        {
+            return new DateTime(year, 1, 1);
+        }
+
+        public static DateTime TrzechKroli(int year)
+        {
+            return new DateTime(year, 1, 6);
+        }
+
+        public static DateTime Gromnicznej(int year)
+        {
+            return new DateTime(year, 2, 2);
+        }
+
+        public static DateTime SwJozefa(int year)
+        {
+            return new DateTime(year, 3, 19);
+        }
+
+        public static DateTime ZwiastowaniePanskie(int year)
+        {
+            return new DateTime(year, 3, 25);
+        }
+
+        public static DateTime SwWojciecha(int year)
+        {
+            return new DateTime(year, 4, 23);
+        }
+
+        public static DateTime NMPKrolowejPolski(int year)
+        {
+            return new DateTime(year, 5, 3);
+        }
+
+        public static DateTime PiotraiPawla(int year)
+        {
+            return new DateTime(year, 6, 29);
+        }
+
+        public static DateTime Wniebowziecie(int year)
+        {
+            return new DateTime(year, 8, 15);
+        }
+
+        public static DateTime WszystkichSwietych(int year)
+        {
+            return new DateTime(year, 11, 1);
+        }
+
+        public static DateTime Zaduszki(int year)
+        {
+            return new DateTime(year, 11, 2);
+        }
+
+        public static DateTime NiepokalanegoPoczecia(int year)
+        {
+            return new DateTime(year, 12, 8);
+        }
         /* Testowanie:
          
            funkcja GetDate(int year2) -> wypisuje wszystkie daty świąt (11) i datę Pierwszej Niedzieli adwentu
