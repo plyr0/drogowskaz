@@ -100,6 +100,8 @@
     </Key>
     <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="DateStart" Type="datetime" Nullable="true" />
+    <Property Name="DateEnd" Type="datetime" Nullable="true" />
   </EntityType>
   <EntityType Name="ExceptionsRules">
     <Key>
@@ -277,6 +279,8 @@
           <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
           <NavigationProperty Name="Rules" Relationship="drogowskazModel.RuleCycle" FromRole="Cycle" ToRole="Rule" />
+          <Property Name="DateStart" Type="DateTime" Nullable="true" />
+          <Property Name="DateEnd" Type="DateTime" Nullable="true" />
         </EntityType>
         <EntityType Name="ExceptionsRules">
           <Key>
@@ -423,6 +427,8 @@
         <MappingFragment StoreEntitySet="Cycles">
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="DateStart" ColumnName="DateStart" />
+          <ScalarProperty Name="DateEnd" ColumnName="DateEnd" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
