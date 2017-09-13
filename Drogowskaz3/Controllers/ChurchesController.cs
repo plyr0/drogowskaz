@@ -6,7 +6,7 @@ using WebApplication1.Helpers;
 
 namespace WebApplication1.Controllers
 {
-    [Authorize(Roles = DbHelper.ROLE_ADMINISTRATOR)]
+    [Authorize(Roles = SeedIdentity.ROLE_ADMINISTRATOR)]
     public class ChurchesController : Controller
     {
         private drogowskazEntities db = new drogowskazEntities();

@@ -24,7 +24,7 @@ namespace WebApplication1.Models
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
         {
-            DbHelper.Seed(this);
+            SeedIdentity.Seed(this);
         }
 
         public static ApplicationDbContext Create()
