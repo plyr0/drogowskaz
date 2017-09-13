@@ -2,8 +2,8 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 09/12/2017 10:34:47
--- Generated from EDMX file: C:\Users\s384064\Source\Repos\drogowskaz\Drogowskaz3\DatabaseModel.edmx
+-- Date Created: 09/13/2017 09:39:39
+-- Generated from EDMX file: J:\Documents\Source\Repos\drogowskaz\Drogowskaz3\DatabaseModel.edmx
 -- --------------------------------------------------
 
 SET QUOTED_IDENTIFIER OFF;
@@ -28,6 +28,9 @@ IF OBJECT_ID(N'[dbo].[FK_RuleCycle]', 'F') IS NOT NULL
 GO
 IF OBJECT_ID(N'[dbo].[FK_ExceptionsRulesRule]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[ExceptionsRules] DROP CONSTRAINT [FK_ExceptionsRulesRule];
+GO
+IF OBJECT_ID(N'[dbo].[FK_MassChurch]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Masses] DROP CONSTRAINT [FK_MassChurch];
 GO
 
 -- --------------------------------------------------
@@ -66,31 +69,31 @@ GO
 CREATE TABLE [dbo].[Rules] (
     [Id] bigint IDENTITY(1,1) NOT NULL,
     [MassType] nvarchar(max)  NULL,
-    [Monday] bit  NULL,
-    [Tuesday] bit  NULL,
-    [Wednesday] bit  NULL,
-    [Thursday] bit  NULL,
-    [Friday] bit  NULL,
-    [Saturday] bit  NULL,
-    [Sunday] bit  NULL,
-    [I] bit  NULL,
-    [II] bit  NULL,
-    [III] bit  NULL,
-    [IV] bit  NULL,
-    [V] bit  NULL,
-    [VI] bit  NULL,
-    [VII] bit  NULL,
-    [VIII] bit  NULL,
-    [IX] bit  NULL,
-    [X] bit  NULL,
-    [XI] bit  NULL,
-    [XII] bit  NULL,
-    [Week1] bit  NULL,
-    [Week2] bit  NULL,
-    [Week3] bit  NULL,
-    [Week4] bit  NULL,
-    [Week5] bit  NULL,
-    [WeekLast] bit  NULL,
+    [Monday] bit  NOT NULL,
+    [Tuesday] bit  NOT NULL,
+    [Wednesday] bit  NOT NULL,
+    [Thursday] bit  NOT NULL,
+    [Friday] bit  NOT NULL,
+    [Saturday] bit  NOT NULL,
+    [Sunday] bit  NOT NULL,
+    [I] bit  NOT NULL,
+    [II] bit  NOT NULL,
+    [III] bit  NOT NULL,
+    [IV] bit  NOT NULL,
+    [V] bit  NOT NULL,
+    [VI] bit  NOT NULL,
+    [VII] bit  NOT NULL,
+    [VIII] bit  NOT NULL,
+    [IX] bit  NOT NULL,
+    [X] bit  NOT NULL,
+    [XI] bit  NOT NULL,
+    [XII] bit  NOT NULL,
+    [Week1] bit  NOT NULL,
+    [Week2] bit  NOT NULL,
+    [Week3] bit  NOT NULL,
+    [Week4] bit  NOT NULL,
+    [Week5] bit  NOT NULL,
+    [WeekLast] bit  NOT NULL,
     [CycleType] nvarchar(max)  NULL,
     [SingularMass] datetime  NULL,
     [DateBegin] datetime  NULL,

@@ -10,13 +10,11 @@ using WebApplication1;
 
 namespace WebApplication1.Controllers
 {
-    [Authorize(Users = "a@a.a")]
     public class RulesController : Controller
     {
         private drogowskazEntities db = new drogowskazEntities();
 
         // GET: Rules
-        [AllowAnonymous]
         public ActionResult Index()
         {
             var rules = db.Rules.Include(r => r.Church).Include(r => r.Cycle);
@@ -24,7 +22,6 @@ namespace WebApplication1.Controllers
         }
 
         // GET: Rules/Details/5
-        [AllowAnonymous]
         public ActionResult Details(long? id)
         {
             if (id == null)
@@ -49,7 +46,7 @@ namespace WebApplication1.Controllers
 
         // POST: Rules/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Id,MassType,Monday,Tuesday,Wednesday,Thursday,Friday,Saturday,Sunday,I,II,III,IV,V,VI,VII,VIII,IX,X,XI,XII,Week1,Week2,Week3,Week4,Week5,WeekLast,CycleType,SingularMass,DateBegin,DateEnd,Hour,DateShift,RepeatDateFirst,RepeatEveryDays,RepeatEveryDayInMonth,RepeatType,ChurchId,CycleId")] Rule rule)
@@ -85,7 +82,7 @@ namespace WebApplication1.Controllers
 
         // POST: Rules/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Id,MassType,Monday,Tuesday,Wednesday,Thursday,Friday,Saturday,Sunday,I,II,III,IV,V,VI,VII,VIII,IX,X,XI,XII,Week1,Week2,Week3,Week4,Week5,WeekLast,CycleType,SingularMass,DateBegin,DateEnd,Hour,DateShift,RepeatDateFirst,RepeatEveryDays,RepeatEveryDayInMonth,RepeatType,ChurchId,CycleId")] Rule rule)

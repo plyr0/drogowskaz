@@ -46,31 +46,31 @@
     </Key>
     <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="MassType" Type="nvarchar(max)" Nullable="true" />
-    <Property Name="Monday" Type="bit" Nullable="true" />
-    <Property Name="Tuesday" Type="bit" Nullable="true" />
-    <Property Name="Wednesday" Type="bit" Nullable="true" />
-    <Property Name="Thursday" Type="bit" Nullable="true" />
-    <Property Name="Friday" Type="bit" Nullable="true" />
-    <Property Name="Saturday" Type="bit" Nullable="true" />
-    <Property Name="Sunday" Type="bit" Nullable="true" />
-    <Property Name="I" Type="bit" Nullable="true" />
-    <Property Name="II" Type="bit" Nullable="true" />
-    <Property Name="III" Type="bit" Nullable="true" />
-    <Property Name="IV" Type="bit" Nullable="true" />
-    <Property Name="V" Type="bit" Nullable="true" />
-    <Property Name="VI" Type="bit" Nullable="true" />
-    <Property Name="VII" Type="bit" Nullable="true" />
-    <Property Name="VIII" Type="bit" Nullable="true" />
-    <Property Name="IX" Type="bit" Nullable="true" />
-    <Property Name="X" Type="bit" Nullable="true" />
-    <Property Name="XI" Type="bit" Nullable="true" />
-    <Property Name="XII" Type="bit" Nullable="true" />
-    <Property Name="Week1" Type="bit" Nullable="true" />
-    <Property Name="Week2" Type="bit" Nullable="true" />
-    <Property Name="Week3" Type="bit" Nullable="true" />
-    <Property Name="Week4" Type="bit" Nullable="true" />
-    <Property Name="Week5" Type="bit" Nullable="true" />
-    <Property Name="WeekLast" Type="bit" Nullable="true" />
+    <Property Name="Monday" Type="bit" Nullable="false" DefaultValue="false" />
+    <Property Name="Tuesday" Type="bit" Nullable="false" DefaultValue="false" />
+    <Property Name="Wednesday" Type="bit" Nullable="false" DefaultValue="false" />
+    <Property Name="Thursday" Type="bit" Nullable="false" DefaultValue="false" />
+    <Property Name="Friday" Type="bit" Nullable="false" DefaultValue="false" />
+    <Property Name="Saturday" Type="bit" Nullable="false" DefaultValue="false" />
+    <Property Name="Sunday" Type="bit" Nullable="false" DefaultValue="true" />
+    <Property Name="I" Type="bit" Nullable="false" DefaultValue="true" />
+    <Property Name="II" Type="bit" Nullable="false" DefaultValue="true" />
+    <Property Name="III" Type="bit" Nullable="false" DefaultValue="true" />
+    <Property Name="IV" Type="bit" Nullable="false" DefaultValue="true" />
+    <Property Name="V" Type="bit" Nullable="false" DefaultValue="true" />
+    <Property Name="VI" Type="bit" Nullable="false" DefaultValue="true" />
+    <Property Name="VII" Type="bit" Nullable="false" DefaultValue="true" />
+    <Property Name="VIII" Type="bit" Nullable="false" DefaultValue="true" />
+    <Property Name="IX" Type="bit" Nullable="false" DefaultValue="true" />
+    <Property Name="X" Type="bit" Nullable="false" DefaultValue="true" />
+    <Property Name="XI" Type="bit" Nullable="false" DefaultValue="true" />
+    <Property Name="XII" Type="bit" Nullable="false" DefaultValue="true" />
+    <Property Name="Week1" Type="bit" Nullable="false" DefaultValue="true" />
+    <Property Name="Week2" Type="bit" Nullable="false" DefaultValue="true" />
+    <Property Name="Week3" Type="bit" Nullable="false" DefaultValue="true" />
+    <Property Name="Week4" Type="bit" Nullable="false" DefaultValue="true" />
+    <Property Name="Week5" Type="bit" Nullable="false" DefaultValue="true" />
+    <Property Name="WeekLast" Type="bit" Nullable="false" DefaultValue="true" />
     <Property Name="CycleType" Type="nvarchar(max)" Nullable="true" />
     <Property Name="SingularMass" Type="datetime" Nullable="true" />
     <Property Name="DateBegin" Type="datetime" Nullable="true" />
@@ -216,31 +216,31 @@
           </Key>
           <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="MassType" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" Nullable="true" />
-          <Property Name="Monday" Type="Boolean" Nullable="true" />
-          <Property Name="Tuesday" Type="Boolean" Nullable="true" />
-          <Property Name="Wednesday" Type="Boolean" Nullable="true" />
-          <Property Name="Thursday" Type="Boolean" Nullable="true" />
-          <Property Name="Friday" Type="Boolean" Nullable="true" />
-          <Property Name="Saturday" Type="Boolean" Nullable="true" />
-          <Property Name="Sunday" Type="Boolean" Nullable="true" />
-          <Property Name="I" Type="Boolean" Nullable="true" />
-          <Property Name="II" Type="Boolean" Nullable="true" />
-          <Property Name="III" Type="Boolean" Nullable="true" />
-          <Property Name="IV" Type="Boolean" Nullable="true" />
-          <Property Name="V" Type="Boolean" Nullable="true" />
-          <Property Name="VI" Type="Boolean" Nullable="true" />
-          <Property Name="VII" Type="Boolean" Nullable="true" />
-          <Property Name="VIII" Type="Boolean" Nullable="true" />
-          <Property Name="IX" Type="Boolean" Nullable="true" />
-          <Property Name="X" Type="Boolean" Nullable="true" />
-          <Property Name="XI" Type="Boolean" Nullable="true" />
-          <Property Name="XII" Type="Boolean" Nullable="true" />
-          <Property Name="Week1" Type="Boolean" Nullable="true" />
-          <Property Name="Week2" Type="Boolean" Nullable="true" />
-          <Property Name="Week3" Type="Boolean" Nullable="true" />
-          <Property Name="Week4" Type="Boolean" Nullable="true" />
-          <Property Name="Week5" Type="Boolean" Nullable="true" />
-          <Property Name="WeekLast" Type="Boolean" Nullable="true" />
+          <Property Name="Monday" Type="Boolean" Nullable="false" DefaultValue="False" />
+          <Property Name="Tuesday" Type="Boolean" Nullable="false" DefaultValue="False" />
+          <Property Name="Wednesday" Type="Boolean" Nullable="false" DefaultValue="False" />
+          <Property Name="Thursday" Type="Boolean" Nullable="false" DefaultValue="False" />
+          <Property Name="Friday" Type="Boolean" Nullable="false" DefaultValue="False" />
+          <Property Name="Saturday" Type="Boolean" Nullable="false" DefaultValue="False" />
+          <Property Name="Sunday" Type="Boolean" Nullable="false" DefaultValue="True" />
+          <Property Name="I" Type="Boolean" Nullable="false" DefaultValue="True" />
+          <Property Name="II" Type="Boolean" Nullable="false" DefaultValue="True" />
+          <Property Name="III" Type="Boolean" Nullable="false" DefaultValue="True" />
+          <Property Name="IV" Type="Boolean" Nullable="false" DefaultValue="True" />
+          <Property Name="V" Type="Boolean" Nullable="false" DefaultValue="True" />
+          <Property Name="VI" Type="Boolean" Nullable="false" DefaultValue="True" />
+          <Property Name="VII" Type="Boolean" Nullable="false" DefaultValue="True" />
+          <Property Name="VIII" Type="Boolean" Nullable="false" DefaultValue="True" />
+          <Property Name="IX" Type="Boolean" Nullable="false" DefaultValue="True" />
+          <Property Name="X" Type="Boolean" Nullable="false" DefaultValue="True" />
+          <Property Name="XI" Type="Boolean" Nullable="false" DefaultValue="True" />
+          <Property Name="XII" Type="Boolean" Nullable="false" DefaultValue="True" />
+          <Property Name="Week1" Type="Boolean" Nullable="false" DefaultValue="True" />
+          <Property Name="Week2" Type="Boolean" Nullable="false" DefaultValue="True" />
+          <Property Name="Week3" Type="Boolean" Nullable="false" DefaultValue="True" />
+          <Property Name="Week4" Type="Boolean" Nullable="false" DefaultValue="True" />
+          <Property Name="Week5" Type="Boolean" Nullable="false" DefaultValue="True" />
+          <Property Name="WeekLast" Type="Boolean" Nullable="false" DefaultValue="True" />
           <Property Name="CycleType" Type="String" Nullable="true" MaxLength="Max" Unicode="true" FixedLength="false" />
           <Property Name="SingularMass" Type="DateTime" Nullable="true" />
           <Property Name="DateBegin" Type="DateTime" Nullable="true" Precision="3" />

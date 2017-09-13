@@ -22,6 +22,56 @@ public partial class Rule
     public Rule()
     {
 
+        this.Monday = false;
+
+        this.Tuesday = false;
+
+        this.Wednesday = false;
+
+        this.Thursday = false;
+
+        this.Friday = false;
+
+        this.Saturday = false;
+
+        this.Sunday = true;
+
+        this.I = true;
+
+        this.II = true;
+
+        this.III = true;
+
+        this.IV = true;
+
+        this.V = true;
+
+        this.VI = true;
+
+        this.VII = true;
+
+        this.VIII = true;
+
+        this.IX = true;
+
+        this.X = true;
+
+        this.XI = true;
+
+        this.XII = true;
+
+        this.Week1 = true;
+
+        this.Week2 = true;
+
+        this.Week3 = true;
+
+        this.Week4 = true;
+
+        this.Week5 = true;
+
+        this.WeekLast = true;
+
         this.Masses = new HashSet<Mass>();
 
         this.ExceptionsRules = new HashSet<ExceptionsRules>();
@@ -33,55 +83,55 @@ public partial class Rule
 
     public string MassType { get; set; }
 
-    public Nullable<bool> Monday { get; set; }
+    public bool Monday { get; set; }
 
-    public Nullable<bool> Tuesday { get; set; }
+    public bool Tuesday { get; set; }
 
-    public Nullable<bool> Wednesday { get; set; }
+    public bool Wednesday { get; set; }
 
-    public Nullable<bool> Thursday { get; set; }
+    public bool Thursday { get; set; }
 
-    public Nullable<bool> Friday { get; set; }
+    public bool Friday { get; set; }
 
-    public Nullable<bool> Saturday { get; set; }
+    public bool Saturday { get; set; }
 
-    public Nullable<bool> Sunday { get; set; }
+    public bool Sunday { get; set; }
 
-    public Nullable<bool> I { get; set; }
+    public bool I { get; set; }
 
-    public Nullable<bool> II { get; set; }
+    public bool II { get; set; }
 
-    public Nullable<bool> III { get; set; }
+    public bool III { get; set; }
 
-    public Nullable<bool> IV { get; set; }
+    public bool IV { get; set; }
 
-    public Nullable<bool> V { get; set; }
+    public bool V { get; set; }
 
-    public Nullable<bool> VI { get; set; }
+    public bool VI { get; set; }
 
-    public Nullable<bool> VII { get; set; }
+    public bool VII { get; set; }
 
-    public Nullable<bool> VIII { get; set; }
+    public bool VIII { get; set; }
 
-    public Nullable<bool> IX { get; set; }
+    public bool IX { get; set; }
 
-    public Nullable<bool> X { get; set; }
+    public bool X { get; set; }
 
-    public Nullable<bool> XI { get; set; }
+    public bool XI { get; set; }
 
-    public Nullable<bool> XII { get; set; }
+    public bool XII { get; set; }
 
-    public Nullable<bool> Week1 { get; set; }
+    public bool Week1 { get; set; }
 
-    public Nullable<bool> Week2 { get; set; }
+    public bool Week2 { get; set; }
 
-    public Nullable<bool> Week3 { get; set; }
+    public bool Week3 { get; set; }
 
-    public Nullable<bool> Week4 { get; set; }
+    public bool Week4 { get; set; }
 
-    public Nullable<bool> Week5 { get; set; }
+    public bool Week5 { get; set; }
 
-    public Nullable<bool> WeekLast { get; set; }
+    public bool WeekLast { get; set; }
 
     public string CycleType { get; set; }
 
