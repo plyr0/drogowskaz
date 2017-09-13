@@ -10,7 +10,7 @@ namespace WebApplication1.Functions
     {
         public static void Adwent(int rok, out DateTime start, out DateTime end)
         {
-           start = GenerateDate.FirstSundayOfAdvent(rok);
+           start = GenerateDate.FirstSundayOfAdvent(rok);//TODO
             end = GenerateDate.BozeNarodzenie1(rok);
         }
 
