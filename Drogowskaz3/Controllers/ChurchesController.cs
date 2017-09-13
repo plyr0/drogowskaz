@@ -1,16 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
+﻿using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
-using WebApplication1;
+using WebApplication1.Helpers;
 
 namespace WebApplication1.Controllers
 {
-    [Authorize(Users = "a@a.a")]
+    [Authorize(Roles = DbHelper.ROLE_ADMINISTRATOR)]
     public class ChurchesController : Controller
     {
         private drogowskazEntities db = new drogowskazEntities();

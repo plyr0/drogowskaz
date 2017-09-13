@@ -7,20 +7,24 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using WebApplication1;
+using WebApplication1.Helpers;
 
 namespace WebApplication1.Controllers
 {
+    [Authorize(Roles = DbHelper.ROLE_ADMINISTRATOR)]
     public class CyclesController : Controller
     {
         private drogowskazEntities db = new drogowskazEntities();
 
         // GET: Cycles
+        [AllowAnonymous]
         public ActionResult Index()
         {
             return View(db.Cycles.ToList());
         }
 
         // GET: Cycles/Details/5
+        [AllowAnonymous]
         public ActionResult Details(long? id)
         {
             if (id == null)

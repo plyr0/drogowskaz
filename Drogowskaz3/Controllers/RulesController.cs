@@ -7,14 +7,17 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using WebApplication1;
+using WebApplication1.Helpers;
 
 namespace WebApplication1.Controllers
 {
+    [Authorize(Roles = DbHelper.ROLE_ADMINISTRATOR)]
     public class RulesController : Controller
     {
         private drogowskazEntities db = new drogowskazEntities();
 
         // GET: Rules
+        [AllowAnonymous]
         public ActionResult Index()
         {
             var rules = db.Rules.Include(r => r.Church).Include(r => r.Cycle);
@@ -22,6 +25,7 @@ namespace WebApplication1.Controllers
         }
 
         // GET: Rules/Details/5
+        [AllowAnonymous]
         public ActionResult Details(long? id)
         {
             if (id == null)
