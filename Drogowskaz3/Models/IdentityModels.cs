@@ -3,6 +3,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using WebApplication1.Helpers;
 
 namespace WebApplication1.Models
 {
@@ -23,6 +24,7 @@ namespace WebApplication1.Models
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
         {
+            DbHelper.Seed(this);
         }
 
         public static ApplicationDbContext Create()
