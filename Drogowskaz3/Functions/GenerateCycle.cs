@@ -13,5 +13,28 @@ namespace WebApplication1.Functions
            start = GenerateDate.FirstSundayOfAdvent(rok);
             end = GenerateDate.BozeNarodzenie1(rok);
         }
+
+        public static void OkresBozonarodzeniowy(int rok, out DateTime start, out DateTime end)
+        {
+            start = GenerateDate.BozeNarodzenie1(rok);
+            end = GenerateDate.Gromnicznej(rok);//TODO
+        }
+
+        public static void WielkiPost(int rok, out DateTime start, out DateTime end)
+        {
+            start = GenerateDate.AshWednesday(rok);
+            end = GenerateDate.ThursdayDay(rok);
+        }
+
+        public static void TriduumPaschalne(int rok, out DateTime start, out DateTime end)
+        {
+            start = GenerateDate.ThursdayDay(rok);
+            end = GenerateDate.EasterSunday(rok);//TODO
+        }
+        public static void OkresZmartwychwstaniaPanskiego(int rok, out DateTime start, out DateTime end)
+        {
+            start = GenerateDate.EasterSunday(rok);
+            end = GenerateDate.AscensionDay(rok);
+        }
     }
 }
