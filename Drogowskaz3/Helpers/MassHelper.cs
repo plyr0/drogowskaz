@@ -5,10 +5,10 @@ namespace WebApplication1.Helpers
 {
     public class MassHelper
     {
-        public const string MASS_TYPE_ALL = "Każdy";
-        public const string MASS_TYPE_SINGULAR = "Pojedyncza";
-        public const string MASS_TYPE_MONTH = "Miesiące";
-        public const string MASS_TYPE_CYCLE = "Okres liturgiczny";
+        public const string CYCLE_TYPE_ALL = "Każdy";
+        public const string CYCLE_TYPE_SINGULAR = "Pojedyncza";
+        public const string CYCLE_TYPE_MONTH = "Miesiące";
+        public const string CYCLE_TYPE_CYCLE = "Okres liturgiczny";
         
         public static void GenerateMasses(drogowskazEntities db)
         {
@@ -21,7 +21,7 @@ namespace WebApplication1.Helpers
         private static void GenerateMassesFromOneRule(Rule r, drogowskazEntities db)
         {
             DateTime? date = r.SingularMass;
-            if (r.CycleType == MASS_TYPE_SINGULAR && date!=null)
+            if (r.CycleType == CYCLE_TYPE_SINGULAR && date!=null)
             {
                 Mass msza = new Mass() {
                     Church = r.Church,
@@ -34,7 +34,7 @@ namespace WebApplication1.Helpers
                 db.Masses.Add(msza);
                 db.SaveChanges();
             }
-            else if(r.CycleType == MASS_TYPE_MONTH)
+            else if(r.CycleType == CYCLE_TYPE_MONTH)
             {
 
             }
