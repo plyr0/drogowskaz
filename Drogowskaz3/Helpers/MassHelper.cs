@@ -1,24 +1,27 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 
 namespace WebApplication1.Helpers
 {
     public class MassHelper
     {
-        public static void Generate_Mass(drogowskazEntities db)
+        public const string MASS_TYPE_ALL = "Każdy";
+        public const string MASS_TYPE_SINGULAR = "Pojedyncza";
+        public const string MASS_TYPE_MONTH = "Miesiące";
+        public const string MASS_TYPE_CYCLE = "Okres liturgiczny";
+        
+        public static void GenerateMasses(drogowskazEntities db)
         {
-                foreach(Rule r in db.Rules)
-                {
-                    OneDirection(r,db);  
-                }
+            foreach(Rule r in db.Rules.ToList())
+            {
+                GenerateMassesFromOneRule(r,db);
+            }
         }
 
-        private static void OneDirection(Rule r, drogowskazEntities d)
+        private static void GenerateMassesFromOneRule(Rule r, drogowskazEntities db)
         {
             DateTime? date = r.SingularMass;
-            if (date!=null)
+            if (r.CycleType == MASS_TYPE_SINGULAR && date!=null)
             {
                 Mass msza = new Mass() {
                     Church = r.Church,
@@ -27,18 +30,13 @@ namespace WebApplication1.Helpers
                     MassType = r.MassType,
                     RuleId = r.Id,
                     Rule = r
-                    
-                    
                 };
-                d.Masses.Add(msza);
-                d.SaveChanges();
+                db.Masses.Add(msza);
+                db.SaveChanges();
             }
-            else
+            else if(r.CycleType == MASS_TYPE_MONTH)
             {
-                if(r.CycleType == "miesiąc")
-                {
 
-                }
             }
         }
     }

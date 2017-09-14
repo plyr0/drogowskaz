@@ -322,11 +322,10 @@
     <Content Include="Views\Cycles\Details.cshtml" />
     <Content Include="Views\Cycles\Edit.cshtml" />
     <Content Include="Views\Cycles\Index.cshtml" />
-    <Content Include="Views\Masses\Create.cshtml" />
     <Content Include="Views\Masses\Delete.cshtml" />
     <Content Include="Views\Masses\Details.cshtml" />
-    <Content Include="Views\Masses\Edit.cshtml" />
     <Content Include="Views\Masses\Index.cshtml" />
+    <Content Include="Views\Masses\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

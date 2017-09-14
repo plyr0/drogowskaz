@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using WebApplication1;
+using WebApplication1.Helpers;
 
 namespace WebApplication1.Controllers
 {
@@ -37,93 +38,37 @@ namespace WebApplication1.Controllers
         }
 
         // GET: Masses/Create
+        [HttpGet]
         public ActionResult Create()
         {
-            ViewBag.RuleId = new SelectList(db.Rules, "Id", "MassType");
-            ViewBag.ChurchId = new SelectList(db.Churches, "Id", "Name");
             return View();
         }
 
         // POST: Masses/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
+        [HttpPost, ActionName("Create")]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,DateAndTime,RuleId,MassType,ChurchId")] Mass mass)
+        public ActionResult CreateConfirmed()
         {
-            if (ModelState.IsValid)
-            {
-                db.Masses.Add(mass);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-
-            ViewBag.RuleId = new SelectList(db.Rules, "Id", "MassType", mass.RuleId);
-            ViewBag.ChurchId = new SelectList(db.Churches, "Id", "Name", mass.ChurchId);
-            return View(mass);
+            MassHelper.GenerateMasses(db);
+            return RedirectToAction("Index");
         }
-
-        // GET: Masses/Edit/5
-        public ActionResult Edit(long? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Mass mass = db.Masses.Find(id);
-            if (mass == null)
-            {
-                return HttpNotFound();
-            }
-            ViewBag.RuleId = new SelectList(db.Rules, "Id", "MassType", mass.RuleId);
-            ViewBag.ChurchId = new SelectList(db.Churches, "Id", "Name", mass.ChurchId);
-            return View(mass);
-        }
-
-        // POST: Masses/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,DateAndTime,RuleId,MassType,ChurchId")] Mass mass)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Entry(mass).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            ViewBag.RuleId = new SelectList(db.Rules, "Id", "MassType", mass.RuleId);
-            ViewBag.ChurchId = new SelectList(db.Churches, "Id", "Name", mass.ChurchId);
-            return View(mass);
-        }
-
+        
         // GET: Masses/Delete/5
-        public ActionResult Delete(long? id)
+        public ActionResult Delete()
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Mass mass = db.Masses.Find(id);
-            if (mass == null)
-            {
-                return HttpNotFound();
-            }
-            return View(mass);
+            return View();
         }
 
         // POST: Masses/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(long id)
+        public ActionResult DeleteConfirmed()
         {
-            Mass mass = db.Masses.Find(id);
-            db.Masses.Remove(mass);
+            db.Masses.RemoveRange(db.Masses);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
-
+        
         protected override void Dispose(bool disposing)
         {
             if (disposing)
