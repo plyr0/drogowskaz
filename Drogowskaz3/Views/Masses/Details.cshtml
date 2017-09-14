@@ -1,0 +1,50 @@
+﻿@model WebApplication1.Mass
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Mass</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.DateAndTime)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DateAndTime)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MassType)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MassType)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Rule.MassType)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Rule.MassType)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Church.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Church.Name)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

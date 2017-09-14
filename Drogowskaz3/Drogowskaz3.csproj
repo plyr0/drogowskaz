@@ -23,6 +23,7 @@
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <Use64BitIISExpress />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -181,6 +182,7 @@
     <Compile Include="Controllers\CyclesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\MassesController.cs" />
     <Compile Include="Controllers\RulesController.cs" />
     <Compile Include="Cycle.cs">
       <DependentUpon>DatabaseModel.tt</DependentUpon>
@@ -214,6 +216,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\MassHelper.cs" />
     <Compile Include="Helpers\SeedIdentity.cs" />
     <Compile Include="Mass.cs">
       <DependentUpon>DatabaseModel.tt</DependentUpon>
@@ -319,6 +322,11 @@
     <Content Include="Views\Cycles\Details.cshtml" />
     <Content Include="Views\Cycles\Edit.cshtml" />
     <Content Include="Views\Cycles\Index.cshtml" />
+    <Content Include="Views\Masses\Create.cshtml" />
+    <Content Include="Views\Masses\Delete.cshtml" />
+    <Content Include="Views\Masses\Details.cshtml" />
+    <Content Include="Views\Masses\Edit.cshtml" />
+    <Content Include="Views\Masses\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
