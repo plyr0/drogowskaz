@@ -11,11 +11,13 @@ using WebApplication1.Helpers;
 
 namespace WebApplication1.Controllers
 {
+    [Authorize(Roles = SeedIdentity.ROLE_ADMINISTRATOR)]
     public class MassesController : Controller
     {
         private drogowskazEntities db = new drogowskazEntities();
 
         // GET: Masses
+        [AllowAnonymous]
         public ActionResult Index()
         {
             var masses = db.Masses.Include(m => m.Rule).Include(m => m.Church);
@@ -23,6 +25,7 @@ namespace WebApplication1.Controllers
         }
 
         // GET: Masses/Details/5
+        [AllowAnonymous]
         public ActionResult Details(long? id)
         {
             if (id == null)
