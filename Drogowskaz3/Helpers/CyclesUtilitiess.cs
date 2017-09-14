@@ -74,6 +74,12 @@ namespace WebApplication1.Helpers
             GenerateDate.Sylwester              //25
         };
 
+        public static void FestToCycle(DateTime date, out DateTime start, out DateTime end)
+        {
+            start = date;
+            end = date.AddHours(24);
+        }
+
         public delegate void CycleFunc<Y, S, E>(Y year, out S start, out E end);
         public static CycleFunc<int, DateTime, DateTime> nilFunc = (int year, out DateTime start, out DateTime end)=>{ start = new DateTime(); end = new DateTime(); };
         public static CycleFunc<int, DateTime, DateTime>[] functionsCycles = {
@@ -85,8 +91,8 @@ namespace WebApplication1.Helpers
             GenerateCycle.WielkiPost,
             GenerateCycle.TriduumPaschalne,
             GenerateCycle.OkresZmartwychwstaniaPanskiego,
-            nilFunc,
-            nilFunc
+            nilFunc, //czas letni
+            nilFunc  //czas zimowy
         };
 
         public static string GenFests(int year)
