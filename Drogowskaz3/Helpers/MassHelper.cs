@@ -21,7 +21,9 @@ namespace WebApplication1.Helpers
 
         private static void GenerateMassesFromOneRule(Rule r, drogowskazEntities db, DateTime currentDate)
         {
-            if(db.Masses.Where(m=>m.DateAndTime==currentDate && m.ChurchId == r.ChurchId ).
+            DateTime dateAndTime = currentDate.AddMinutes(r.Hour.Value.TotalMinutes);
+            if (db.Masses.Where(m=>m.DateAndTime==dateAndTime
+            && m.ChurchId == r.ChurchId ).
                 FirstOrDefault()!=null )
             {
                 return;
@@ -34,7 +36,7 @@ namespace WebApplication1.Helpers
                     Mass msza = new Mass()
                     {
                         Church = r.Church,
-                        DateAndTime = (DateTime)date,
+                        DateAndTime = ((DateTime)date).AddMinutes(r.Hour.Value.TotalMinutes),
                         ChurchId = r.ChurchId,
                         MassType = r.MassType,
                         RuleId = r.Id,
