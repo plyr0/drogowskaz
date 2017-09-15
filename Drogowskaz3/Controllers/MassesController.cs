@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DrogowskazSerwer.Helpers;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -52,7 +53,11 @@ namespace WebApplication1.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult CreateConfirmed()
         {
-            MassHelper.GenerateMasses(db);
+            for (int a = 0; a< 365; a++ )
+            {
+                MassHelper.GenerateMasses(db,DateTime.Today.AddDays(a));
+            }
+            
             return RedirectToAction("Index");
         }
         

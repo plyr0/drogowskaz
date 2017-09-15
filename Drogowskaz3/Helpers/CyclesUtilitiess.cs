@@ -74,6 +74,20 @@ namespace WebApplication1.Helpers
             GenerateDate.Sylwester              //25
         };
 
+        internal static string GenerujSwieto(DateTime dateShift)
+        {
+            
+            for (int i = 0; i < 26; i++)
+            {
+                if(dateShift==functionsFest[i](dateShift.Year))
+                {
+                    return names[i];
+                }
+                
+            }
+            return null;
+        }
+
         public static void FestToCycle(DateTime date, out DateTime start, out DateTime end)
         {
             start = date;

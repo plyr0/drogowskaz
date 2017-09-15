@@ -10,33 +10,66 @@ namespace WebApplication1.Helpers
         public const string CYCLE_TYPE_MONTH = "Miesiące";
         public const string CYCLE_TYPE_CYCLE = "Okres liturgiczny";
         
-        public static void GenerateMasses(drogowskazEntities db)
+        public static void GenerateMasses(drogowskazEntities db, DateTime currentDate)
         {
             foreach(Rule r in db.Rules.ToList())
             {
-                GenerateMassesFromOneRule(r,db);
+                GenerateMassesFromOneRule(r,db,currentDate);
             }
         }
 
-        private static void GenerateMassesFromOneRule(Rule r, drogowskazEntities db)
+        private static void GenerateMassesFromOneRule(Rule r, drogowskazEntities db, DateTime currentDate)
         {
             DateTime? date = r.SingularMass;
-            if (r.CycleType == CYCLE_TYPE_SINGULAR && date!=null)
+            if (r.CycleType == CYCLE_TYPE_SINGULAR)
             {
-                Mass msza = new Mass() {
-                    Church = r.Church,
-                    DateAndTime = (DateTime)date,
-                    ChurchId = r.ChurchId,
-                    MassType = r.MassType,
-                    RuleId = r.Id,
-                    Rule = r
-                };
-                db.Masses.Add(msza);
-                db.SaveChanges();
+                if( date != null && currentDate == date)
+                {
+                    Mass msza = new Mass()
+                    {
+                        Church = r.Church,
+                        DateAndTime = (DateTime)date,
+                        ChurchId = r.ChurchId,
+                        MassType = r.MassType,
+                        RuleId = r.Id,
+                        Rule = r
+                    };
+                    db.Masses.Add(msza);
+                    db.SaveChanges();
+                }
             }
-            else if(r.CycleType == CYCLE_TYPE_MONTH)
+            else 
             {
+                int? shift = r.DateShift;
+                DateTime dateShift;
+                if (shift!=null)
+                {
+                     dateShift = currentDate.AddDays((int)shift);
+                }
+                else
+                {
+                    dateShift = currentDate;
+                }
+                string nazwaSwieta = CyclesUtilitiess.GenerujSwieto(dateShift);
+                if(nazwaSwieta!=null)
+                {
+                    Mass msza = new Mass()
+                    {
+                        Church = r.Church,
+                        DateAndTime = currentDate,
+                        ChurchId = r.ChurchId,
+                        MassType = r.MassType,
+                        RuleId = r.Id,
+                        Rule = r
+                        
+                    };
+                    db.Masses.Add(msza);
+                    db.SaveChanges();
+                }
+                if(r.CycleType == CYCLE_TYPE_MONTH)
+                {
 
+                }
             }
         }
     }
