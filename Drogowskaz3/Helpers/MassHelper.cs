@@ -9,7 +9,8 @@ namespace WebApplication1.Helpers
         public const string CYCLE_TYPE_SINGULAR = "Pojedyncza";
         public const string CYCLE_TYPE_MONTH = "Miesiące";
         public const string CYCLE_TYPE_CYCLE = "Okres liturgiczny";
-        
+        public const string CYCLE_TYPE_HOLIDAY = "Święto";
+
         public static void GenerateMasses(drogowskazEntities db, DateTime currentDate)
         {
             foreach(Rule r in db.Rules.ToList())
@@ -20,6 +21,11 @@ namespace WebApplication1.Helpers
 
         private static void GenerateMassesFromOneRule(Rule r, drogowskazEntities db, DateTime currentDate)
         {
+            if(db.Masses.Where(m=>m.DateAndTime==currentDate && m.ChurchId == r.ChurchId ).
+                FirstOrDefault()!=null )
+            {
+                return;
+            }
             DateTime? date = r.SingularMass;
             if (r.CycleType == CYCLE_TYPE_SINGULAR)
             {
@@ -50,6 +56,7 @@ namespace WebApplication1.Helpers
                 {
                     dateShift = currentDate;
                 }
+
                 string nazwaSwieta = CyclesUtilitiess.GenerujSwieto(dateShift);
                 if(nazwaSwieta!=null)
                 {
