@@ -39,6 +39,8 @@
     <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Address" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="Decanate" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="Diocese" Type="nvarchar(max)" Nullable="true" />
   </EntityType>
   <EntityType Name="Rules">
     <Key>
@@ -183,6 +185,8 @@
           <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="true" />
           <NavigationProperty Name="Rules" Relationship="drogowskazModel.RuleChurch" FromRole="Church" ToRole="Rule" />
           <NavigationProperty Name="Masses" Relationship="drogowskazModel.MassChurch" FromRole="Church" ToRole="Mass" />
+          <Property Name="Decanate" Type="String" Nullable="true" />
+          <Property Name="Diocese" Type="String" Nullable="true" />
         </EntityType>
         <EntityContainer Name="drogowskazEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Churches" EntityType="Self.Church" />
@@ -361,6 +365,8 @@
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="Name" ColumnName="Name" />
           <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="Decanate" ColumnName="Decanate" />
+          <ScalarProperty Name="Diocese" ColumnName="Diocese" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

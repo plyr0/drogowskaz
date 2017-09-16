@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 09/16/2017 18:39:34
+-- Date Created: 09/16/2017 19:45:19
 -- Generated from EDMX file: C:\Users\plyr0\git\drogowskaz\Drogowskaz3\DatabaseModel.edmx
 -- --------------------------------------------------
 
@@ -61,7 +61,9 @@ GO
 CREATE TABLE [dbo].[Churches] (
     [Id] bigint IDENTITY(1,1) NOT NULL,
     [Name] nvarchar(max)  NOT NULL,
-    [Address] nvarchar(max)  NULL
+    [Address] nvarchar(max)  NULL,
+    [Decanate] nvarchar(max)  NULL,
+    [Diocese] nvarchar(max)  NULL
 );
 GO
 

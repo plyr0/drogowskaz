@@ -17,6 +17,12 @@
         <th>
             @Html.DisplayNameFor(model => model.Address)
         </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Decanate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Diocese)
+        </th>
         <th></th>
     </tr>
 
@@ -27,6 +33,12 @@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Address)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Decanate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Diocese)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |

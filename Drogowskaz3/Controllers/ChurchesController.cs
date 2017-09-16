@@ -1,25 +1,26 @@
-﻿using System.Data.Entity;
+﻿using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Data.Entity;
 using System.Linq;
 using System.Net;
+using System.Web;
 using System.Web.Mvc;
-using WebApplication1.Helpers;
+using WebApplication1;
 
 namespace WebApplication1.Controllers
 {
-    [Authorize(Roles = SeedIdentity.ROLE_ADMINISTRATOR)]
     public class ChurchesController : Controller
     {
         private drogowskazEntities db = new drogowskazEntities();
 
         // GET: Churches
-        [AllowAnonymous]
         public ActionResult Index()
         {
             return View(db.Churches.ToList());
         }
 
         // GET: Churches/Details/5
-        [AllowAnonymous]
         public ActionResult Details(long? id)
         {
             if (id == null)
@@ -45,7 +46,7 @@ namespace WebApplication1.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Name,Address")] Church church)
+        public ActionResult Create([Bind(Include = "Id,Name,Address,Decanate,Diocese")] Church church)
         {
             if (ModelState.IsValid)
             {
@@ -77,7 +78,7 @@ namespace WebApplication1.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Name,Address")] Church church)
+        public ActionResult Edit([Bind(Include = "Id,Name,Address,Decanate,Diocese")] Church church)
         {
             if (ModelState.IsValid)
             {
