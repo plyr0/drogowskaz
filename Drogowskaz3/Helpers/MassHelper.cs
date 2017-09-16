@@ -5,11 +5,13 @@ namespace WebApplication1.Helpers
 {
     public class MassHelper
     {
-        public const string CYCLE_TYPE_ALL = "Każdy";
-        public const string CYCLE_TYPE_SINGULAR = "Pojedyncza";
+        public const string CYCLE_TYPE_NONE = "(brak)";
         public const string CYCLE_TYPE_MONTH = "Miesiące";
         public const string CYCLE_TYPE_CYCLE = "Okres liturgiczny";
         public const string CYCLE_TYPE_HOLIDAY = "Święto";
+        public const string CYCLE_TYPE_SUMMER_TIME = "Czas letni/zimowy";
+        public const string CYCLE_TYPE_SCHOOL_YEAR = "Rok szkolny";
+        public const string CYCLE_TYPE_SINGULAR = "Pojedyncza";
 
         public static void GenerateMasses(drogowskazEntities db, DateTime currentDate)
         {
@@ -22,64 +24,51 @@ namespace WebApplication1.Helpers
         private static void GenerateMassesFromOneRule(Rule r, drogowskazEntities db, DateTime currentDate)
         {
             DateTime dateAndTime = currentDate.AddMinutes(r.Hour.Value.TotalMinutes);
-            if (db.Masses.Where(m=>m.DateAndTime==dateAndTime
-            && m.ChurchId == r.ChurchId ).
-                FirstOrDefault()!=null )
+            if (db.Masses.Where(m => m.DateAndTime == dateAndTime && m.ChurchId == r.ChurchId).Any())
             {
                 return;
             }
-            DateTime? date = r.SingularMass;
+            DateTime? date = r.DateBegin;
             if (r.CycleType == CYCLE_TYPE_SINGULAR)
             {
                 if( date != null && currentDate == date)
                 {
-                    Mass msza = new Mass()
-                    {
-                        Church = r.Church,
-                        DateAndTime = ((DateTime)date).AddMinutes(r.Hour.Value.TotalMinutes),
-                        ChurchId = r.ChurchId,
-                        MassType = r.MassType,
-                        RuleId = r.Id,
-                        Rule = r
-                    };
-                    db.Masses.Add(msza);
-                    db.SaveChanges();
+                    AddMass(r, db, date);
                 }
             }
             else 
             {
-                int? shift = r.DateShift;
-                DateTime dateShift;
-                if (shift!=null)
-                {
-                     dateShift = currentDate.AddDays((int)shift);
-                }
-                else
-                {
-                    dateShift = currentDate;
-                }
+                int shift = r.DateShift ?? 0;
+                DateTime dateShift = currentDate.AddDays(shift);
 
-                string nazwaSwieta = CyclesUtilitiess.GenerujSwieto(dateShift);
-                if(nazwaSwieta!=null)
+                if (r.CycleType == CYCLE_TYPE_HOLIDAY)
                 {
-                    Mass msza = new Mass()
+                    string nazwaSwieta = CyclesUtilitiess.GenerujSwieto(dateShift);
+                    if (nazwaSwieta != null && r.Cycle.Name == nazwaSwieta)
                     {
-                        Church = r.Church,
-                        DateAndTime = currentDate,
-                        ChurchId = r.ChurchId,
-                        MassType = r.MassType,
-                        RuleId = r.Id,
-                        Rule = r
-                        
-                    };
-                    db.Masses.Add(msza);
-                    db.SaveChanges();
+                        AddMass(r, db, currentDate);
+                    }
                 }
-                if(r.CycleType == CYCLE_TYPE_MONTH)
+                else if(r.CycleType == CYCLE_TYPE_MONTH)
                 {
 
                 }
             }
+        }
+
+        private static void AddMass(Rule r, drogowskazEntities db, DateTime? date)
+        {
+            Mass msza = new Mass()
+            {
+                Church = r.Church,
+                DateAndTime = ((DateTime)date).AddMinutes(r.Hour.Value.TotalMinutes),
+                ChurchId = r.ChurchId,
+                MassType = r.MassType,
+                RuleId = r.Id,
+                Rule = r
+            };
+            db.Masses.Add(msza);
+            db.SaveChanges();
         }
     }
 }

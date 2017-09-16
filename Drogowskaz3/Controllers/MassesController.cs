@@ -57,7 +57,7 @@ namespace WebApplication1.Controllers
             {
                 MassHelper.GenerateMasses(db,DateTime.Today.AddDays(a));
             }
-            
+
             return RedirectToAction("Index");
         }
         

@@ -2,8 +2,8 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 09/13/2017 09:57:27
--- Generated from EDMX file: j:\Documents\Source\drogowskaz\Drogowskaz3\DatabaseModel.edmx
+-- Date Created: 09/16/2017 18:39:34
+-- Generated from EDMX file: C:\Users\plyr0\git\drogowskaz\Drogowskaz3\DatabaseModel.edmx
 -- --------------------------------------------------
 
 SET QUOTED_IDENTIFIER OFF;
@@ -95,7 +95,6 @@ CREATE TABLE [dbo].[Rules] (
     [Week5] bit  NOT NULL,
     [WeekLast] bit  NOT NULL,
     [CycleType] nvarchar(max)  NULL,
-    [SingularMass] datetime  NULL,
     [DateBegin] datetime  NULL,
     [DateEnd] datetime  NULL,
     [Hour] time  NULL,

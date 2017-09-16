@@ -72,7 +72,6 @@
     <Property Name="Week5" Type="bit" Nullable="false" DefaultValue="true" />
     <Property Name="WeekLast" Type="bit" Nullable="false" DefaultValue="true" />
     <Property Name="CycleType" Type="nvarchar(max)" Nullable="true" />
-    <Property Name="SingularMass" Type="datetime" Nullable="true" />
     <Property Name="DateBegin" Type="datetime" Nullable="true" />
     <Property Name="DateEnd" Type="datetime" Nullable="true" />
     <Property Name="Hour" Type="time" Nullable="true" />
@@ -244,7 +243,6 @@
           <Property Name="Week5" Type="Boolean" Nullable="false" DefaultValue="True" />
           <Property Name="WeekLast" Type="Boolean" Nullable="false" DefaultValue="True" />
           <Property Name="CycleType" Type="String" Nullable="true" MaxLength="Max" Unicode="true" FixedLength="false" />
-          <Property Name="SingularMass" Type="DateTime" Nullable="true" />
           <Property Name="DateBegin" Type="DateTime" Nullable="true" Precision="3" />
           <Property Name="DateEnd" Type="DateTime" Nullable="true" Precision="3" />
           <Property Name="Hour" Type="Time" Nullable="true" />
@@ -397,7 +395,6 @@
           <ScalarProperty Name="Week5" ColumnName="Week5" />
           <ScalarProperty Name="WeekLast" ColumnName="WeekLast" />
           <ScalarProperty Name="CycleType" ColumnName="CycleType" />
-          <ScalarProperty Name="SingularMass" ColumnName="SingularMass" />
           <ScalarProperty Name="DateBegin" ColumnName="DateBegin" />
           <ScalarProperty Name="DateEnd" ColumnName="DateEnd" />
           <ScalarProperty Name="Hour" ColumnName="Hour" />

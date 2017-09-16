@@ -74,7 +74,6 @@ namespace WebApplication1
         public bool Week5 { get; set; }
         public bool WeekLast { get; set; }
         public string CycleType { get; set; }
-        public Nullable<System.DateTime> SingularMass { get; set; }
         public Nullable<System.DateTime> DateBegin { get; set; }
         public Nullable<System.DateTime> DateEnd { get; set; }
         public Nullable<System.TimeSpan> Hour { get; set; }

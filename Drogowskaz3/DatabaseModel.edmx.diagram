@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="05a6f579e9fc4061843d0fd67c45d684" Name="Diagram1" ZoomLevel="128">
+      <Diagram DiagramId="05a6f579e9fc4061843d0fd67c45d684" Name="Diagram1" ZoomLevel="96">
         <EntityTypeShape EntityType="drogowskazModel.Church" Width="1.5" PointX="0.5" PointY="0.5" IsExpanded="true" />
         <EntityTypeShape EntityType="drogowskazModel.Rule" Width="2" PointX="2.625" PointY="0.5" />
         <EntityTypeShape EntityType="drogowskazModel.Mass" Width="1.5" PointX="5.25" PointY="0.5" />
