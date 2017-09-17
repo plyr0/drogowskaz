@@ -40,10 +40,14 @@ namespace WebApplication1.Controllers
             return View(rule);
         }
 
-        // GET: Rules/Create
-        public ActionResult Create()
+        // GET: Rules/Create/id?
+        public ActionResult Create(long? id)
         {
-            ViewBag.ChurchId = new SelectList(db.Churches, "Id", "Name");
+            if (id == null) {
+                ViewBag.ChurchId = new SelectList(db.Churches, "Id", "Name");
+            } else {
+                ViewBag.FixedChurchId = id;
+            }
             ViewBag.CycleId = new SelectList(db.Cycles, "Id", "Name");
             return View();
         }
