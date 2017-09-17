@@ -76,14 +76,12 @@ namespace WebApplication1.Helpers
 
         internal static string GenerujSwieto(DateTime dateShift)
         {
-            
             for (int i = 0; i < 26; i++)
             {
                 if(dateShift==functionsFest[i](dateShift.Year))
                 {
                     return names[i];
-                }
-                
+                }       
             }
             return null;
         }
@@ -95,7 +93,9 @@ namespace WebApplication1.Helpers
         }
 
         public delegate void CycleFunc<Y, S, E>(Y year, out S start, out E end);
-        public static CycleFunc<int, DateTime, DateTime> nilFunc = (int year, out DateTime start, out DateTime end)=>{ start = new DateTime(); end = new DateTime(); };
+        public static CycleFunc<int, DateTime, DateTime> nilFunc = (int year, out DateTime start, out DateTime end)=> {
+            throw new Exception("Jeszcze nie zaimplementowano!");
+        };
         public static CycleFunc<int, DateTime, DateTime>[] functionsCycles = {
             nilFunc, //Wakacje
             nilFunc, //Rok szkolny

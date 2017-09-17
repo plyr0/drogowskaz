@@ -10,7 +10,17 @@ namespace WebApplication1.Helpers
     {
         public void InitializeDatabase(drogowskazEntities context)
         {
-            foreach(string name in CyclesUtilitiess.names) {
+            Cycle cycle1 = context.Cycles.FirstOrDefault(c => c.Name == "(żaden)");
+            if (cycle1 == null) {
+                cycle1 = new Cycle()
+                {
+                    Name = "(żaden)"
+                };
+                context.Cycles.Add(cycle1);
+                context.SaveChanges();
+            }
+
+            foreach (string name in CyclesUtilitiess.names) {
                 Cycle cycle = context.Cycles.FirstOrDefault(c => c.Name == name);
                 if (cycle == null)
                 {

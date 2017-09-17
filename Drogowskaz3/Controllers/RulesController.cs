@@ -44,9 +44,11 @@ namespace WebApplication1.Controllers
         public ActionResult Create(long? id)
         {
             if (id == null) {
+                ViewBag.FixedChurch = false;
                 ViewBag.ChurchId = new SelectList(db.Churches, "Id", "Name");
             } else {
-                ViewBag.FixedChurchId = id;
+                ViewBag.FixedChurch = true;
+                ViewBag.ChurchId = new SelectList(db.Churches.Where(c => c.Id == id), "Id", "Name");
             }
             ViewBag.CycleId = new SelectList(db.Cycles, "Id", "Name");
             return View();
