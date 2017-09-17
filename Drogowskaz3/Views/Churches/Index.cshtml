@@ -1,27 +1,27 @@
 ﻿@model IEnumerable<WebApplication1.Church>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Lista kościołów";
 }
 
-<h2>Index</h2>
+<h2>Lista kościołów</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Utwórz nowy", "Create")
 </p>
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Name)
+            Wezwanie
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Address)
+            Adres
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Decanate)
+            Dekanat
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Diocese)
+            Diecezja
         </th>
         <th></th>
     </tr>
@@ -41,11 +41,11 @@
             @Html.DisplayFor(modelItem => item.Diocese)
         </td>
         <td>
-            @Html.ActionLink("Edytuj", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Właściwości", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Usuń", "Delete", new { id=item.Id }) |
             @Html.ActionLink("Reguły", "Index", "Rules", new { churchId = item.Id }, null) |
-            @Html.ActionLink("Dodaj regułę", "Create", "Rules", new { id = item.Id }, null)
+            @Html.ActionLink("Dodaj regułę", "Create", "Rules", new { id = item.Id }, null) |
+            @Html.ActionLink("Właściwości", "Details", new { id=item.Id }) |
+            @Html.ActionLink("Edytuj", "Edit", new { id=item.Id }) |
+            @Html.ActionLink("Usuń", "Delete", new { id=item.Id })
         </td>
     </tr>
 }
