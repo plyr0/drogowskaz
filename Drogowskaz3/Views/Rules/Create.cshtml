@@ -281,6 +281,8 @@
             </div>
         </div>
 
+
+
         <div class="form-group">
             @Html.LabelFor(model => model.DateBegin, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -292,7 +294,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.DateEnd, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.DateEnd, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.DateEnd, new { htmlAttributes = new { @class = "form-control datetimepicker" } })
                 @Html.ValidationMessageFor(model => model.DateEnd, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -300,10 +302,12 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Hour, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Hour, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.Hour, new { htmlAttributes = new { @class = "form-control timepicker" } })
                 @Html.ValidationMessageFor(model => model.Hour, "", new { @class = "text-danger" })
             </div>
         </div>
+
+
 
         <div class="form-group">
             @Html.LabelFor(model => model.DateShift, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -384,6 +388,12 @@
             locale: "PL",
             calendarWeeks: true,
             showTodayButton: true,
+            showClose: true,
+            showClear: true,
+        });
+        $('.timepicker').datetimepicker({
+            format: 'HH:mm',
+            locale: "PL",
             showClose: true,
             showClear: true,
         });
