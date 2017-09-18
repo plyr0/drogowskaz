@@ -50,7 +50,16 @@ namespace WebApplication1.Helpers
                 }
                 else if(r.CycleType == CYCLE_TYPE_MONTH)
                 {
-
+                    int msc = dateShift.Month;
+                    bool[] czyMisiac = { false, r.I, r.II, r.III, r.IV , r.V, r.VI, r.VII, r.VIII, r.IX, r.X,
+                                        r.XI, r.XII };
+                    for(int i=1; i<czyMisiac.Length;i++)
+                    {
+                        if(czyMisiac[i] && dateShift.Month == i )
+                        {
+                            AddMass(r, db, currentDate);
+                        }
+                    }
                 }
             }
         }
