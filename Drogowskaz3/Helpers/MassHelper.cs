@@ -63,6 +63,40 @@ namespace WebApplication1.Helpers
                                     r.Friday, r.Saturday };
                 if (false == czyTydzien[Convert.ToInt32(dateShift.DayOfWeek)])
                     return;
+                int weekOfMonth = dateShift.Day / 7 + 1;
+                switch(weekOfMonth)
+                {
+                    case 1:
+                        if (r.Week1 == false)
+                            return;
+                        break;
+                    case 2:
+                        if (r.Week2 == false)
+                            return;
+                        break;
+                    case 3:
+                        if (r.Week3 == false)
+                            return;
+                        break;
+                    case 4:
+                        if (r.Week4 == false)
+                            return;
+                        break;
+                    case 5:
+                        if (r.Week5 == false)
+                            return;
+                        break;
+
+                }
+                int dniWmiesiacu = DateTime.DaysInMonth(dateShift.Year, dateShift.Month);
+                int dzienMiesiaca = dateShift.Day;
+                if (dniWmiesiacu - dzienMiesiaca >= 7)
+                {
+                    if (r.WeekLast == true)
+                        return;
+                    
+                }
+                    
                 AddMass(r, db, currentDate);
             }
         }
