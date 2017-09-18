@@ -15,79 +15,89 @@
         <h4>Rule</h4>
         <hr />
 
-        <div class="panel panel-primary"><div class="panel-body">
-            <div class="form-group">
-                @Html.LabelFor(model => model.ChurchId, "Kościół", htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-sm-4">
-                    @if (ViewBag.FixedChurch)
-                    {
-                        @Html.DropDownList("ChurchId", null, htmlAttributes: new { @class = "form-control", @disabled = "disabled" })
-                    }
-                    else
-                    {
-                        @Html.DropDownList("ChurchId", null, htmlAttributes: new { @class = "form-control" })
-                    }
-                    @Html.ValidationMessageFor(model => model.ChurchId, "", new { @class = "text-danger" })
+        <div class="panel panel-primary">
+            <div class="panel-body">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.ChurchId, "Kościół", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-sm-4">
+                        @if (ViewBag.FixedChurch)
+                        {
+                            @Html.DropDownList("ChurchId", null, htmlAttributes: new { @class = "form-control", @disabled = "disabled" })
+                        }
+                        else
+                        {
+                            @Html.DropDownList("ChurchId", null, htmlAttributes: new { @class = "form-control" })
+                        }
+                        @Html.ValidationMessageFor(model => model.ChurchId, "", new { @class = "text-danger" })
+                    </div>
                 </div>
-            </div>
-            <div class="form-group">
-                @Html.LabelFor(model => model.DateBegin, "Data początkowa", htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-sm-4">
-                    @{ Html.EnableClientValidation(false); }
-                    @Html.EditorFor(model => model.DateBegin, new { htmlAttributes = new { @class = "form-control datetimepicker", @type = "datetime" } })
-                    @{ Html.EnableClientValidation(true); }
-                    @Html.ValidationMessageFor(model => model.DateBegin, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    @Html.LabelFor(model => model.DateBegin, "Data początkowa", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-sm-4">
+                        @{ Html.EnableClientValidation(false); }
+                        @Html.EditorFor(model => model.DateBegin, new { htmlAttributes = new { @class = "form-control datetimepicker", @type = "datetime" } })
+                        @{ Html.EnableClientValidation(true); }
+                        @Html.ValidationMessageFor(model => model.DateBegin, "", new { @class = "text-danger" })
+                    </div>
                 </div>
-            </div>
-            <div class="form-group">
-                @Html.LabelFor(model => model.DateEnd, "Data końcowa", htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-sm-4">
-                    @{ Html.EnableClientValidation(false); }
-                    @Html.EditorFor(model => model.DateEnd, new { htmlAttributes = new { @class = "form-control datetimepicker", @type = "datetime" } })
-                    @{ Html.EnableClientValidation(true); }
-                    @Html.ValidationMessageFor(model => model.DateEnd, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    @Html.LabelFor(model => model.DateEnd, "Data końcowa", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-sm-4">
+                        @{ Html.EnableClientValidation(false); }
+                        @Html.EditorFor(model => model.DateEnd, new { htmlAttributes = new { @class = "form-control datetimepicker", @type = "datetime" } })
+                        @{ Html.EnableClientValidation(true); }
+                        @Html.ValidationMessageFor(model => model.DateEnd, "", new { @class = "text-danger" })
+                    </div>
                 </div>
-            </div>
-            <div class="form-group">
-                @Html.LabelFor(model => model.Hour, "Godzina", htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-sm-4">
-                    @Html.EditorFor(model => model.Hour, new { htmlAttributes = new { @class = "form-control timepicker", @type = "time" } })
-                    @Html.ValidationMessageFor(model => model.Hour, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Hour, "Godzina", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-sm-4">
+                        @Html.EditorFor(model => model.Hour, new { htmlAttributes = new { @class = "form-control timepicker", @type = "time" } })
+                        @Html.ValidationMessageFor(model => model.Hour, "", new { @class = "text-danger" })
+                    </div>
                 </div>
-            </div>
-            <div class="form-group">
-                @Html.LabelFor(model => model.DateShift, "Przesunięcie", htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-sm-4">
-                    @Html.EditorFor(model => model.DateShift, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.DateShift, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    @Html.LabelFor(model => model.DateShift, "Przesunięcie", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-sm-4">
+                        @Html.EditorFor(model => model.DateShift, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.DateShift, "", new { @class = "text-danger" })
+                    </div>
                 </div>
-            </div>
-            <div class="form-group">
-                @Html.LabelFor(model => model.CycleType, "(RODZAJ CYKLU)", htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-sm-4">
-                    <!--@Html.EditorFor(model => model.CycleType, new { htmlAttributes = new { @class = "form-control" } })-->
-                    @Html.DropDownList("CycleType", new SelectList(ViewBag.CycleType), htmlAttributes: new { @class = "form-control" })
-                    @Html.ValidationMessageFor(model => model.CycleType, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    @Html.LabelFor(model => model.CycleType, "Rodzaj reguły", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-sm-4">
+                        <!--@Html.EditorFor(model => model.CycleType, new { htmlAttributes = new { @class = "form-control" } })-->
+                        @Html.DropDownList("CycleType", new SelectList(ViewBag.CycleType), htmlAttributes: new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.CycleType, "", new { @class = "text-danger" })
+                    </div>
                 </div>
-            </div>
-        </div></div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.CycleId, "Okres", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("CycleId", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.CycleId, "", new { @class = "text-danger" })
             </div>
         </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.HolidayId, "Święto", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("HolidayId", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.HolidayId, "", new { @class = "text-danger" })
+        <div class="panel panel-primary" id="panelCycle" hidden>
+            <div class="panel-heading">
+                <h3 class="panel-title">Okres/Cykl liturgiczny</h3>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.CycleId, "Okres", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownList("CycleId", null, htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.CycleId, "", new { @class = "text-danger" })
+                </div>
+            </div>
+         </div>
+        <div class="panel panel-primary" id="panelHoliday" hidden>
+            <div class="panel-heading">
+                <h3 class="panel-title">Święto</h3>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.HolidayId, "Święto", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownList("HolidayId", null, htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.HolidayId, "", new { @class = "text-danger" })
+                </div>
             </div>
         </div>
-
         <div class="panel panel-primary" id="panelWeekDay">
             <div class="panel-heading">
                 <h3 class="panel-title">Dzień tygodnia</h3>
@@ -453,6 +463,40 @@
                 $('#panelWeeks input:checkbox').prop('checked', true);
             } else {
                 $('#panelWeeks input:checkbox').prop('checked', false);
+            }
+        })
+
+        $('#CycleType').change(function () {
+            //console.log($( "#CycleType option:selected" ).text());
+            switch ($("#CycleType option:selected").text()) {
+                case "Miesiące":
+                    $('#panelCycle').hide();
+                    $("#panelHoliday").hide();
+                    $('#panelWeekDay').show();
+                    $('#panelMonths').show();
+                    $('#panelWeeks').show();
+                    break;
+                case "Okres liturgiczny":
+                    $('#panelCycle').show();
+                    $("#panelHoliday").hide();
+                    $('#panelWeekDay').show();
+                    $('#panelMonths').hide();
+                    $('#panelWeeks').show();
+                    break;
+                case "Święto":
+                    $('#panelCycle').hide();
+                    $("#panelHoliday").show();
+                    $('#panelWeekDay').hide();
+                    $('#panelMonths').hide();
+                    $('#panelWeeks').hide();
+                    break;
+                case "Pojedyncza":
+                    $('#panelCycle').hide();
+                    $("#panelHoliday").hide();
+                    $('#panelWeekDay').hide();
+                    $('#panelMonths').hide();
+                    $('#panelWeeks').hide();
+                    break;
             }
         })
     </script>

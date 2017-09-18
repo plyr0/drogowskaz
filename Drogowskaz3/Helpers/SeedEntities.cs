@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity;
+﻿using System.Data.Entity;
 using System.Linq;
-using System.Web;
 
 namespace WebApplication1.Helpers
 {
@@ -10,16 +7,6 @@ namespace WebApplication1.Helpers
     {
         public void InitializeDatabase(drogowskazEntities context)
         {
-            Cycle cycle1 = context.Cycles.FirstOrDefault(c => c.Name == "(żaden)");
-            if (cycle1 == null) {
-                cycle1 = new Cycle()
-                {
-                    Name = "(żaden)"
-                };
-                context.Cycles.Add(cycle1);
-                context.SaveChanges();
-            }
-
             foreach (string name in CyclesUtilitiess.cyclesNames) {
                 Cycle cycle = context.Cycles.FirstOrDefault(c => c.Name == name);
                 if (cycle == null)
@@ -31,19 +18,6 @@ namespace WebApplication1.Helpers
                     context.Cycles.Add(cycle);
                     context.SaveChanges();
                 }
-            }
-
-            //***************
-
-            Holiday holiday1 = context.Holidays.FirstOrDefault(c => c.Name == "(żadne)");
-            if (holiday1 == null)
-            {
-                holiday1 = new Holiday()
-                {
-                    Name = "(żadne)"
-                };
-                context.Holidays.Add(holiday1);
-                context.SaveChanges();
             }
 
             foreach (string name in CyclesUtilitiess.holidayNames)
