@@ -33,6 +33,7 @@ namespace WebApplication1.Helpers
                 if( date != null && currentDate == date)
                 {
                     AddMass(r, db, date);
+                    return;
                 }
             }
             else 
@@ -46,21 +47,23 @@ namespace WebApplication1.Helpers
                     if (nazwaSwieta != null && r.Cycle.Name == nazwaSwieta)
                     {
                         AddMass(r, db, currentDate);
+                        return;
                     }
                 }
                 else if(r.CycleType == CYCLE_TYPE_MONTH)
                 {
                     int msc = dateShift.Month;
-                    bool[] czyMisiac = { false, r.I, r.II, r.III, r.IV , r.V, r.VI, r.VII, r.VIII, r.IX, r.X,
+                    bool[] czyMiesiac = { false, r.I, r.II, r.III, r.IV , r.V, r.VI, r.VII, r.VIII, r.IX, r.X,
                                         r.XI, r.XII };
-                    for(int i=1; i<czyMisiac.Length;i++)
-                    {
-                        if(czyMisiac[i] && dateShift.Month == i )
-                        {
-                            AddMass(r, db, currentDate);
-                        }
-                    }
+                    if (false == czyMiesiac[msc])
+                        return;
+
                 }
+                bool[] czyTydzien = { r.Sunday, r.Monday, r.Tuesday, r.Wednesday, r.Thursday,
+                                    r.Friday, r.Saturday };
+                if (false == czyTydzien[Convert.ToInt32(dateShift.DayOfWeek)])
+                    return;
+                AddMass(r, db, currentDate);
             }
         }
 
