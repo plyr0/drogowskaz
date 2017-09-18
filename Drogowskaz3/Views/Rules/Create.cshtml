@@ -88,11 +88,19 @@
             </div>
         </div>
 
-        <div class="panel panel-primary">
+        <div class="panel panel-primary" id="panelWeekDay">
             <div class="panel-heading">
                 <h3 class="panel-title">Dzień tygodnia</h3>
             </div>
             <div class="panel-body">
+                <div class="form-group">
+                    <label class="control-label col-md-2" for="weekDaysAll">Zaznacz wszystkie</label>
+                    <div class="col-sm-4">
+                        <div class="checkbox">
+                            <input class="check-box" id="weekDaysAll" name="weekDaysAll" type="checkbox" value="true">
+                        </div>
+                    </div>
+                </div>
                 <div class="form-group">
                     @Html.LabelFor(model => model.Monday, "Poniedziałek", htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-sm-4">
@@ -159,11 +167,19 @@
             </div>
         </div>
 
-        <div class="panel panel-primary">
+        <div class="panel panel-primary" id="panelMonths">
             <div class="panel-heading">
                 <h3 class="panel-title">Miesiąc</h3>
             </div>
             <div class="panel-body">
+                <div class="form-group">
+                    <label class="control-label col-md-2" for="monthsAll">Zaznacz wszystkie</label>
+                    <div class="col-sm-4">
+                        <div class="checkbox">
+                            <input class="check-box" id="monthsAll" name="monthsAll" type="checkbox" value="true">
+                        </div>
+                    </div>
+                </div>
                 <div class="form-group">
                     @Html.LabelFor(model => model.I, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
@@ -275,9 +291,17 @@
             </div>
         </div>
 
-        <div class="panel panel-primary">
+        <div class="panel panel-primary" id="panelWeeks">
             <div class="panel-heading">
                 <h3 class="panel-title">Tydzień miesiąca</h3>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-md-2" for="weeksAll">Zaznacz wszystkie</label>
+                <div class="col-sm-4">
+                    <div class="checkbox">
+                        <input class="check-box" id="weeksAll" name="weeksAll" type="checkbox" value="true">
+                    </div>
+                </div>
             </div>
             <div class="form-group">
                 @Html.LabelFor(model => model.Week1, "1 tydzień", htmlAttributes: new { @class = "control-label col-md-2" })
@@ -410,5 +434,26 @@
             showClose: true,
             showClear: true,
         });
+        $('#weekDaysAll').click(function () {
+            if ($('#weekDaysAll').prop('checked')) {
+                $('#panelWeekDay input:checkbox').prop('checked', true);
+            } else {
+                $('#panelWeekDay input:checkbox').prop('checked', false);
+            }
+        })
+        $('#monthsAll').click(function () {
+            if ($('#monthsAll').prop('checked')) {
+                $('#panelMonths input:checkbox').prop('checked', true);
+            } else {
+                $('#panelMonths input:checkbox').prop('checked', false);
+            }
+        })
+        $('#weeksAll').click(function () {
+            if ($('#weeksAll').prop('checked')) {
+                $('#panelWeeks input:checkbox').prop('checked', true);
+            } else {
+                $('#panelWeeks input:checkbox').prop('checked', false);
+            }
+        })
     </script>
 }
