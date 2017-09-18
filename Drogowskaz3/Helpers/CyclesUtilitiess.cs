@@ -6,7 +6,7 @@ namespace WebApplication1.Helpers
 {
     public static class CyclesUtilitiess
     {
-        public static string[] names = {
+        public static string[] holidayNames = {
             "Świętej Bożej Rodzicielki", //0
             "Objawienie Pańskie",
             "Ofiarowanie Pańskie",
@@ -33,16 +33,19 @@ namespace WebApplication1.Helpers
             "Boże Narodzenie",
             "Św. Szczepana",
             "Sylwester", //25
-            "Wakacje",  //0(26)
+        };
+
+        public static string[] cyclesNames = {
+            "Wakacje",  //0
             "Rok Szkolny",
             "Okres Zwykły",
             "Adwent",
             "Okres Bożonarodzeniowy",
-            "Wielki Post", //5(31)
+            "Wielki Post", //5
             "Triduum Paschalne",
             "Okres Zmartwychwstania Pańskiego",
             "Czas letni",
-            "Czas zimowy" //9(35)
+            "Czas zimowy" //9
         };
 
         public static Func<int, DateTime>[] functionsFest = {
@@ -78,18 +81,12 @@ namespace WebApplication1.Helpers
         {
             for (int i = 0; i < 26; i++)
             {
-                if(dateShift==functionsFest[i](dateShift.Year))
+                if(functionsFest[i](dateShift.Year) == dateShift)
                 {
-                    return names[i];
+                    return holidayNames[i];
                 }       
             }
             return null;
-        }
-
-        public static void FestToCycle(DateTime date, out DateTime start, out DateTime end)
-        {
-            start = date;
-            end = date.AddHours(24);
         }
 
         public delegate void CycleFunc<Y, S, E>(Y year, out S start, out E end);
@@ -115,7 +112,7 @@ namespace WebApplication1.Helpers
             StringBuilder sb = new StringBuilder();
             for(int i=0; i<26; i++)
             {
-                sb.Append(names[i]).Append(" : ").Append(functionsFest[i](year).ToString("d")).Append(sep);
+                sb.Append(holidayNames[i]).Append(" : ").Append(functionsFest[i](year).ToString("d")).Append(sep);
             }
             return sb.ToString();
         }
@@ -124,15 +121,15 @@ namespace WebApplication1.Helpers
         {
             string sep = "</br>";
             StringBuilder sb = new StringBuilder();
-            for (int i = 26; i < 36; i++)
+            for (int i = 0; i < 10; i++)
             {
-                CycleFunc<int, DateTime, DateTime> cf = functionsCycles[i - 26];
+                CycleFunc<int, DateTime, DateTime> cf = functionsCycles[i];
                 if (cf != nilFunc)
                 {
                     DateTime start;
                     DateTime end;
                     cf(year, out start, out end);
-                    sb.Append(names[i]).Append(" : ").Append(start.ToString("d")).Append(" - ")
+                    sb.Append(cyclesNames[i]).Append(" : ").Append(start.ToString("d")).Append(" - ")
                         .Append(end.ToString("d")).Append(sep);
                 }
             }

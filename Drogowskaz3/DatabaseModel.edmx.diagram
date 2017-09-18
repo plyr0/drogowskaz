@@ -15,6 +15,8 @@
         <AssociationConnector Association="drogowskazModel.RuleCycle" />
         <AssociationConnector Association="drogowskazModel.ExceptionsRulesRule" />
         <AssociationConnector Association="drogowskazModel.MassChurch" />
+        <EntityTypeShape EntityType="drogowskazModel.Holiday" Width="1.5" PointX="7.5" PointY="4.125" />
+        <AssociationConnector Association="drogowskazModel.HolidayRule" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

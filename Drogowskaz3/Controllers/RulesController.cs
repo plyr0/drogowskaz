@@ -22,9 +22,10 @@ namespace WebApplication1.Controllers
         {
             IQueryable<Rule> rules;
             if(churchId == null) {
-                rules = db.Rules.Include(r => r.Church).Include(r => r.Cycle);
+                rules = db.Rules.Include(r => r.Church).Include(r => r.Cycle).Include(r => r.Holiday);
             } else {
-                rules = db.Rules.Where(r => r.ChurchId == churchId).Include(r => r.Church).Include(r => r.Cycle);
+                rules = db.Rules.Where(r => r.ChurchId == churchId).Include(r => r.Church).Include(r => r.Cycle)
+                    .Include(r => r.Holiday);
             }
             return View(rules.ToList());
         }
@@ -56,11 +57,12 @@ namespace WebApplication1.Controllers
                 ViewBag.ChurchId = new SelectList(db.Churches.Where(c => c.Id == id), "Id", "Name");
             }
             ViewBag.CycleType = new List<String>(){
-                MassHelper.CYCLE_TYPE_MONTH, MassHelper.CYCLE_TYPE_CYCLE, MassHelper.CYCLE_TYPE_HOLIDAY, MassHelper.CYCLE_TYPE_SUMMER_TIME, MassHelper.CYCLE_TYPE_SCHOOL_YEAR, MassHelper.CYCLE_TYPE_SINGULAR
+                MassHelper.CYCLE_TYPE_MONTH, MassHelper.CYCLE_TYPE_CYCLE, MassHelper.CYCLE_TYPE_HOLIDAY,
+                MassHelper.CYCLE_TYPE_SUMMER_TIME, MassHelper.CYCLE_TYPE_SCHOOL_YEAR, MassHelper.CYCLE_TYPE_SINGULAR
             };
-            
 
-        ViewBag.CycleId = new SelectList(db.Cycles, "Id", "Name");
+            ViewBag.HolidayId = new SelectList(db.Holidays, "Id", "Name");
+            ViewBag.CycleId = new SelectList(db.Cycles, "Id", "Name");
             return View();
         }
 
@@ -69,7 +71,7 @@ namespace WebApplication1.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,MassType,Monday,Tuesday,Wednesday,Thursday,Friday,Saturday,Sunday,I,II,III,IV,V,VI,VII,VIII,IX,X,XI,XII,Week1,Week2,Week3,Week4,Week5,WeekLast,CycleType,DateBegin,DateEnd,Hour,DateShift,RepeatDateFirst,RepeatEveryDays,RepeatEveryDayInMonth,RepeatType,ChurchId,CycleId")] Rule rule)
+        public ActionResult Create([Bind(Include = "Id,MassType,Monday,Tuesday,Wednesday,Thursday,Friday,Saturday,Sunday,I,II,III,IV,V,VI,VII,VIII,IX,X,XI,XII,Week1,Week2,Week3,Week4,Week5,WeekLast,CycleType,DateBegin,DateEnd,Hour,DateShift,RepeatDateFirst,RepeatEveryDays,RepeatEveryDayInMonth,RepeatType,ChurchId,CycleId,HolidayId")] Rule rule)
         {
             if (ModelState.IsValid)
             {
@@ -80,6 +82,7 @@ namespace WebApplication1.Controllers
 
             ViewBag.ChurchId = new SelectList(db.Churches, "Id", "Name", rule.ChurchId);
             ViewBag.CycleId = new SelectList(db.Cycles, "Id", "Name", rule.CycleId);
+            ViewBag.HolidayId = new SelectList(db.Holidays, "Id", "Name", rule.HolidayId);
             return View(rule);
         }
 
@@ -97,6 +100,7 @@ namespace WebApplication1.Controllers
             }
             ViewBag.ChurchId = new SelectList(db.Churches, "Id", "Name", rule.ChurchId);
             ViewBag.CycleId = new SelectList(db.Cycles, "Id", "Name", rule.CycleId);
+            ViewBag.HolidayId = new SelectList(db.Holidays, "Id", "Name", rule.HolidayId);
             return View(rule);
         }
 
@@ -105,7 +109,7 @@ namespace WebApplication1.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,MassType,Monday,Tuesday,Wednesday,Thursday,Friday,Saturday,Sunday,I,II,III,IV,V,VI,VII,VIII,IX,X,XI,XII,Week1,Week2,Week3,Week4,Week5,WeekLast,CycleType,DateBegin,DateEnd,Hour,DateShift,RepeatDateFirst,RepeatEveryDays,RepeatEveryDayInMonth,RepeatType,ChurchId,CycleId")] Rule rule)
+        public ActionResult Edit([Bind(Include = "Id,MassType,Monday,Tuesday,Wednesday,Thursday,Friday,Saturday,Sunday,I,II,III,IV,V,VI,VII,VIII,IX,X,XI,XII,Week1,Week2,Week3,Week4,Week5,WeekLast,CycleType,DateBegin,DateEnd,Hour,DateShift,RepeatDateFirst,RepeatEveryDays,RepeatEveryDayInMonth,RepeatType,ChurchId,CycleId,HolidayId")] Rule rule)
         {
             if (ModelState.IsValid)
             {
@@ -115,6 +119,7 @@ namespace WebApplication1.Controllers
             }
             ViewBag.ChurchId = new SelectList(db.Churches, "Id", "Name", rule.ChurchId);
             ViewBag.CycleId = new SelectList(db.Cycles, "Id", "Name", rule.CycleId);
+            ViewBag.HolidayId = new SelectList(db.Holidays, "Id", "Name", rule.HolidayId);
             return View(rule);
         }
 

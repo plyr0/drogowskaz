@@ -30,5 +30,6 @@ namespace WebApplication1
         public virtual DbSet<Mass> Masses { get; set; }
         public virtual DbSet<Cycle> Cycles { get; set; }
         public virtual DbSet<ExceptionsRules> ExceptionsRules { get; set; }
+        public virtual DbSet<Holiday> Holidays { get; set; }
     }
 }

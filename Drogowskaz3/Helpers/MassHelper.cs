@@ -22,7 +22,7 @@ namespace WebApplication1.Helpers
 
         private static void GenerateMassesFromOneRule(Rule r, drogowskazEntities db, DateTime currentDate)
         {
-            DateTime dateAndTime = currentDate.AddMinutes(r.Hour.Value.TotalMinutes);
+            DateTime dateAndTime = currentDate.AddMinutes(r.Hour.TotalMinutes);
             if (db.Masses.Where(m => m.DateAndTime == dateAndTime && m.ChurchId == r.ChurchId).Any())
             {
                 return;
@@ -44,7 +44,7 @@ namespace WebApplication1.Helpers
                 if (r.CycleType == CYCLE_TYPE_HOLIDAY)
                 {
                     string nazwaSwieta = CyclesUtilitiess.GenerujSwieto(dateShift);
-                    if (nazwaSwieta != null && r.Cycle.Name == nazwaSwieta)
+                    if (nazwaSwieta != null && r.Holiday.Name == nazwaSwieta)
                     {
                         AddMass(r, db, currentDate);
                         return;
@@ -63,6 +63,15 @@ namespace WebApplication1.Helpers
                                     r.Friday, r.Saturday };
                 if (false == czyTydzien[Convert.ToInt32(dateShift.DayOfWeek)])
                     return;
+
+                int dniWmiesiacu = DateTime.DaysInMonth(dateShift.Year, dateShift.Month);
+                int dzienMiesiaca = dateShift.Day;
+                if (dniWmiesiacu - dzienMiesiaca < 7 && r.WeekLast == true)
+                {
+                    AddMass(r, db, currentDate);
+                    return;
+                }
+
                 int weekOfMonth = dateShift.Day / 7 + 1;
                 switch(weekOfMonth)
                 {
@@ -88,15 +97,6 @@ namespace WebApplication1.Helpers
                         break;
 
                 }
-                int dniWmiesiacu = DateTime.DaysInMonth(dateShift.Year, dateShift.Month);
-                int dzienMiesiaca = dateShift.Day;
-                if (dniWmiesiacu - dzienMiesiaca >= 7)
-                {
-                    if (r.WeekLast == true)
-                        return;
-                    
-                }
-                    
                 AddMass(r, db, currentDate);
             }
         }
@@ -106,7 +106,7 @@ namespace WebApplication1.Helpers
             Mass msza = new Mass()
             {
                 Church = r.Church,
-                DateAndTime = ((DateTime)date).AddMinutes(r.Hour.Value.TotalMinutes),
+                DateAndTime = ((DateTime)date).AddMinutes(r.Hour.TotalMinutes),
                 ChurchId = r.ChurchId,
                 MassType = r.MassType,
                 RuleId = r.Id,

@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 09/16/2017 19:45:19
+-- Date Created: 09/18/2017 20:07:26
 -- Generated from EDMX file: C:\Users\plyr0\git\drogowskaz\Drogowskaz3\DatabaseModel.edmx
 -- --------------------------------------------------
 
@@ -32,6 +32,9 @@ GO
 IF OBJECT_ID(N'[dbo].[FK_MassChurch]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[Masses] DROP CONSTRAINT [FK_MassChurch];
 GO
+IF OBJECT_ID(N'[dbo].[FK_HolidayRule]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Rules] DROP CONSTRAINT [FK_HolidayRule];
+GO
 
 -- --------------------------------------------------
 -- Dropping existing tables
@@ -51,6 +54,9 @@ IF OBJECT_ID(N'[dbo].[Cycles]', 'U') IS NOT NULL
 GO
 IF OBJECT_ID(N'[dbo].[ExceptionsRules]', 'U') IS NOT NULL
     DROP TABLE [dbo].[ExceptionsRules];
+GO
+IF OBJECT_ID(N'[dbo].[Holidays]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Holidays];
 GO
 
 -- --------------------------------------------------
@@ -99,14 +105,15 @@ CREATE TABLE [dbo].[Rules] (
     [CycleType] nvarchar(max)  NULL,
     [DateBegin] datetime  NULL,
     [DateEnd] datetime  NULL,
-    [Hour] time  NULL,
+    [Hour] time  NOT NULL,
     [DateShift] int  NULL,
     [RepeatDateFirst] datetime  NULL,
     [RepeatEveryDays] int  NULL,
     [RepeatEveryDayInMonth] int  NULL,
     [RepeatType] nvarchar(max)  NULL,
     [ChurchId] bigint  NOT NULL,
-    [CycleId] bigint  NOT NULL
+    [CycleId] bigint  NOT NULL,
+    [HolidayId] bigint  NOT NULL
 );
 GO
 
@@ -134,6 +141,14 @@ CREATE TABLE [dbo].[ExceptionsRules] (
     [Id] bigint IDENTITY(1,1) NOT NULL,
     [Date] datetime  NOT NULL,
     [RuleId] bigint  NOT NULL
+);
+GO
+
+-- Creating table 'Holidays'
+CREATE TABLE [dbo].[Holidays] (
+    [Id] bigint IDENTITY(1,1) NOT NULL,
+    [Name] nvarchar(max)  NOT NULL,
+    [Date] nvarchar(max)  NULL
 );
 GO
 
@@ -168,6 +183,12 @@ GO
 -- Creating primary key on [Id] in table 'ExceptionsRules'
 ALTER TABLE [dbo].[ExceptionsRules]
 ADD CONSTRAINT [PK_ExceptionsRules]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
+-- Creating primary key on [Id] in table 'Holidays'
+ALTER TABLE [dbo].[Holidays]
+ADD CONSTRAINT [PK_Holidays]
     PRIMARY KEY CLUSTERED ([Id] ASC);
 GO
 
@@ -248,6 +269,21 @@ GO
 CREATE INDEX [IX_FK_MassChurch]
 ON [dbo].[Masses]
     ([ChurchId]);
+GO
+
+-- Creating foreign key on [HolidayId] in table 'Rules'
+ALTER TABLE [dbo].[Rules]
+ADD CONSTRAINT [FK_HolidayRule]
+    FOREIGN KEY ([HolidayId])
+    REFERENCES [dbo].[Holidays]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_HolidayRule'
+CREATE INDEX [IX_FK_HolidayRule]
+ON [dbo].[Rules]
+    ([HolidayId]);
 GO
 
 -- --------------------------------------------------

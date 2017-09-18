@@ -76,7 +76,7 @@ namespace WebApplication1
         public string CycleType { get; set; }
         public Nullable<System.DateTime> DateBegin { get; set; }
         public Nullable<System.DateTime> DateEnd { get; set; }
-        public Nullable<System.TimeSpan> Hour { get; set; }
+        public System.TimeSpan Hour { get; set; }
         public Nullable<int> DateShift { get; set; }
         public Nullable<System.DateTime> RepeatDateFirst { get; set; }
         public Nullable<int> RepeatEveryDays { get; set; }
@@ -84,6 +84,7 @@ namespace WebApplication1
         public string RepeatType { get; set; }
         public long ChurchId { get; set; }
         public long CycleId { get; set; }
+        public long HolidayId { get; set; }
     
         public virtual Church Church { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -91,5 +92,6 @@ namespace WebApplication1
         public virtual Cycle Cycle { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ExceptionsRules> ExceptionsRules { get; set; }
+        public virtual Holiday Holiday { get; set; }
     }
 }

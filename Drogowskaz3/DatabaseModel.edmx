@@ -11,6 +11,7 @@
     <EntitySet Name="Masses" EntityType="drogowskazModel.Store.Masses" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Cycles" EntityType="drogowskazModel.Store.Cycles" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="ExceptionsRules" EntityType="drogowskazModel.Store.ExceptionsRules" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Holidays" EntityType="drogowskazModel.Store.Holidays" store:Type="Tables" Schema="dbo" />
     <AssociationSet Name="RuleChurch" Association="drogowskazModel.Store.RuleChurch">
       <End Role="Rule" EntitySet="Rules" />
       <End Role="Church" EntitySet="Churches" />
@@ -30,6 +31,10 @@
     <AssociationSet Name="MassChurch" Association="drogowskazModel.Store.MassChurch">
       <End Role="Mass" EntitySet="Masses" />
       <End Role="Church" EntitySet="Churches" />
+    </AssociationSet>
+    <AssociationSet Name="HolidayRule" Association="drogowskazModel.Store.HolidayRule">
+      <End Role="Holiday" EntitySet="Holidays" />
+      <End Role="Rule" EntitySet="Rules" />
     </AssociationSet>
   </EntityContainer>
   <EntityType Name="Churches">
@@ -76,7 +81,7 @@
     <Property Name="CycleType" Type="nvarchar(max)" Nullable="true" />
     <Property Name="DateBegin" Type="datetime" Nullable="true" />
     <Property Name="DateEnd" Type="datetime" Nullable="true" />
-    <Property Name="Hour" Type="time" Nullable="true" />
+    <Property Name="Hour" Type="time" Nullable="false" />
     <Property Name="DateShift" Type="int" Nullable="true" />
     <Property Name="RepeatDateFirst" Type="datetime" Nullable="true" />
     <Property Name="RepeatEveryDays" Type="int" Nullable="true" />
@@ -84,6 +89,7 @@
     <Property Name="RepeatType" Type="nvarchar(max)" Nullable="true" />
     <Property Name="ChurchId" Type="bigint" Nullable="false" />
     <Property Name="CycleId" Type="bigint" Nullable="false" />
+    <Property Name="HolidayId" Type="bigint" Nullable="false" />
   </EntityType>
   <EntityType Name="Masses">
     <Key>
@@ -111,6 +117,14 @@
     <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Date" Type="datetime" Nullable="false" />
     <Property Name="RuleId" Type="bigint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Holidays">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Date" Type="nvarchar(max)" Nullable="true" />
   </EntityType>
   <Association Name="RuleChurch">
     <End Role="Rule" Type="drogowskazModel.Store.Rules" Multiplicity="*" />
@@ -172,6 +186,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="HolidayRule">
+    <End Role="Holiday" Type="drogowskazModel.Store.Holidays" Multiplicity="1" />
+    <End Role="Rule" Type="drogowskazModel.Store.Rules" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Holiday">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Rule">
+        <PropertyRef Name="HolidayId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
 </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
@@ -214,6 +240,11 @@
             <End Role="Mass" EntitySet="Masses" />
             <End Role="Church" EntitySet="Churches" />
           </AssociationSet>
+          <EntitySet Name="Holidays" EntityType="drogowskazModel.Holiday" />
+          <AssociationSet Name="HolidayRule" Association="drogowskazModel.HolidayRule">
+            <End Role="Holiday" EntitySet="Holidays" />
+            <End Role="Rule" EntitySet="Rules" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Rule">
           <Key>
@@ -249,7 +280,7 @@
           <Property Name="CycleType" Type="String" Nullable="true" MaxLength="Max" Unicode="true" FixedLength="false" />
           <Property Name="DateBegin" Type="DateTime" Nullable="true" Precision="3" />
           <Property Name="DateEnd" Type="DateTime" Nullable="true" Precision="3" />
-          <Property Name="Hour" Type="Time" Nullable="true" />
+          <Property Name="Hour" Type="Time" Nullable="false" />
           <Property Name="DateShift" Type="Int32" Nullable="true" />
           <Property Name="RepeatDateFirst" Type="DateTime" Nullable="true" />
           <Property Name="RepeatEveryDays" Type="Int32" Nullable="true" />
@@ -261,6 +292,8 @@
           <NavigationProperty Name="Cycle" Relationship="drogowskazModel.RuleCycle" FromRole="Rule" ToRole="Cycle" />
           <Property Name="CycleId" Type="Int64" Nullable="false" />
           <NavigationProperty Name="ExceptionsRules" Relationship="drogowskazModel.ExceptionsRulesRule" FromRole="Rule" ToRole="ExceptionsRules" />
+          <NavigationProperty Name="Holiday" Relationship="drogowskazModel.HolidayRule" FromRole="Rule" ToRole="Holiday" />
+          <Property Name="HolidayId" Type="Int64" Nullable="false" />
         </EntityType>
         <EntityType Name="Mass">
           <Key>
@@ -353,6 +386,27 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Holiday">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Rules" Relationship="drogowskazModel.HolidayRule" FromRole="Holiday" ToRole="Rule" />
+          <Property Name="Name" Type="String" Nullable="false" />
+          <Property Name="Date" Type="String" Nullable="true" />
+        </EntityType>
+        <Association Name="HolidayRule">
+          <End Type="drogowskazModel.Holiday" Role="Holiday" Multiplicity="1" />
+          <End Type="drogowskazModel.Rule" Role="Rule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Holiday">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Rule">
+              <PropertyRef Name="HolidayId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -411,6 +465,7 @@
           <ScalarProperty Name="RepeatType" ColumnName="RepeatType" />
           <ScalarProperty Name="ChurchId" ColumnName="ChurchId" />
           <ScalarProperty Name="CycleId" ColumnName="CycleId" />
+          <ScalarProperty Name="HolidayId" ColumnName="HolidayId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -441,6 +496,15 @@
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="Date" ColumnName="Date" />
           <ScalarProperty Name="RuleId" ColumnName="RuleId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Holidays">
+      <EntityTypeMapping TypeName="IsTypeOf(drogowskazModel.Holiday)">
+        <MappingFragment StoreEntitySet="Holidays">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Date" ColumnName="Date" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
