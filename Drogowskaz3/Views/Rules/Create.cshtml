@@ -33,21 +33,25 @@
             <div class="form-group">
                 @Html.LabelFor(model => model.DateBegin, "Data początkowa", htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-sm-4">
-                    @Html.EditorFor(model => model.DateBegin, new { htmlAttributes = new { @class = "form-control datetimepicker" } })
+                    @{ Html.EnableClientValidation(false); }
+                    @Html.EditorFor(model => model.DateBegin, new { htmlAttributes = new { @class = "form-control datetimepicker", @type = "datetime" } })
+                    @{ Html.EnableClientValidation(true); }
                     @Html.ValidationMessageFor(model => model.DateBegin, "", new { @class = "text-danger" })
                 </div>
             </div>
             <div class="form-group">
                 @Html.LabelFor(model => model.DateEnd, "Data końcowa", htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-sm-4">
-                    @Html.EditorFor(model => model.DateEnd, new { htmlAttributes = new { @class = "form-control datetimepicker" } })
+                    @{ Html.EnableClientValidation(false); }
+                    @Html.EditorFor(model => model.DateEnd, new { htmlAttributes = new { @class = "form-control datetimepicker", @type = "datetime" } })
+                    @{ Html.EnableClientValidation(true); }
                     @Html.ValidationMessageFor(model => model.DateEnd, "", new { @class = "text-danger" })
                 </div>
             </div>
             <div class="form-group">
                 @Html.LabelFor(model => model.Hour, "Godzina", htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-sm-4">
-                    @Html.EditorFor(model => model.Hour, new { htmlAttributes = new { @class = "form-control timepicker" } })
+                    @Html.EditorFor(model => model.Hour, new { htmlAttributes = new { @class = "form-control timepicker", @type = "time" } })
                     @Html.ValidationMessageFor(model => model.Hour, "", new { @class = "text-danger" })
                 </div>
             </div>
