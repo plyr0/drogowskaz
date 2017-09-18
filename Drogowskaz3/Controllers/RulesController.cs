@@ -55,7 +55,12 @@ namespace WebApplication1.Controllers
                 ViewBag.FixedChurch = true;
                 ViewBag.ChurchId = new SelectList(db.Churches.Where(c => c.Id == id), "Id", "Name");
             }
-            ViewBag.CycleId = new SelectList(db.Cycles, "Id", "Name");
+            ViewBag.CycleType = new List<String>(){
+                MassHelper.CYCLE_TYPE_MONTH, MassHelper.CYCLE_TYPE_CYCLE, MassHelper.CYCLE_TYPE_HOLIDAY, MassHelper.CYCLE_TYPE_SUMMER_TIME, MassHelper.CYCLE_TYPE_SCHOOL_YEAR, MassHelper.CYCLE_TYPE_SINGULAR
+            };
+            
+
+        ViewBag.CycleId = new SelectList(db.Cycles, "Id", "Name");
             return View();
         }
 

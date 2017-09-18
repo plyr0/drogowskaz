@@ -5,7 +5,6 @@ namespace WebApplication1.Helpers
 {
     public class MassHelper
     {
-        public const string CYCLE_TYPE_NONE = "(brak)";
         public const string CYCLE_TYPE_MONTH = "Miesiące";
         public const string CYCLE_TYPE_CYCLE = "Okres liturgiczny";
         public const string CYCLE_TYPE_HOLIDAY = "Święto";
