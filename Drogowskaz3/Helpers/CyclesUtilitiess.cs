@@ -40,16 +40,17 @@ namespace WebApplication1.Helpers
         };
 
         public static string[] cyclesNames = {
-            "Wakacje",  //0
-            "Rok Szkolny",
-            "Okres Zwykły",
+            
             "Adwent",
             "Okres Bożonarodzeniowy",
-            "Wielki Post", //5
+            "Wielki Post",
             "Triduum Paschalne",
             "Okres Zmartwychwstania Pańskiego",
             "Czas letni",
-            "Czas zimowy" //9
+            "Czas zimowy",
+            "Wakacje",
+            "Rok Szkolny",
+            "Okres Zwykły",
         };
 
         public static Func<int, DateTime>[] functionsFest = {
@@ -102,16 +103,16 @@ namespace WebApplication1.Helpers
             throw new Exception("Jeszcze nie zaimplementowano!");
         };
         public static CycleFunc<int, DateTime, DateTime>[] functionsCycles = {
-            GenerateCycle.Wakacje,
-            GenerateCycle.RokSzkolny,
-            nilFunc, //okres zwykły
             GenerateCycle.Adwent,
             GenerateCycle.OkresBozonarodzeniowy,
             GenerateCycle.WielkiPost,
             GenerateCycle.TriduumPaschalne,
             GenerateCycle.OkresZmartwychwstaniaPanskiego,
             GenerateCycle.CzasLetni,
-            GenerateCycle.CzasZimowy
+            GenerateCycle.CzasZimowy,
+            GenerateCycle.Wakacje,
+            GenerateCycle.RokSzkolny,
+            nilFunc, //okres zwykły
         };
 
         public static string GenFests(int year)
@@ -137,19 +138,24 @@ namespace WebApplication1.Helpers
                 CycleFunc<int, DateTime, DateTime> cf = functionsCycles[i];
                 if (cf != nilFunc)
                 {
-                    
+                    if(cf == GenerateCycle.WielkiPost)
+                    {
+                        GenerateCycle.OkresZwykly1(year, out start, out end);
+                        sb.Append("Okres Zwykły I").Append(" : ").Append(start.ToString("d")).Append(" - ")
+                            .Append(end.ToString("d")).Append(sep);
+                    }
+
                     cf(year, out start, out end);
                     sb.Append(cyclesNames[i]).Append(" : ").Append(start.ToString("d")).Append(" - ")
                         .Append(end.ToString("d")).Append(sep);
+
+                    if (cf == GenerateCycle.OkresZmartwychwstaniaPanskiego) { 
+                        GenerateCycle.OkresZwykly2(year, out start, out end);
+                        sb.Append("Okres Zwykły II").Append(" : ").Append(start.ToString("d")).Append(" - ")
+                            .Append(end.ToString("d")).Append(sep);
+                    }
                 }
             }
-            
-            GenerateCycle.OkresZwykly1(year, out start, out end);
-            sb.Append("Okres Zwykły I").Append(" : ").Append(start.ToString("d")).Append(" - ")
-                .Append(end.ToString("d")).Append(sep);
-            GenerateCycle.OkresZwykly2(year, out start, out end);
-            sb.Append("Okres Zwykły II").Append(" : ").Append(start.ToString("d")).Append(" - ")
-                .Append(end.ToString("d")).Append(sep);
             return sb.ToString();
         }
     }

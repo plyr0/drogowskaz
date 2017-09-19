@@ -17,7 +17,14 @@ namespace WebApplication1.Helpers
         public static void OkresBozonarodzeniowy(int rok, out DateTime start, out DateTime end)
         {
             start = GenerateDate.BozeNarodzenie1(rok);
-            end = GenerateDate.TrzechKroli(rok);
+            //end = GenerateDate.TrzechKroli(rok);
+            end = GenerateDate.NiedzielaChrztuPanskiego(rok);
+        }
+
+        public static void OkresZwykly1(int rok, out DateTime start, out DateTime end)
+        {
+            start = GenerateDate.NiedzielaChrztuPanskiego(rok);
+            end = GenerateDate.SrodaPopielcowa(rok);
         }
 
         public static void WielkiPost(int rok, out DateTime start, out DateTime end)
@@ -31,40 +38,43 @@ namespace WebApplication1.Helpers
             start = GenerateDate.WielkiCzwartek(rok);
             end = GenerateDate.NiedzielaWielkanocna(rok);
         }
+
         public static void OkresZmartwychwstaniaPanskiego(int rok, out DateTime start, out DateTime end)
         {
             start = GenerateDate.NiedzielaWielkanocna(rok);
-            end = GenerateDate.Wniebowstapienie(rok);
+            //end = GenerateDate.Wniebowstapienie(rok);
+            end = GenerateDate.ZeslanieDuchaSwietego(rok).AddDays(1);
         }
-        public static void RokSzkolny(int rok, out DateTime start, out DateTime end)
-        {
-            start = GenerateDate.PierwszyDzienRokuSzkolnego(rok);
-            end = GenerateDate.OstatniDzienRokuSzkolnego(rok).AddHours(24);
-        }
-        public static void Wakacje(int rok, out DateTime start, out DateTime end)
-        {
-            start = GenerateDate.OstatniDzienRokuSzkolnego(rok).AddHours(24);
-            end = GenerateDate.PierwszyDzienRokuSzkolnego(rok);
-        }
-        public static void CzasLetni(int rok, out DateTime start, out DateTime end)
-        {
-            start = GenerateDate.OstatniaNiedzielaMarca(rok);
-            end = GenerateDate.OstatniaNiedzielaPazdziernika(rok);
-        }
-        public static void CzasZimowy(int rok, out DateTime start, out DateTime end)
-        {
-            start = GenerateDate.OstatniaNiedzielaPazdziernika(rok);
-            end = GenerateDate.OstatniaNiedzielaMarca(rok);
-        }
-        public static void OkresZwykly1(int rok, out DateTime start, out DateTime end)
-        {
-            start = GenerateDate.NiedzielaChrztuPanskiego(rok);
-            end = GenerateDate.SrodaPopielcowa(rok);
-        }
+        
         public static void OkresZwykly2(int rok, out DateTime start, out DateTime end)
         {
             start = GenerateDate.ZeslanieDuchaSwietego(rok).AddDays(1);
             end = GenerateDate.PierwszaNiedzielaAdwentu(rok);
         }
+
+        public static void RokSzkolny(int rok, out DateTime start, out DateTime end)
+        {
+            start = GenerateDate.PierwszyDzienRokuSzkolnego(rok);
+            end = GenerateDate.OstatniDzienRokuSzkolnego(rok).AddHours(24);
+        }
+
+        public static void Wakacje(int rok, out DateTime start, out DateTime end)
+        {
+            start = GenerateDate.OstatniDzienRokuSzkolnego(rok).AddHours(24);
+            end = GenerateDate.PierwszyDzienRokuSzkolnego(rok);
+        }
+
+        public static void CzasLetni(int rok, out DateTime start, out DateTime end)
+        {
+            start = GenerateDate.OstatniaNiedzielaMarca(rok);
+            end = GenerateDate.OstatniaNiedzielaPazdziernika(rok);
+        }
+
+        public static void CzasZimowy(int rok, out DateTime start, out DateTime end)
+        {
+            start = GenerateDate.OstatniaNiedzielaPazdziernika(rok);
+            end = GenerateDate.OstatniaNiedzielaMarca(rok);
+        }
+        
     }
 }
