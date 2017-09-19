@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 09/18/2017 20:07:26
+-- Date Created: 09/19/2017 17:17:35
 -- Generated from EDMX file: C:\Users\plyr0\git\drogowskaz\Drogowskaz3\DatabaseModel.edmx
 -- --------------------------------------------------
 
@@ -132,7 +132,8 @@ CREATE TABLE [dbo].[Cycles] (
     [Id] bigint IDENTITY(1,1) NOT NULL,
     [Name] nvarchar(max)  NOT NULL,
     [DateStart] datetime  NULL,
-    [DateEnd] datetime  NULL
+    [DateEnd] datetime  NULL,
+    [Year] int  NOT NULL
 );
 GO
 
@@ -148,7 +149,8 @@ GO
 CREATE TABLE [dbo].[Holidays] (
     [Id] bigint IDENTITY(1,1) NOT NULL,
     [Name] nvarchar(max)  NOT NULL,
-    [Date] nvarchar(max)  NULL
+    [Date] datetime  NULL,
+    [Year] int  NOT NULL
 );
 GO
 

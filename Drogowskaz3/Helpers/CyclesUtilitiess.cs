@@ -53,7 +53,7 @@ namespace WebApplication1.Helpers
             "Wakacje",
         };
 
-        public static Func<int, DateTime>[] functionsFest = {
+        public static Func<int, DateTime>[] functionsHoliday = {
             GenerateDate.NowyRok,
             GenerateDate.TrzechKroli,
             GenerateDate.Gromnicznej,
@@ -90,7 +90,7 @@ namespace WebApplication1.Helpers
         {
             for (int i = 0; i < holidayNames.Length; i++)
             {
-                if(functionsFest[i](dateShift.Year) == dateShift)
+                if(functionsHoliday[i](dateShift.Year) == dateShift)
                 {
                     return holidayNames[i];
                 }       
@@ -120,7 +120,7 @@ namespace WebApplication1.Helpers
             StringBuilder sb = new StringBuilder();
             for(int i=0; i<holidayNames.Length; i++)
             {
-                sb.Append(holidayNames[i]).Append(" : ").Append(functionsFest[i](year).ToString("d")).Append(sep);
+                sb.Append(holidayNames[i]).Append(" : ").Append(functionsHoliday[i](year).ToString("d")).Append(sep);
             }            
             return sb.ToString();
         }
