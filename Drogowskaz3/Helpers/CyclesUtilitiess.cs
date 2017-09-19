@@ -7,7 +7,7 @@ namespace WebApplication1.Helpers
     public static class CyclesUtilitiess
     {
         public static string[] holidayNames = {
-            "Świętej Bożej Rodzicielki", //0
+            "Świętej Bożej Rodzicielki",
             "Objawienie Pańskie",
             "Ofiarowanie Pańskie",
             "Środa Popielcowa",
@@ -17,7 +17,7 @@ namespace WebApplication1.Helpers
             "Wielki Czwartek",
             "Wielki Piątek",
             "Wigilia Paschalna",
-            "Niedziela Wielkanocna",    //10
+            "Niedziela Wielkanocna",
             "Poniedziałek Wielkanocny",
             "Wniebowstąpienie",
             "Zesłanie Ducha Świętego",
@@ -40,21 +40,21 @@ namespace WebApplication1.Helpers
         };
 
         public static string[] cyclesNames = {
-            
             "Adwent",
             "Okres Bożonarodzeniowy",
+            "Okres Zwykły (I)",
             "Wielki Post",
             "Triduum Paschalne",
             "Okres Zmartwychwstania Pańskiego",
+            "Okres Zwykły (II)",
             "Czas letni",
             "Czas zimowy",
-            "Wakacje",
             "Rok Szkolny",
-            "Okres Zwykły",
+            "Wakacje",
         };
 
         public static Func<int, DateTime>[] functionsFest = {
-            GenerateDate.NowyRok,       //0
+            GenerateDate.NowyRok,
             GenerateDate.TrzechKroli,
             GenerateDate.Gromnicznej,
             GenerateDate.SrodaPopielcowa,
@@ -64,7 +64,7 @@ namespace WebApplication1.Helpers
             GenerateDate.WielkiCzwartek,
             GenerateDate.WielkiPiatek,
             GenerateDate.WigiliaPaschalna,
-            GenerateDate.NiedzielaWielkanocna, //10
+            GenerateDate.NiedzielaWielkanocna,
             GenerateDate.PoniedzialekWielkanocny,
             GenerateDate.Wniebowstapienie,
             GenerateDate.ZeslanieDuchaSwietego,
@@ -75,7 +75,7 @@ namespace WebApplication1.Helpers
             GenerateDate.PiotraiPawla,
             GenerateDate.Wniebowziecie,
             GenerateDate.MatkiBoskiejCzestochowskiej,
-            GenerateDate.WszystkichSwietych,    //20
+            GenerateDate.WszystkichSwietych,
             GenerateDate.Zaduszki,
             GenerateDate.NiepokalanegoPoczecia,
             GenerateDate.Wigilia,
@@ -99,62 +99,44 @@ namespace WebApplication1.Helpers
         }
 
         public delegate void CycleFunc<Y, S, E>(Y year, out S start, out E end);
-        public static CycleFunc<int, DateTime, DateTime> nilFunc = (int year, out DateTime start, out DateTime end)=> {
-            throw new Exception("Jeszcze nie zaimplementowano!");
-        };
+
         public static CycleFunc<int, DateTime, DateTime>[] functionsCycles = {
             GenerateCycle.Adwent,
             GenerateCycle.OkresBozonarodzeniowy,
+            GenerateCycle.OkresZwykly1,
             GenerateCycle.WielkiPost,
             GenerateCycle.TriduumPaschalne,
             GenerateCycle.OkresZmartwychwstaniaPanskiego,
+            GenerateCycle.OkresZwykly2,
             GenerateCycle.CzasLetni,
             GenerateCycle.CzasZimowy,
-            GenerateCycle.Wakacje,
             GenerateCycle.RokSzkolny,
-            nilFunc, //okres zwykły
+            GenerateCycle.Wakacje
         };
 
-        public static string GenFests(int year)
+        public static string holidaysAllToString(int year)
         {
             string sep = "</br>";
             StringBuilder sb = new StringBuilder();
             for(int i=0; i<holidayNames.Length; i++)
             {
                 sb.Append(holidayNames[i]).Append(" : ").Append(functionsFest[i](year).ToString("d")).Append(sep);
-            }
-            
+            }            
             return sb.ToString();
         }
 
-        public static string GenCycles(int year)
+        public static string cyclesAllToString(int year)
         {
             string sep = "</br>";
             StringBuilder sb = new StringBuilder();
             DateTime start;
             DateTime end;
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < cyclesNames.Length; i++)
             {
                 CycleFunc<int, DateTime, DateTime> cf = functionsCycles[i];
-                if (cf != nilFunc)
-                {
-                    if(cf == GenerateCycle.WielkiPost)
-                    {
-                        GenerateCycle.OkresZwykly1(year, out start, out end);
-                        sb.Append("Okres Zwykły I").Append(" : ").Append(start.ToString("d")).Append(" - ")
-                            .Append(end.ToString("d")).Append(sep);
-                    }
-
-                    cf(year, out start, out end);
-                    sb.Append(cyclesNames[i]).Append(" : ").Append(start.ToString("d")).Append(" - ")
-                        .Append(end.ToString("d")).Append(sep);
-
-                    if (cf == GenerateCycle.OkresZmartwychwstaniaPanskiego) { 
-                        GenerateCycle.OkresZwykly2(year, out start, out end);
-                        sb.Append("Okres Zwykły II").Append(" : ").Append(start.ToString("d")).Append(" - ")
-                            .Append(end.ToString("d")).Append(sep);
-                    }
-                }
+                cf(year, out start, out end);
+                sb.Append(cyclesNames[i]).Append(" : ").Append(start.ToString("d")).Append(" - ")
+                    .Append(end.ToString("d")).Append(sep);
             }
             return sb.ToString();
         }

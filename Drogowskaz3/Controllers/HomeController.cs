@@ -12,8 +12,8 @@ namespace WebApplication1.Controllers
     {
         public ActionResult Index()
         {
-            ViewBag.Swieta = CyclesUtilitiess.GenFests(DateTime.Now.Year);
-            ViewBag.Okresy = CyclesUtilitiess.GenCycles(DateTime.Now.Year);
+            ViewBag.Swieta = CyclesUtilitiess.holidaysAllToString(DateTime.Now.Year);
+            ViewBag.Okresy = CyclesUtilitiess.cyclesAllToString(DateTime.Now.Year);
             return View();
         }
 

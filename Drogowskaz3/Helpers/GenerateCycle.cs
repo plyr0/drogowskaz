@@ -18,7 +18,7 @@ namespace WebApplication1.Helpers
         {
             start = GenerateDate.BozeNarodzenie1(rok);
             //end = GenerateDate.TrzechKroli(rok);
-            end = GenerateDate.NiedzielaChrztuPanskiego(rok);
+            end = GenerateDate.NiedzielaChrztuPanskiego(rok + 1);
         }
 
         public static void OkresZwykly1(int rok, out DateTime start, out DateTime end)
