@@ -27,12 +27,16 @@ namespace WebApplication1.Helpers
             "Najświętszej Maryi Panny Królowej Polski",
             "Uroczystość św. Piotra i Pawła",
             "Wniebowzięcie Najświętszej Maryi Panny",
-            "Wszystkich Świętych",      //20
+            "Matki Boskiej Częstochowskiej",
+            "Wszystkich Świętych",      
+            "Zaduszki",
             "Uroczystość Niepokalanego Poczęcia Najświetszej Maryi Panny",
             "Wigilia Bożego Narodzenia",
             "Boże Narodzenie",
             "Św. Szczepana",
-            "Sylwester", //25
+            "Sylwester", 
+            "Pierwszy Dzień Szkoły",
+            "Ostatni Dzień Szkoły"
         };
 
         public static string[] cyclesNames = {
@@ -69,17 +73,21 @@ namespace WebApplication1.Helpers
             GenerateDate.NmpKrolowejPolski,
             GenerateDate.PiotraiPawla,
             GenerateDate.Wniebowziecie,
+            GenerateDate.MatkiBoskiejCzestochowskiej,
             GenerateDate.WszystkichSwietych,    //20
+            GenerateDate.Zaduszki,
             GenerateDate.NiepokalanegoPoczecia,
             GenerateDate.Wigilia,
             GenerateDate.BozeNarodzenie1,
             GenerateDate.BozeNarodzenie2,
-            GenerateDate.Sylwester              //25
+            GenerateDate.Sylwester,            
+            GenerateDate.PierwszyDzienRokuSzkolnego,
+            GenerateDate.OstatniDzienRokuSzkolnego
         };
 
         internal static string GenerujSwieto(DateTime dateShift)
         {
-            for (int i = 0; i < 26; i++)
+            for (int i = 0; i < holidayNames.Length; i++)
             {
                 if(functionsFest[i](dateShift.Year) == dateShift)
                 {
@@ -110,7 +118,7 @@ namespace WebApplication1.Helpers
         {
             string sep = "</br>";
             StringBuilder sb = new StringBuilder();
-            for(int i=0; i<26; i++)
+            for(int i=0; i<holidayNames.Length; i++)
             {
                 sb.Append(holidayNames[i]).Append(" : ").Append(functionsFest[i](year).ToString("d")).Append(sep);
             }

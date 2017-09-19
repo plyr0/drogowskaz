@@ -169,6 +169,43 @@ namespace DrogowskazSerwer.Helpers
         {
             return new DateTime(year, 12, 8);
         }
+        public static DateTime MatkiBoskiejCzestochowskiej(int year)
+        {
+            return new DateTime(year, 8, 26);
+        }
+        public static DateTime PierwszyDzienRokuSzkolnego(int year)
+        {
+            DateTime firstDay = new DateTime(year, 9, 1);
+            if(firstDay.DayOfWeek == DayOfWeek.Friday)
+            {
+                return new DateTime(year, 9, 4);
+            }
+            else  if (firstDay.DayOfWeek == DayOfWeek.Saturday)
+            {
+                return new DateTime(year, 9, 3);
+            }
+            else if (firstDay.DayOfWeek == DayOfWeek.Sunday)
+            {
+                return new DateTime(year, 9, 2);
+            }
+            else
+                return new DateTime(year,9,1);
+        }
+        public static DateTime OstatniDzienRokuSzkolnego(int year)
+        {
+            DateTime LastDay = new DateTime(year, 6, 21);
+            for(int i = 0; i<7;i++)
+            {
+                
+                if(LastDay.DayOfWeek==DayOfWeek.Friday)
+                {
+                    return LastDay;
+                }
+                LastDay = LastDay.AddDays(1);
+
+            }
+            throw new Exception("WTF");
+        }
         /* Testowanie:
          
            funkcja GetDate(int year2) -> wypisuje wszystkie daty świąt (11) i datę Pierwszej Niedzieli adwentu
