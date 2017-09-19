@@ -38,8 +38,33 @@ namespace WebApplication1.Helpers
         }
         public static void RokSzkolny(int rok, out DateTime start, out DateTime end)
         {
-            start = GenerateDate.NiedzielaWielkanocna(rok);
-            end = GenerateDate.Wniebowstapienie(rok);
+            start = GenerateDate.PierwszyDzienRokuSzkolnego(rok);
+            end = GenerateDate.OstatniDzienRokuSzkolnego(rok).AddHours(24);
+        }
+        public static void Wakacje(int rok, out DateTime start, out DateTime end)
+        {
+            start = GenerateDate.OstatniDzienRokuSzkolnego(rok).AddHours(24);
+            end = GenerateDate.PierwszyDzienRokuSzkolnego(rok);
+        }
+        public static void CzasLetni(int rok, out DateTime start, out DateTime end)
+        {
+            start = GenerateDate.OstatniaNiedzielaMarca(rok);
+            end = GenerateDate.OstatniaNiedzielaPazdziernika(rok);
+        }
+        public static void CzasZimowy(int rok, out DateTime start, out DateTime end)
+        {
+            start = GenerateDate.OstatniaNiedzielaPazdziernika(rok);
+            end = GenerateDate.OstatniaNiedzielaMarca(rok);
+        }
+        public static void OkresZwykly1(int rok, out DateTime start, out DateTime end)
+        {
+            start = GenerateDate.NiedzielaChrztuPanskiego(rok);
+            end = GenerateDate.SrodaPopielcowa(rok);
+        }
+        public static void OkresZwykly2(int rok, out DateTime start, out DateTime end)
+        {
+            start = GenerateDate.ZeslanieDuchaSwietego(rok).AddDays(1);
+            end = GenerateDate.PierwszaNiedzielaAdwentu(rok);
         }
     }
 }

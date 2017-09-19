@@ -102,16 +102,16 @@ namespace WebApplication1.Helpers
             throw new Exception("Jeszcze nie zaimplementowano!");
         };
         public static CycleFunc<int, DateTime, DateTime>[] functionsCycles = {
-            nilFunc, //Wakacje
-            nilFunc, //Rok szkolny
+            GenerateCycle.Wakacje,
+            GenerateCycle.RokSzkolny,
             nilFunc, //okres zwykły
             GenerateCycle.Adwent,
             GenerateCycle.OkresBozonarodzeniowy,
             GenerateCycle.WielkiPost,
             GenerateCycle.TriduumPaschalne,
             GenerateCycle.OkresZmartwychwstaniaPanskiego,
-            nilFunc, //czas letni
-            nilFunc  //czas zimowy
+            GenerateCycle.CzasLetni,
+            GenerateCycle.CzasZimowy
         };
 
         public static string GenFests(int year)
@@ -122,6 +122,7 @@ namespace WebApplication1.Helpers
             {
                 sb.Append(holidayNames[i]).Append(" : ").Append(functionsFest[i](year).ToString("d")).Append(sep);
             }
+            
             return sb.ToString();
         }
 
@@ -129,18 +130,26 @@ namespace WebApplication1.Helpers
         {
             string sep = "</br>";
             StringBuilder sb = new StringBuilder();
+            DateTime start;
+            DateTime end;
             for (int i = 0; i < 10; i++)
             {
                 CycleFunc<int, DateTime, DateTime> cf = functionsCycles[i];
                 if (cf != nilFunc)
                 {
-                    DateTime start;
-                    DateTime end;
+                    
                     cf(year, out start, out end);
                     sb.Append(cyclesNames[i]).Append(" : ").Append(start.ToString("d")).Append(" - ")
                         .Append(end.ToString("d")).Append(sep);
                 }
             }
+            
+            GenerateCycle.OkresZwykly1(year, out start, out end);
+            sb.Append("Okres Zwykły I").Append(" : ").Append(start.ToString("d")).Append(" - ")
+                .Append(end.ToString("d")).Append(sep);
+            GenerateCycle.OkresZwykly2(year, out start, out end);
+            sb.Append("Okres Zwykły II").Append(" : ").Append(start.ToString("d")).Append(" - ")
+                .Append(end.ToString("d")).Append(sep);
             return sb.ToString();
         }
     }

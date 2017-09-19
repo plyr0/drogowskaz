@@ -206,6 +206,57 @@ namespace DrogowskazSerwer.Helpers
             }
             throw new Exception("WTF");
         }
+
+        public static DateTime OstatniaNiedzielaMarca(int year)
+        {
+            
+            DateTime LastDay = new DateTime(year, 3, 31);
+            for (int i = 0; i < 7; i++)
+            {
+
+                if (LastDay.DayOfWeek == DayOfWeek.Sunday)
+                {
+                    return LastDay;
+                }
+                LastDay = LastDay.AddDays(-1);
+
+            }
+            throw new Exception("WTF");
+        }
+
+        public static DateTime OstatniaNiedzielaPazdziernika(int year)
+        {
+
+            DateTime LastDay = new DateTime(year, 10, 31);
+            for (int i = 0; i < 7; i++)
+            {
+
+                if (LastDay.DayOfWeek == DayOfWeek.Sunday)
+                {
+                    return LastDay;
+                }
+                LastDay = LastDay.AddDays(-1);
+
+            }
+            throw new Exception("WTF");
+        }
+        public static DateTime NiedzielaChrztuPanskiego(int year)
+        {
+
+            DateTime LastDay = TrzechKroli(year).AddDays(1);
+            for (int i = 0; i < 7; i++)
+            {
+
+                if (LastDay.DayOfWeek == DayOfWeek.Sunday)
+                {
+                    return LastDay;
+                }
+                LastDay = LastDay.AddDays(1);
+
+            }
+            throw new Exception("WTF");
+        }
+
         /* Testowanie:
          
            funkcja GetDate(int year2) -> wypisuje wszystkie daty świąt (11) i datę Pierwszej Niedzieli adwentu
