@@ -90,6 +90,7 @@
     <Property Name="ChurchId" Type="bigint" Nullable="false" />
     <Property Name="CycleId" Type="bigint" Nullable="false" />
     <Property Name="HolidayId" Type="bigint" Nullable="false" />
+    <Property Name="Comment" Type="nvarchar(max)" Nullable="true" />
   </EntityType>
   <EntityType Name="Masses">
     <Key>
@@ -296,6 +297,7 @@
           <NavigationProperty Name="ExceptionsRules" Relationship="drogowskazModel.ExceptionsRulesRule" FromRole="Rule" ToRole="ExceptionsRules" />
           <NavigationProperty Name="Holiday" Relationship="drogowskazModel.HolidayRule" FromRole="Rule" ToRole="Holiday" />
           <Property Name="HolidayId" Type="Int64" Nullable="false" />
+          <Property Name="Comment" Type="String" Nullable="true" MaxLength="Max" />
         </EntityType>
         <EntityType Name="Mass">
           <Key>
@@ -470,6 +472,7 @@
           <ScalarProperty Name="ChurchId" ColumnName="ChurchId" />
           <ScalarProperty Name="CycleId" ColumnName="CycleId" />
           <ScalarProperty Name="HolidayId" ColumnName="HolidayId" />
+          <ScalarProperty Name="Comment" ColumnName="Comment" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

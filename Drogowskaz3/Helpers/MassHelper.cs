@@ -6,10 +6,8 @@ namespace WebApplication1.Helpers
     public class MassHelper
     {
         public const string CYCLE_TYPE_MONTH = "Miesiące";
-        public const string CYCLE_TYPE_CYCLE = "Okres liturgiczny";
+        public const string CYCLE_TYPE_CYCLE = "Okres";
         public const string CYCLE_TYPE_HOLIDAY = "Święto";
-        public const string CYCLE_TYPE_SUMMER_TIME = "Czas letni/zimowy";
-        public const string CYCLE_TYPE_SCHOOL_YEAR = "Rok szkolny";
         public const string CYCLE_TYPE_SINGULAR = "Pojedyncza";
 
         public static void GenerateMasses(drogowskazEntities db, DateTime currentDate)
@@ -22,6 +20,23 @@ namespace WebApplication1.Helpers
 
         private static void GenerateMassesFromOneRule(Rule r, drogowskazEntities db, DateTime currentDate)
         {
+            //TODO: switch case
+            /*
+            switch (r.CycleType)
+            {
+                case CYCLE_TYPE_SINGULAR:
+                    break;
+                case CYCLE_TYPE_HOLIDAY:
+                    break;
+                case CYCLE_TYPE_MONTH:
+                    break;
+                case CYCLE_TYPE_CYCLE:
+                    break;
+                default:
+                    throw new Exception("Nieznany typ mszy");
+            }
+            */
+
             DateTime dateAndTime = currentDate.AddMinutes(r.Hour.TotalMinutes);
             if (db.Masses.Where(m => m.DateAndTime == dateAndTime && m.ChurchId == r.ChurchId).Any())
             {
@@ -97,6 +112,18 @@ namespace WebApplication1.Helpers
                         break;
 
                 }
+
+                //TODO: okresy, 
+                //TODO: powtarzalna, 
+                //TODO: 2 msze o tej samej godz w tym samym kościele - nowa regułakasuje starą mszę
+                //TODO: okres kolędowy
+                //TODO: święta dni wolne od pracy
+                //TODO: święta dni robocze
+                //TODO: dzień zaduszny
+                //TODO: zaznacz pon-pt
+                //TODO: kopiowanie reguły do kilku kościołów
+
+
                 AddMass(r, db, currentDate);
             }
         }

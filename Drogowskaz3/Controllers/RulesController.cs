@@ -73,7 +73,7 @@ namespace WebApplication1.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,MassType,Monday,Tuesday,Wednesday,Thursday,Friday,Saturday,Sunday,I,II,III,IV,V,VI,VII,VIII,IX,X,XI,XII,Week1,Week2,Week3,Week4,Week5,WeekLast,CycleType,DateBegin,DateEnd,Hour,DateShift,RepeatDateFirst,RepeatEveryDays,RepeatEveryDayInMonth,RepeatType,ChurchId,CycleId,HolidayId")] Rule rule)
+        public ActionResult Create([Bind(Include = "Id,MassType,Monday,Tuesday,Wednesday,Thursday,Friday,Saturday,Sunday,I,II,III,IV,V,VI,VII,VIII,IX,X,XI,XII,Week1,Week2,Week3,Week4,Week5,WeekLast,CycleType,DateBegin,DateEnd,Hour,DateShift,RepeatDateFirst,RepeatEveryDays,RepeatEveryDayInMonth,RepeatType,ChurchId,CycleId,HolidayId,Comment")] Rule rule)
         {
             if (ModelState.IsValid)
             {
@@ -111,7 +111,7 @@ namespace WebApplication1.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,MassType,Monday,Tuesday,Wednesday,Thursday,Friday,Saturday,Sunday,I,II,III,IV,V,VI,VII,VIII,IX,X,XI,XII,Week1,Week2,Week3,Week4,Week5,WeekLast,CycleType,DateBegin,DateEnd,Hour,DateShift,RepeatDateFirst,RepeatEveryDays,RepeatEveryDayInMonth,RepeatType,ChurchId,CycleId,HolidayId")] Rule rule)
+        public ActionResult Edit([Bind(Include = "Id,MassType,Monday,Tuesday,Wednesday,Thursday,Friday,Saturday,Sunday,I,II,III,IV,V,VI,VII,VIII,IX,X,XI,XII,Week1,Week2,Week3,Week4,Week5,WeekLast,CycleType,DateBegin,DateEnd,Hour,DateShift,RepeatDateFirst,RepeatEveryDays,RepeatEveryDayInMonth,RepeatType,ChurchId,CycleId,HolidayId,Comment")] Rule rule)
         {
             if (ModelState.IsValid)
             {

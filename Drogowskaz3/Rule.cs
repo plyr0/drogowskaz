@@ -90,6 +90,7 @@ namespace WebApplication1
         public long ChurchId { get; set; }
         public long CycleId { get; set; }
         public long HolidayId { get; set; }
+        public string Comment { get; set; }
     
         public virtual Church Church { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

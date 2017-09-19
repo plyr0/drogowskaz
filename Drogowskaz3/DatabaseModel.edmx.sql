@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 09/19/2017 17:17:35
+-- Date Created: 09/19/2017 18:44:02
 -- Generated from EDMX file: C:\Users\plyr0\git\drogowskaz\Drogowskaz3\DatabaseModel.edmx
 -- --------------------------------------------------
 
@@ -113,7 +113,8 @@ CREATE TABLE [dbo].[Rules] (
     [RepeatType] nvarchar(max)  NULL,
     [ChurchId] bigint  NOT NULL,
     [CycleId] bigint  NOT NULL,
-    [HolidayId] bigint  NOT NULL
+    [HolidayId] bigint  NOT NULL,
+    [Comment] nvarchar(max)  NULL
 );
 GO
 

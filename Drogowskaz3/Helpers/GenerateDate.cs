@@ -226,7 +226,6 @@ namespace DrogowskazSerwer.Helpers
 
         public static DateTime OstatniaNiedzielaPazdziernika(int year)
         {
-
             DateTime LastDay = new DateTime(year, 10, 31);
             for (int i = 0; i < 7; i++)
             {
@@ -240,9 +239,9 @@ namespace DrogowskazSerwer.Helpers
             }
             throw new Exception("WTF");
         }
+
         public static DateTime NiedzielaChrztuPanskiego(int year)
         {
-
             DateTime LastDay = TrzechKroli(year).AddDays(1);
             for (int i = 0; i < 7; i++)
             {
@@ -256,13 +255,6 @@ namespace DrogowskazSerwer.Helpers
             }
             throw new Exception("WTF");
         }
-
-        /* Testowanie:
-         
-           funkcja GetDate(int year2) -> wypisuje wszystkie daty świąt (11) i datę Pierwszej Niedzieli adwentu
-             
-             wywołanie: GetDate(2018) lub GenerateDate.GetDate(2018)
-             */
 
         public static void GetDate(int year2)       
         { //11 Świąt i Pierwsza Niedziela Adwentu
@@ -280,6 +272,4 @@ namespace DrogowskazSerwer.Helpers
             Console.WriteLine("Pierwsza Niedziela Adwentu : " + PierwszaNiedzielaAdwentu(year2).ToString("d"));
         }
     }
-
-
 }
