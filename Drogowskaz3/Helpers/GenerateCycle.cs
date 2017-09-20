@@ -55,7 +55,7 @@ namespace WebApplication1.Helpers
         public static void RokSzkolny(int rok, out DateTime start, out DateTime end)
         {
             start = GenerateDate.PierwszyDzienRokuSzkolnego(rok);
-            end = GenerateDate.OstatniDzienRokuSzkolnego(rok).AddHours(24);
+            end = GenerateDate.OstatniDzienRokuSzkolnego(rok + 1).AddHours(24);
         }
 
         public static void Wakacje(int rok, out DateTime start, out DateTime end)
@@ -73,8 +73,7 @@ namespace WebApplication1.Helpers
         public static void CzasZimowy(int rok, out DateTime start, out DateTime end)
         {
             start = GenerateDate.OstatniaNiedzielaPazdziernika(rok);
-            end = GenerateDate.OstatniaNiedzielaMarca(rok);
-        }
-        
+            end = GenerateDate.OstatniaNiedzielaMarca(rok + 1);
+        }      
     }
-}
+} 

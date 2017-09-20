@@ -1,11 +1,25 @@
 ﻿using DrogowskazSerwer.Helpers;
 using System;
+using System.Collections.Generic;
 using System.Text;
 
 namespace WebApplication1.Helpers
 {
     public static class CyclesUtilitiess
     {
+        public delegate void CycleFunc<Y, S, E>(Y year, out S start, out E end);
+
+        public static Dictionary<string, CycleFunc<int, DateTime, DateTime>> cycleNamesToFuncs =
+            new Dictionary<string, CycleFunc<int, DateTime, DateTime>>();
+
+        static CyclesUtilitiess()
+        {
+            for(int i=0; i<cyclesNames.Length; i++)
+            {
+                cycleNamesToFuncs.Add(cyclesNames[i], functionsCycles[i]);
+            }
+        }
+        
         public static string[] holidayNames = {
             "Świętej Bożej Rodzicielki",
             "Objawienie Pańskie",
@@ -85,21 +99,7 @@ namespace WebApplication1.Helpers
             GenerateDate.PierwszyDzienRokuSzkolnego,
             GenerateDate.OstatniDzienRokuSzkolnego
         };
-
-        internal static string GenerujSwieto(DateTime dateShift)
-        {
-            for (int i = 0; i < holidayNames.Length; i++)
-            {
-                if(functionsHoliday[i](dateShift.Year) == dateShift)
-                {
-                    return holidayNames[i];
-                }       
-            }
-            return null;
-        }
-
-        public delegate void CycleFunc<Y, S, E>(Y year, out S start, out E end);
-
+        
         public static CycleFunc<int, DateTime, DateTime>[] functionsCycles = {
             GenerateCycle.Adwent,
             GenerateCycle.OkresBozonarodzeniowy,
@@ -113,49 +113,56 @@ namespace WebApplication1.Helpers
             GenerateCycle.Wakacje,
             GenerateCycle.RokSzkolny,
         };
-
-        internal static string GenerujCykl(DateTime dateShift)
+        
+        public static string GenerujSwieto(DateTime dateShift)
         {
-            for (int i = 0; i < cyclesNames.Length-1; i++)
+            for (int i = 0; i < holidayNames.Length; i++)
             {
-                DateTime start;
-                DateTime end;
-                if (cyclesNames[i] == "Okres Bożonarodzeniowy" && (dateShift.Month == 1 || dateShift.Month == 2) )
+                if (functionsHoliday[i](dateShift.Year) == dateShift)
                 {
-                    functionsCycles[i](dateShift.Year - 1, out start, out end);
-                }
-                else
-                {
-                    functionsCycles[i](dateShift.Year, out start, out end);   
-                }
-                if (dateShift >= start && dateShift < end)
-                {
-                    return cyclesNames[i];
+                    return holidayNames[i];
                 }
             }
             return null;
         }
 
-        internal static string GenerujRokSzkolny(DateTime dateShift)
+        public static bool isInCycle(DateTime dateShift, string name)
         {
+            CycleFunc<int, DateTime, DateTime> func;
+            cycleNamesToFuncs.TryGetValue(name, out func);
+
             DateTime start;
             DateTime end;
-            functionsCycles[functionsCycles.Length-1](dateShift.Year, out start, out end);
+            if (name == "Okres Bożonarodzeniowy" && (dateShift.Month == 1 || dateShift.Month == 2))
+            {
+                func(dateShift.Year - 1, out start, out end);
+            }
+            else if (name == "Rok Szkolny" && dateShift.Month >= 1 && dateShift.Month <= 6)
+            {
+                func(dateShift.Year - 1, out start, out end);
+            }
+            else //TODO: czas zimowy, 2 okresy zwykłe na -> 1
+            {
+                func(dateShift.Year, out start, out end);
+            }
             if (dateShift >= start && dateShift < end)
             {
-                return holidayNames[functionsCycles.Length-1];
+                return true;
             }
-            return null;
+            else
+            {
+                return false;
+            }
         }
 
         public static string holidaysAllToString(int year)
         {
             string sep = "</br>";
             StringBuilder sb = new StringBuilder();
-            for(int i=0; i<holidayNames.Length; i++)
+            for (int i = 0; i < holidayNames.Length; i++)
             {
                 sb.Append(holidayNames[i]).Append(" : ").Append(functionsHoliday[i](year).ToString("d")).Append(sep);
-            }            
+            }
             return sb.ToString();
         }
 

@@ -25,120 +25,109 @@ namespace WebApplication1.Helpers
             {
                 return;
             }
-
             int shift = r.DateShift ?? 0;
             DateTime dateShift = currentDate.AddDays(shift);
-            DateTime? date = r.DateBegin;
+            DateTime? dateBegin = r.DateBegin;
             switch (r.CycleType)
             {
                 case CYCLE_TYPE_SINGULAR:
-                    if (r.CycleType == CYCLE_TYPE_SINGULAR)
-                    {
-                        if (date != null && currentDate == date)
-                        {
-                            AddMass(r, db, date);
-                            return;
-                        }
-                    }
+                    ruleSingular(r, dateBegin, currentDate, db);
                     break;
                 case CYCLE_TYPE_HOLIDAY:
-                    string nazwaSwieta = CyclesUtilitiess.GenerujSwieto(dateShift);
-                    if (nazwaSwieta != null && r.Holiday.Name == nazwaSwieta)
-                    {
-                        AddMass(r, db, currentDate);
-                        return;
-                    }
-                    
+                    ruleHoliday(r, dateShift, currentDate, db);
                     break;
                 case CYCLE_TYPE_MONTH:
-                    if (r.CycleType == CYCLE_TYPE_MONTH)
-                    {
-                        int msc = dateShift.Month;
-                        bool[] czyMiesiac = { false, r.I, r.II, r.III, r.IV , r.V, r.VI, r.VII, r.VIII, r.IX, r.X,
-                                        r.XI, r.XII };
-                        if (false == czyMiesiac[msc])
-                            return;
-
-                    }
-                    bool[] czyTydzien = { r.Sunday, r.Monday, r.Tuesday, r.Wednesday, r.Thursday,
-                                    r.Friday, r.Saturday };
-                    if (false == czyTydzien[Convert.ToInt32(dateShift.DayOfWeek)])
-                        return;
-
-                    int dniWmiesiacu = DateTime.DaysInMonth(dateShift.Year, dateShift.Month);
-                    int dzienMiesiaca = dateShift.Day;
-                    if (dniWmiesiacu - dzienMiesiaca < 7 && r.WeekLast == true)
-                    {
-                        AddMass(r, db, currentDate);
-                        return;
-                    }
-
-                    int weekOfMonth = dateShift.Day / 7 + 1;
-                    switch (weekOfMonth)
-                    {
-                        case 1:
-                            if (r.Week1 == false)
-                                return;
-                            break;
-                        case 2:
-                            if (r.Week2 == false)
-                                return;
-                            break;
-                        case 3:
-                            if (r.Week3 == false)
-                                return;
-                            break;
-                        case 4:
-                            if (r.Week4 == false)
-                                return;
-                            break;
-                        case 5:
-                            if (r.Week5 == false)
-                                return;
-                            break;
-
-                    }
+                    ruleMonth(r, dateShift, currentDate, db);
                     break;
                 case CYCLE_TYPE_CYCLE:
-                    String nazwaCyklu;
-                    if (r.Cycle.Name == "Rok Szkolny")
-                    {   
-                        nazwaCyklu = CyclesUtilitiess.GenerujRokSzkolny(dateShift);
-                    }
-                    else
-                    {
-                        nazwaCyklu = CyclesUtilitiess.GenerujCykl(dateShift);
-                        //System.Diagnostics.Debug.WriteLine(nazwaCyklu + " " + dateShift);
-                    }
-                    
-                    if (nazwaCyklu != null && r.Cycle.Name == nazwaCyklu)
-                    {
-                        AddMass(r, db, currentDate);
-                        return;
-                    }
+                    ruleCycle(r, dateShift, currentDate, db);
                     break;
                 default:
                     throw new Exception("Nieznany typ mszy");
             }
         }
 
+        private static void ruleSingular(Rule r, DateTime? date, DateTime currentDate, drogowskazEntities db)
+        {
+            if (date != null && currentDate == date)
+            {
+                AddMass(r, db, date);
+            }
+        }
+
+        private static void ruleHoliday(Rule r, DateTime dateShift, DateTime currentDate, drogowskazEntities db)
+        {
+            string nazwaSwieta = CyclesUtilitiess.GenerujSwieto(dateShift);
+            if (nazwaSwieta != null && r.Holiday.Name == nazwaSwieta)
+            {
+                AddMass(r, db, currentDate);
+            }
+        }
+
+        private static void ruleMonth(Rule r, DateTime dateShift, DateTime currentDate, drogowskazEntities db)
+        {
+            int msc = dateShift.Month;
+            if (!czyDodacDlaMiesiaca(r, msc))
+                return;
+            
+            int dzienTyg = (int)dateShift.DayOfWeek;
+            if(!czyDodacDlaDniaTygodnia(r, dzienTyg))
+                return;
+
+            int dniWmiesiacu = DateTime.DaysInMonth(dateShift.Year, dateShift.Month);
+            int dzienMiesiaca = dateShift.Day;
+            if (dniWmiesiacu - dzienMiesiaca < 7 && r.WeekLast == true)
+            {
+                AddMass(r, db, currentDate);
+                return;
+            }
+            int weekOfMonth = dateShift.Day / 7 + 1;
+            switch (weekOfMonth)
+            {
+                case 1:
+                    if (r.Week1 == false)
+                        return;
+                    break;
+                case 2:
+                    if (r.Week2 == false)
+                        return;
+                    break;
+                case 3:
+                    if (r.Week3 == false)
+                        return;
+                    break;
+                case 4:
+                    if (r.Week4 == false)
+                        return;
+                    break;
+                case 5:
+                    if (r.Week5 == false)
+                        return;
+                    break;
+            }
+            AddMass(r, db, currentDate);
+        }
         
-            
-            
-                
+        private static void ruleCycle(Rule r, DateTime dateShift, DateTime currentDate, drogowskazEntities db)
+        {
+            bool hit = CyclesUtilitiess.isInCycle(dateShift, r.Cycle.Name);
+            if (hit)
+                AddMass(r, db, currentDate);
+        }
 
-                //TODO: okresy, 
-                //TODO: powtarzalna, 
-                //TODO: 2 msze o tej samej godz w tym samym kościele - nowa regułakasuje starą mszę
-                //TODO: okres kolędowy
-                //TODO: święta dni wolne od pracy
-                //TODO: święta dni robocze
-                //TODO: dzień zaduszny
-                //TODO: zaznacz pon-pt
-                //TODO: kopiowanie reguły do kilku kościołów
+        private static bool czyDodacDlaDniaTygodnia(Rule r, int dzienTyg)
+        {
+            bool[] czyTydzien = { r.Sunday, r.Monday, r.Tuesday, r.Wednesday, r.Thursday, r.Friday, r.Saturday };
+            return czyTydzien[dzienTyg];
+        }
 
-
-      
+        private static bool czyDodacDlaMiesiaca(Rule r, int month)
+        {
+            bool[] czyMiesiac = { false, r.I, r.II, r.III, r.IV , r.V, r.VI, r.VII, r.VIII, r.IX, r.X,
+                                        r.XI, r.XII };
+            return czyMiesiac[month];
+        }
+        
         private static void AddMass(Rule r, drogowskazEntities db, DateTime? date)
         {
             Mass msza = new Mass()
@@ -155,3 +144,15 @@ namespace WebApplication1.Helpers
         }
     }
 }
+
+//TODO: okresy, 
+//TODO: powtarzalna, 
+//TODO: 2 msze o tej samej godz w tym samym kościele - nowa regułakasuje starą mszę
+//TODO: okres kolędowy
+//TODO: święta dni wolne od pracy
+//TODO: święta dni robocze
+//TODO: dzień zaduszny
+//TODO: zaznacz pon-pt
+//TODO: kopiowanie reguły do kilku kościołów
+
+

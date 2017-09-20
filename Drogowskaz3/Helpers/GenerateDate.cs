@@ -191,35 +191,31 @@ namespace DrogowskazSerwer.Helpers
             else
                 return new DateTime(year,9,1);
         }
+
         public static DateTime OstatniDzienRokuSzkolnego(int year)
         {
             DateTime LastDay = new DateTime(year, 6, 21);
             for(int i = 0; i<7;i++)
             {
-                
                 if(LastDay.DayOfWeek==DayOfWeek.Friday)
                 {
                     return LastDay;
                 }
                 LastDay = LastDay.AddDays(1);
-
             }
             throw new Exception("WTF");
         }
 
         public static DateTime OstatniaNiedzielaMarca(int year)
         {
-            
             DateTime LastDay = new DateTime(year, 3, 31);
             for (int i = 0; i < 7; i++)
             {
-
                 if (LastDay.DayOfWeek == DayOfWeek.Sunday)
                 {
                     return LastDay;
                 }
                 LastDay = LastDay.AddDays(-1);
-
             }
             throw new Exception("WTF");
         }
@@ -229,13 +225,11 @@ namespace DrogowskazSerwer.Helpers
             DateTime LastDay = new DateTime(year, 10, 31);
             for (int i = 0; i < 7; i++)
             {
-
                 if (LastDay.DayOfWeek == DayOfWeek.Sunday)
                 {
                     return LastDay;
                 }
                 LastDay = LastDay.AddDays(-1);
-
             }
             throw new Exception("WTF");
         }
@@ -251,7 +245,6 @@ namespace DrogowskazSerwer.Helpers
                     return LastDay;
                 }
                 LastDay = LastDay.AddDays(1);
-
             }
             throw new Exception("WTF");
         }
