@@ -107,11 +107,17 @@ namespace WebApplication1.Helpers
                         
                         nazwaCyklu = CyclesUtilitiess.GenerujRokSzkolny(dateShift);
                     }
+                    else if(r.Cycle.Name == "Okres Bożonarodzeniowy")
+                    {
+                        nazwaCyklu = CyclesUtilitiess.GenerujCykl(dateShift.AddYears(-1));
+                    }
                     else
                     {
+
                         nazwaCyklu = CyclesUtilitiess.GenerujCykl(dateShift);
+                        System.Diagnostics.Debug.WriteLine(nazwaCyklu + " " + dateShift);
                     }
-                   
+                    
                     if (nazwaCyklu != null && r.Cycle.Name == nazwaCyklu)
                     {
                         AddMass(r, db, currentDate);
