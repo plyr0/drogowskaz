@@ -149,7 +149,6 @@ namespace WebApplication1.Helpers
 //TODO: święta dni wolne od pracy
 //TODO: święta dni robocze
 //TODO: dzień zaduszny?
-//TODO: zaznacz pon-pt
 //TODO: kopiowanie reguły do kilku kościołów
 //TODO: Church name w Masses
 
