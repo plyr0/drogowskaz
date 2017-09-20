@@ -12,9 +12,6 @@
 <table class="table">
     <tr>
         <th>
-            Rok
-        </th>
-        <th>
             Nazwa
         </th>
         <th>
@@ -25,9 +22,6 @@
 
 @foreach (var item in Model) {
     <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Year)
-        </td>
         <td>
             @Html.DisplayFor(modelItem => item.Name)
         </td>

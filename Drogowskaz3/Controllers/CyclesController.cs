@@ -50,7 +50,7 @@ namespace WebApplication1.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Name,DateStart,DateEnd,Year")] Cycle cycle)
+        public ActionResult Create([Bind(Include = "Id,Name,DateStart,DateEnd")] Cycle cycle)
         {
             if (ModelState.IsValid)
             {
@@ -82,7 +82,7 @@ namespace WebApplication1.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Name,DateStart,DateEnd,Year")] Cycle cycle)
+        public ActionResult Edit([Bind(Include = "Id,Name,DateStart,DateEnd")] Cycle cycle)
         {
             if (ModelState.IsValid)
             {

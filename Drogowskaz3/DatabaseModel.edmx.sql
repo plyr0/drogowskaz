@@ -2,8 +2,8 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 09/19/2017 18:44:02
--- Generated from EDMX file: C:\Users\plyr0\git\drogowskaz\Drogowskaz3\DatabaseModel.edmx
+-- Date Created: 09/20/2017 09:29:52
+-- Generated from EDMX file: J:\Documents\Source\Repos\drogowskaz\Drogowskaz3\DatabaseModel.edmx
 -- --------------------------------------------------
 
 SET QUOTED_IDENTIFIER OFF;
@@ -133,8 +133,7 @@ CREATE TABLE [dbo].[Cycles] (
     [Id] bigint IDENTITY(1,1) NOT NULL,
     [Name] nvarchar(max)  NOT NULL,
     [DateStart] datetime  NULL,
-    [DateEnd] datetime  NULL,
-    [Year] int  NOT NULL
+    [DateEnd] datetime  NULL
 );
 GO
 
@@ -150,8 +149,7 @@ GO
 CREATE TABLE [dbo].[Holidays] (
     [Id] bigint IDENTITY(1,1) NOT NULL,
     [Name] nvarchar(max)  NOT NULL,
-    [Date] datetime  NULL,
-    [Year] int  NOT NULL
+    [Date] datetime  NULL
 );
 GO
 

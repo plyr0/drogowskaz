@@ -110,7 +110,6 @@
     <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
     <Property Name="DateStart" Type="datetime" Nullable="true" />
     <Property Name="DateEnd" Type="datetime" Nullable="true" />
-    <Property Name="Year" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="ExceptionsRules">
     <Key>
@@ -127,7 +126,6 @@
     <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Date" Type="datetime" Nullable="true" />
-    <Property Name="Year" Type="int" Nullable="false" />
   </EntityType>
   <Association Name="RuleChurch">
     <End Role="Rule" Type="drogowskazModel.Store.Rules" Multiplicity="*" />
@@ -320,7 +318,6 @@
           <NavigationProperty Name="Rules" Relationship="drogowskazModel.RuleCycle" FromRole="Cycle" ToRole="Rule" />
           <Property Name="DateStart" Type="DateTime" Nullable="true" />
           <Property Name="DateEnd" Type="DateTime" Nullable="true" />
-          <Property Name="Year" Type="Int32" Nullable="false" />
         </EntityType>
         <EntityType Name="ExceptionsRules">
           <Key>
@@ -399,7 +396,6 @@
           <NavigationProperty Name="Rules" Relationship="drogowskazModel.HolidayRule" FromRole="Holiday" ToRole="Rule" />
           <Property Name="Name" Type="String" Nullable="false" />
           <Property Name="Date" Type="DateTime" Nullable="true" />
-          <Property Name="Year" Type="Int32" Nullable="false" />
         </EntityType>
         <Association Name="HolidayRule">
           <End Type="drogowskazModel.Holiday" Role="Holiday" Multiplicity="1" />
@@ -494,7 +490,6 @@
           <ScalarProperty Name="Name" ColumnName="Name" />
           <ScalarProperty Name="DateStart" ColumnName="DateStart" />
           <ScalarProperty Name="DateEnd" ColumnName="DateEnd" />
-          <ScalarProperty Name="Year" ColumnName="Year" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -513,7 +508,6 @@
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="Name" ColumnName="Name" />
           <ScalarProperty Name="Date" ColumnName="Date" />
-          <ScalarProperty Name="Year" ColumnName="Year" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
