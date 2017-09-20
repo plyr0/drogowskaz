@@ -120,8 +120,15 @@ namespace WebApplication1.Helpers
             {
                 DateTime start;
                 DateTime end;
-                functionsCycles[i](dateShift.Year, out start, out end);
-                if (dateShift>=start && dateShift<end)
+                if (cyclesNames[i] == "Okres Bożonarodzeniowy" && (dateShift.Month == 1 || dateShift.Month == 2) )
+                {
+                    functionsCycles[i](dateShift.Year - 1, out start, out end);
+                }
+                else
+                {
+                    functionsCycles[i](dateShift.Year, out start, out end);   
+                }
+                if (dateShift >= start && dateShift < end)
                 {
                     return cyclesNames[i];
                 }
@@ -131,7 +138,6 @@ namespace WebApplication1.Helpers
 
         internal static string GenerujRokSzkolny(DateTime dateShift)
         {
-
             DateTime start;
             DateTime end;
             functionsCycles[functionsCycles.Length-1](dateShift.Year, out start, out end);

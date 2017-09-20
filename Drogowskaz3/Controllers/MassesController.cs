@@ -53,12 +53,10 @@ namespace WebApplication1.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult CreateConfirmed()
         {
-            for (int a = 102; a< 365; a++ )
+            for (int a = 0; a< 365; a++ )
             {
-                System.Diagnostics.Debug.WriteLine(DateTime.Today.AddDays(a));
                 MassHelper.GenerateMasses(db,DateTime.Today.AddDays(a));
             }
-
             return RedirectToAction("Index");
         }
         

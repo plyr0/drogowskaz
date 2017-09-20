@@ -115,7 +115,7 @@ namespace WebApplication1.Helpers
                     {
 
                         nazwaCyklu = CyclesUtilitiess.GenerujCykl(dateShift);
-                        System.Diagnostics.Debug.WriteLine(nazwaCyklu + " " + dateShift);
+                        //System.Diagnostics.Debug.WriteLine(nazwaCyklu + " " + dateShift);
                     }
                     
                     if (nazwaCyklu != null && r.Cycle.Name == nazwaCyklu)
