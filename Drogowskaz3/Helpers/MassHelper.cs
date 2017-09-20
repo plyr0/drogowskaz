@@ -74,37 +74,9 @@ namespace WebApplication1.Helpers
             if(!czyDodacDlaDniaTygodnia(r, dzienTyg))
                 return;
 
-            int dniWmiesiacu = DateTime.DaysInMonth(dateShift.Year, dateShift.Month);
-            int dzienMiesiaca = dateShift.Day;
-            if (dniWmiesiacu - dzienMiesiaca < 7 && r.WeekLast == true)
-            {
-                AddMass(r, db, currentDate);
+            if (!czyDodacDlaTygodniaWMiesiacu(r, dateShift))
                 return;
-            }
-            int weekOfMonth = dateShift.Day / 7 + 1;
-            switch (weekOfMonth)
-            {
-                case 1:
-                    if (r.Week1 == false)
-                        return;
-                    break;
-                case 2:
-                    if (r.Week2 == false)
-                        return;
-                    break;
-                case 3:
-                    if (r.Week3 == false)
-                        return;
-                    break;
-                case 4:
-                    if (r.Week4 == false)
-                        return;
-                    break;
-                case 5:
-                    if (r.Week5 == false)
-                        return;
-                    break;
-            }
+
             AddMass(r, db, currentDate);
         }
         
@@ -127,7 +99,33 @@ namespace WebApplication1.Helpers
                                         r.XI, r.XII };
             return czyMiesiac[month];
         }
-        
+
+        private static bool czyDodacDlaTygodniaWMiesiacu(Rule r, DateTime dateShift)
+        {
+            int dniWmiesiacu = DateTime.DaysInMonth(dateShift.Year, dateShift.Month);
+            int dzienMiesiaca = dateShift.Day;
+            bool ostatniTydzien = dniWmiesiacu - dzienMiesiaca < 7;
+            if (ostatniTydzien && r.WeekLast == true)
+                return true;
+
+            int weekOfMonth = dzienMiesiaca / 7 + 1;
+            switch (weekOfMonth)
+            {
+                case 1:
+                    return r.Week1;
+                case 2:
+                    return r.Week2;
+                case 3:
+                    return r.Week3;
+                case 4:
+                    return r.Week4;
+                case 5:
+                    return r.Week5;
+                default:
+                    throw new Exception("Numer tygodnia w miesiącu spoza 1-5");
+            }
+        }
+
         private static void AddMass(Rule r, drogowskazEntities db, DateTime? date)
         {
             Mass msza = new Mass()
@@ -145,14 +143,13 @@ namespace WebApplication1.Helpers
     }
 }
 
-//TODO: okresy, 
-//TODO: powtarzalna, 
-//TODO: 2 msze o tej samej godz w tym samym kościele - nowa regułakasuje starą mszę
+//TODO: okresy
+//TODO: powtarzalna
 //TODO: okres kolędowy
 //TODO: święta dni wolne od pracy
 //TODO: święta dni robocze
-//TODO: dzień zaduszny
+//TODO: dzień zaduszny?
 //TODO: zaznacz pon-pt
 //TODO: kopiowanie reguły do kilku kościołów
-
+//TODO: Church name w Masses
 
