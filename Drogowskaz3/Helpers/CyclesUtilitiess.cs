@@ -49,8 +49,8 @@ namespace WebApplication1.Helpers
             "Okres Zwykły (II)",
             "Czas letni",
             "Czas zimowy",
-            "Rok Szkolny",
             "Wakacje",
+            "Rok Szkolny",
         };
 
         public static Func<int, DateTime>[] functionsHoliday = {
@@ -110,9 +110,37 @@ namespace WebApplication1.Helpers
             GenerateCycle.OkresZwykly2,
             GenerateCycle.CzasLetni,
             GenerateCycle.CzasZimowy,
+            GenerateCycle.Wakacje,
             GenerateCycle.RokSzkolny,
-            GenerateCycle.Wakacje
         };
+
+        internal static string GenerujCykl(DateTime dateShift)
+        {
+            for (int i = 0; i < cyclesNames.Length-1; i++)
+            {
+                DateTime start;
+                DateTime end;
+                functionsCycles[i](dateShift.Year, out start, out end);
+                if (dateShift>=start && dateShift<end)
+                {
+                    return cyclesNames[i];
+                }
+            }
+            return null;
+        }
+
+        internal static string GenerujRokSzkolny(DateTime dateShift)
+        {
+
+            DateTime start;
+            DateTime end;
+            functionsCycles[functionsCycles.Length-1](dateShift.Year, out start, out end);
+            if (dateShift >= start && dateShift < end)
+            {
+                return holidayNames[functionsCycles.Length-1];
+            }
+            return null;
+        }
 
         public static string holidaysAllToString(int year)
         {

@@ -20,98 +20,113 @@ namespace WebApplication1.Helpers
 
         private static void GenerateMassesFromOneRule(Rule r, drogowskazEntities db, DateTime currentDate)
         {
-            //TODO: switch case
-            /*
-            switch (r.CycleType)
-            {
-                case CYCLE_TYPE_SINGULAR:
-                    break;
-                case CYCLE_TYPE_HOLIDAY:
-                    break;
-                case CYCLE_TYPE_MONTH:
-                    break;
-                case CYCLE_TYPE_CYCLE:
-                    break;
-                default:
-                    throw new Exception("Nieznany typ mszy");
-            }
-            */
-
             DateTime dateAndTime = currentDate.AddMinutes(r.Hour.TotalMinutes);
             if (db.Masses.Where(m => m.DateAndTime == dateAndTime && m.ChurchId == r.ChurchId).Any())
             {
                 return;
             }
-            DateTime? date = r.DateBegin;
-            if (r.CycleType == CYCLE_TYPE_SINGULAR)
-            {
-                if( date != null && currentDate == date)
-                {
-                    AddMass(r, db, date);
-                    return;
-                }
-            }
-            else 
-            {
-                int shift = r.DateShift ?? 0;
-                DateTime dateShift = currentDate.AddDays(shift);
 
-                if (r.CycleType == CYCLE_TYPE_HOLIDAY)
-                {
+            int shift = r.DateShift ?? 0;
+            DateTime dateShift = currentDate.AddDays(shift);
+            DateTime? date = r.DateBegin;
+            switch (r.CycleType)
+            {
+                case CYCLE_TYPE_SINGULAR:
+                    if (r.CycleType == CYCLE_TYPE_SINGULAR)
+                    {
+                        if (date != null && currentDate == date)
+                        {
+                            AddMass(r, db, date);
+                            return;
+                        }
+                    }
+                    break;
+                case CYCLE_TYPE_HOLIDAY:
                     string nazwaSwieta = CyclesUtilitiess.GenerujSwieto(dateShift);
                     if (nazwaSwieta != null && r.Holiday.Name == nazwaSwieta)
                     {
                         AddMass(r, db, currentDate);
                         return;
                     }
-                }
-                else if(r.CycleType == CYCLE_TYPE_MONTH)
-                {
-                    int msc = dateShift.Month;
-                    bool[] czyMiesiac = { false, r.I, r.II, r.III, r.IV , r.V, r.VI, r.VII, r.VIII, r.IX, r.X,
+                    
+                    break;
+                case CYCLE_TYPE_MONTH:
+                    if (r.CycleType == CYCLE_TYPE_MONTH)
+                    {
+                        int msc = dateShift.Month;
+                        bool[] czyMiesiac = { false, r.I, r.II, r.III, r.IV , r.V, r.VI, r.VII, r.VIII, r.IX, r.X,
                                         r.XI, r.XII };
-                    if (false == czyMiesiac[msc])
+                        if (false == czyMiesiac[msc])
+                            return;
+
+                    }
+                    bool[] czyTydzien = { r.Sunday, r.Monday, r.Tuesday, r.Wednesday, r.Thursday,
+                                    r.Friday, r.Saturday };
+                    if (false == czyTydzien[Convert.ToInt32(dateShift.DayOfWeek)])
                         return;
 
-                }
-                bool[] czyTydzien = { r.Sunday, r.Monday, r.Tuesday, r.Wednesday, r.Thursday,
-                                    r.Friday, r.Saturday };
-                if (false == czyTydzien[Convert.ToInt32(dateShift.DayOfWeek)])
-                    return;
+                    int dniWmiesiacu = DateTime.DaysInMonth(dateShift.Year, dateShift.Month);
+                    int dzienMiesiaca = dateShift.Day;
+                    if (dniWmiesiacu - dzienMiesiaca < 7 && r.WeekLast == true)
+                    {
+                        AddMass(r, db, currentDate);
+                        return;
+                    }
 
-                int dniWmiesiacu = DateTime.DaysInMonth(dateShift.Year, dateShift.Month);
-                int dzienMiesiaca = dateShift.Day;
-                if (dniWmiesiacu - dzienMiesiaca < 7 && r.WeekLast == true)
-                {
-                    AddMass(r, db, currentDate);
-                    return;
-                }
+                    int weekOfMonth = dateShift.Day / 7 + 1;
+                    switch (weekOfMonth)
+                    {
+                        case 1:
+                            if (r.Week1 == false)
+                                return;
+                            break;
+                        case 2:
+                            if (r.Week2 == false)
+                                return;
+                            break;
+                        case 3:
+                            if (r.Week3 == false)
+                                return;
+                            break;
+                        case 4:
+                            if (r.Week4 == false)
+                                return;
+                            break;
+                        case 5:
+                            if (r.Week5 == false)
+                                return;
+                            break;
 
-                int weekOfMonth = dateShift.Day / 7 + 1;
-                switch(weekOfMonth)
-                {
-                    case 1:
-                        if (r.Week1 == false)
-                            return;
-                        break;
-                    case 2:
-                        if (r.Week2 == false)
-                            return;
-                        break;
-                    case 3:
-                        if (r.Week3 == false)
-                            return;
-                        break;
-                    case 4:
-                        if (r.Week4 == false)
-                            return;
-                        break;
-                    case 5:
-                        if (r.Week5 == false)
-                            return;
-                        break;
+                    }
 
-                }
+                    break;
+                case CYCLE_TYPE_CYCLE:
+                    String nazwaCyklu;
+                    if (r.Cycle.Name == "Rok Szkolny")
+                    {
+                        
+                        nazwaCyklu = CyclesUtilitiess.GenerujRokSzkolny(dateShift);
+                    }
+                    else
+                    {
+                        nazwaCyklu = CyclesUtilitiess.GenerujCykl(dateShift);
+                    }
+                   
+                    if (nazwaCyklu != null && r.Cycle.Name == nazwaCyklu)
+                    {
+                        AddMass(r, db, currentDate);
+                        return;
+                    }
+                    break;
+                default:
+                    throw new Exception("Nieznany typ mszy");
+            }
+        }
+
+        
+            
+            
+                
 
                 //TODO: okresy, 
                 //TODO: powtarzalna, 
@@ -124,10 +139,7 @@ namespace WebApplication1.Helpers
                 //TODO: kopiowanie reguły do kilku kościołów
 
 
-                AddMass(r, db, currentDate);
-            }
-        }
-
+      
         private static void AddMass(Rule r, drogowskazEntities db, DateTime? date)
         {
             Mass msza = new Mass()
