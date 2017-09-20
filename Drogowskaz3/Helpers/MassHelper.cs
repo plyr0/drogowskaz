@@ -98,22 +98,15 @@ namespace WebApplication1.Helpers
                             break;
 
                     }
-
                     break;
                 case CYCLE_TYPE_CYCLE:
                     String nazwaCyklu;
                     if (r.Cycle.Name == "Rok Szkolny")
-                    {
-                        
+                    {   
                         nazwaCyklu = CyclesUtilitiess.GenerujRokSzkolny(dateShift);
-                    }
-                    else if(r.Cycle.Name == "Okres Bożonarodzeniowy")
-                    {
-                        nazwaCyklu = CyclesUtilitiess.GenerujCykl(dateShift.AddYears(-1));
                     }
                     else
                     {
-
                         nazwaCyklu = CyclesUtilitiess.GenerujCykl(dateShift);
                         //System.Diagnostics.Debug.WriteLine(nazwaCyklu + " " + dateShift);
                     }
