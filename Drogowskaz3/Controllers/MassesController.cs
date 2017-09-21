@@ -25,22 +25,6 @@ namespace WebApplication1.Controllers
             return View(masses.ToList());
         }
 
-        // GET: Masses/Details/5
-        [AllowAnonymous]
-        public ActionResult Details(long? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Mass mass = db.Masses.Find(id);
-            if (mass == null)
-            {
-                return HttpNotFound();
-            }
-            return View(mass);
-        }
-
         // GET: Masses/Create
         [HttpGet]
         public ActionResult Create()

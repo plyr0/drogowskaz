@@ -26,7 +26,7 @@ namespace WebApplication1.Helpers
                 return;
             if (r.DateEnd != null && currentDate > r.DateEnd)
                 return;
-            DateTime dateAndTime = currentDate.AddMinutes(r.Hour.TotalMinutes);
+            DateTime dateAndTime = currentDate.AddMinutes(r.Hour.TotalMinutes); //TODO: przesunąć do switcha, kasować msze o niższym priorytecie
             if (db.Masses.Where(m => m.DateAndTime == dateAndTime && m.ChurchId == r.ChurchId).Any())
             {
                 return;
@@ -48,6 +48,12 @@ namespace WebApplication1.Helpers
                 case CYCLE_TYPE_CYCLE:
                     ruleCycle(r, dateShift, currentDate, db);
                     break;
+                case CYCLE_TYPE_REPEAT_DAYS:
+                    //TODO:
+                    break;
+                case CYCLE_TYPE_REPEAT_DAY_IN_MONTH:
+                    //TODO:
+                    break;
                 default:
                     throw new Exception("Nieznany typ mszy");
             }
@@ -63,8 +69,9 @@ namespace WebApplication1.Helpers
 
         private static void ruleHoliday(Rule r, DateTime dateShift, DateTime currentDate, drogowskazEntities db)
         {
-            string nazwaSwieta = CyclesUtilitiess.GenerujSwieto(dateShift);
-            if (nazwaSwieta != null && r.Holiday.Name == nazwaSwieta)
+            //string nazwaSwieta = CyclesUtilitiess.GenerujSwieto(dateShift);
+            //if (nazwaSwieta != null && r.Holiday.Name == nazwaSwieta)
+            if(CyclesUtilitiess.isInHoliday(dateShift, r.Holiday.Name))
             {
                 AddMass(r, db, currentDate);
             }
@@ -158,5 +165,3 @@ namespace WebApplication1.Helpers
 //TODO: okresy
 //TODO: powtarzalna
 //TODO: kopiowanie reguły do kilku kościołów - zostawiam Ci
-
-

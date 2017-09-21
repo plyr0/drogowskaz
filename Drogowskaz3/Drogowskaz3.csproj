@@ -328,7 +328,6 @@
     <Content Include="Views\Cycles\Delete.cshtml" />
     <Content Include="Views\Cycles\Index.cshtml" />
     <Content Include="Views\Masses\Delete.cshtml" />
-    <Content Include="Views\Masses\Details.cshtml" />
     <Content Include="Views\Masses\Index.cshtml" />
     <Content Include="Views\Masses\Create.cshtml" />
     <Content Include="Views\Rules\Create.cshtml" />

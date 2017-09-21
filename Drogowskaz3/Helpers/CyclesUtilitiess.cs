@@ -8,15 +8,22 @@ namespace WebApplication1.Helpers
     public static class CyclesUtilitiess
     {
         public delegate void CycleFunc<Y, S, E>(Y year, out S start, out E end);
-
         public static Dictionary<string, CycleFunc<int, DateTime, DateTime>> cycleNamesToFuncs =
             new Dictionary<string, CycleFunc<int, DateTime, DateTime>>();
 
+        public delegate D HolidayFunc<Y, D>(Y year);
+        public static Dictionary<string, HolidayFunc<int, DateTime>> holidayNameToFunc =
+            new Dictionary<string, HolidayFunc<int, DateTime>>();
+
         static CyclesUtilitiess()
         {
-            for(int i=0; i<cyclesNames.Length; i++)
+            for(int i=0; i<cycleFunctions.Length; i++)
             {
-                cycleNamesToFuncs.Add(cyclesNames[i], functionsCycles[i]);
+                cycleNamesToFuncs.Add(cyclesNames[i], cycleFunctions[i]);
+            }
+            for (int i = 0; i < holidayFunctions.Length; i++)
+            {
+                holidayNameToFunc.Add(holidayNames[i], holidayFunctions[i]);
             }
         }
         
@@ -50,7 +57,8 @@ namespace WebApplication1.Helpers
             "Św. Szczepana",
             "Sylwester", 
             "Pierwszy Dzień Szkoły",
-            "Ostatni Dzień Szkoły"
+            "Ostatni Dzień Szkoły",
+            "Święta wolne od pracy"
         };
 
         public static string[] cyclesNames = {
@@ -63,10 +71,10 @@ namespace WebApplication1.Helpers
             "Czas zimowy",
             "Wakacje",
             "Rok Szkolny",
-            "Okres Zwykły",
+            "Okres Zwykły"
         };
         
-        public static Func<int, DateTime>[] functionsHoliday = {
+        public static HolidayFunc<int, DateTime>[] holidayFunctions = {
             GenerateDate.NowyRok,
             GenerateDate.TrzechKroli,
             GenerateDate.Gromnicznej,
@@ -99,7 +107,7 @@ namespace WebApplication1.Helpers
             GenerateDate.OstatniDzienRokuSzkolnego
         };
         
-        public static CycleFunc<int, DateTime, DateTime>[] functionsCycles = {
+        public static CycleFunc<int, DateTime, DateTime>[] cycleFunctions = {
             GenerateCycle.Adwent,
             GenerateCycle.OkresBozonarodzeniowy,
             GenerateCycle.WielkiPost,
@@ -108,53 +116,67 @@ namespace WebApplication1.Helpers
             GenerateCycle.CzasLetni,
             GenerateCycle.CzasZimowy,
             GenerateCycle.Wakacje,
-            GenerateCycle.RokSzkolny,
-            GenerateCycle.OkresZwykly2,
+            GenerateCycle.RokSzkolny
         };
+        
+        private static Dictionary<string, bool> holidayIsFree = new Dictionary<string, bool>() {
+            { "Świętej Bożej Rodzicielki", true },
+            { "Objawienie Pańskie", true },
+            { "Niedziela Wielkanocna", true },
+            { "Poniedziałek Wielkanocny", true },
+            { "Wniebowstąpienie", true },
+            { "Zesłanie Ducha Świętego", true },
+            { "Najświętszej Maryi Panny, Matki Kościoła", true },
+            { "Najświętszej Maryi Panny Królowej Polski", true },
+            { "Wniebowzięcie Najświętszej Maryi Panny", true },
+            { "Wszystkich Świętych", true },
+            { "Boże Narodzenie",  true },
+            { "Św. Szczepana", true },
 
-        public static Dictionary<string, string> holidayCategories = new Dictionary<string, string>() {
-            { "Świętej Bożej Rodzicielki", "Okres Bożonarodzeniowy" },
-            { "Objawienie Pańskie", "Okres Bożonarodzeniowy" },
-            { "Ofiarowanie Pańskie", "Okres Zwykły " },
-            { "Środa Popielcowa", "Wielki Post" },
-            { "Uroczystość św. Józefa", "Wielki Post" },
-            { "Zwiastowanie Pańskie", "Wielki Post" },
-            { "Święto św. Wojciecha", "Okres Zmartwychwstania Pańskiego" },
-            { "Wielki Czwartek", "Okres Zmartwychwstania Pańskiego" },
-            { "Wielki Piątek", "Okres Zmartwychwstania Pańskiego" },
-            { "Wigilia Paschalna", "Okres Zmartwychwstania Pańskiego" },
-            { "Niedziela Wielkanocna", "Okres Zmartwychwstania Pańskiego" },
-            { "Poniedziałek Wielkanocny", "Okres Zmartwychwstania Pańskiego" },
-            { "Wniebowstąpienie", "Okres Zmartwychwstania Pańskiego" },
-            { "Zesłanie Ducha Świętego", "Okres Zmartwychwstania Pańskiego" },
-            { "Najświętszej Maryi Panny, Matki Kościoła", "Okres Zwykły" },
-            { "Najświętszego Ciała i Krwi Pańskiej", "Okres Zwykły" },
-            { "Uroczystość Najświętszego Serca Pana Jezusa", "Okres Zwykły" },
-            { "Najświętszej Maryi Panny Królowej Polski", "Okres Zwykły" },
-            { "Uroczystość św. Piotra i Pawła", "Okres Zwykły" },
-            { "Wniebowzięcie Najświętszej Maryi Panny", "Okres Zwykły" },
-            { "Matki Boskiej Częstochowskiej", "Okres Zwykły" },
-            { "Wszystkich Świętych", "Okres Zwykły" },
-            { "Zaduszki", "Okres Zwykły" },
-            { "Uroczystość Niepokalanego Poczęcia Najświetszej Maryi Panny", "Adwent" },
-            { "Wigilia Bożego Narodzenia", "Adwent" },
-            { "Boże Narodzenie",  "Okres Bożonarodzeniowy " },
-            { "Św. Szczepana", "Okres Bożonarodzeniowy " },
-            { "Sylwester", "Okres Bożonarodzeniowy " },
-            { "Pierwszy Dzień Szkoły", "Szkoła" },
-            { "Ostatni Dzień Szkoły", "Szkoła" }
+            { "Ofiarowanie Pańskie", false },
+            { "Środa Popielcowa", false },
+            { "Uroczystość św. Józefa", false },
+            { "Zwiastowanie Pańskie", false },
+            { "Święto św. Wojciecha", false },
+            { "Wielki Czwartek", false },
+            { "Wielki Piątek", false },
+            { "Wigilia Paschalna", false },
+            { "Najświętszego Ciała i Krwi Pańskiej", false },
+            { "Uroczystość Najświętszego Serca Pana Jezusa", false },
+            { "Uroczystość św. Piotra i Pawła", false },
+            { "Uroczystość Niepokalanego Poczęcia Najświetszej Maryi Panny", false },
+            { "Matki Boskiej Częstochowskiej", false },
+            { "Zaduszki", false },
+            { "Wigilia Bożego Narodzenia", false },
+            { "Sylwester", false },
+            { "Pierwszy Dzień Szkoły", false },
+            { "Ostatni Dzień Szkoły", false }
         };
-
+        
         public static string GenerujSwieto(DateTime dateShift)
         {
             for (int i = 0; i < holidayNames.Length; i++)
             {
-                if (functionsHoliday[i](dateShift.Year) == dateShift)
+                if (holidayFunctions[i](dateShift.Year) == dateShift)
                 {
                     return holidayNames[i];
                 }
             }
             return null;
+        }
+
+        public static bool isInHoliday(DateTime dateShift, string name)
+        {
+            if (name == "Święta wolne od pracy")
+            {
+                foreach (var sw in holidayIsFree)
+                {
+                    if (sw.Value && isInHoliday(dateShift, sw.Key)) //TODO: czy niedziele?
+                        return true;
+                }
+                return false;
+            }
+            return holidayNameToFunc[name](dateShift.Year) == dateShift;
         }
 
         public static bool isInCycle(DateTime dateShift, string name)
@@ -169,12 +191,10 @@ namespace WebApplication1.Helpers
                 GenerateCycle.OkresZwykly2(dateShift.Year, out start, out end);
                 if (dateShift >= start && dateShift < end)
                     return true;
-
                 return false;
             }
 
-            CycleFunc<int, DateTime, DateTime> func;
-            cycleNamesToFuncs.TryGetValue(name, out func);
+            CycleFunc<int, DateTime, DateTime> func = cycleNamesToFuncs[name];
             if (name == "Okres Bożonarodzeniowy" && (dateShift.Month == 1 || dateShift.Month == 2))
             {
                 func(dateShift.Year - 1, out start, out end);
@@ -205,9 +225,9 @@ namespace WebApplication1.Helpers
         {
             string sep = "</br>";
             StringBuilder sb = new StringBuilder();
-            for (int i = 0; i < holidayNames.Length; i++)
+            for (int i = 0; i < holidayFunctions.Length; i++)
             {
-                sb.Append(holidayNames[i]).Append(" : ").Append(functionsHoliday[i](year).ToString("d")).Append(sep);
+                sb.Append(holidayNames[i]).Append(" : ").Append(holidayFunctions[i](year).ToString("d")).Append(sep);
             }
             return sb.ToString();
         }
@@ -219,9 +239,9 @@ namespace WebApplication1.Helpers
             DateTime start;
             DateTime end;
             CycleFunc<int, DateTime, DateTime> cf;
-            for (int i = 0; i < cyclesNames.Length-1; i++)
+            for (int i = 0; i < cycleFunctions.Length; i++)
             {
-                cf = functionsCycles[i];
+                cf = cycleFunctions[i];
                 cf(year, out start, out end);
                 sb.Append(cyclesNames[i]).Append(" : ").Append(start.ToString("d")).Append(" - ")
                     .Append(end.ToString("d")).Append(sep);
