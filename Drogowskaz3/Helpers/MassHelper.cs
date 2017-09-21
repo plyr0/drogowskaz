@@ -20,7 +20,9 @@ namespace WebApplication1.Helpers
 
         private static void GenerateMassesFromOneRule(Rule r, drogowskazEntities db, DateTime currentDate)
         {
-            if (currentDate < r.DateBegin || currentDate > r.DateEnd)
+            if (r.DateBegin != null && currentDate < r.DateBegin)
+                return;
+            if (r.DateEnd != null && currentDate > r.DateEnd)
                 return;
             DateTime dateAndTime = currentDate.AddMinutes(r.Hour.TotalMinutes);
             if (db.Masses.Where(m => m.DateAndTime == dateAndTime && m.ChurchId == r.ChurchId).Any())
@@ -75,7 +77,7 @@ namespace WebApplication1.Helpers
             int dzienTyg = (int)dateShift.DayOfWeek;
             if(!czyDodacDlaDniaTygodnia(r, dzienTyg))
                 return;
-
+             
             if (!czyDodacDlaTygodniaWMiesiacu(r, dateShift))
                 return;
 
@@ -84,6 +86,13 @@ namespace WebApplication1.Helpers
         
         private static void ruleCycle(Rule r, DateTime dateShift, DateTime currentDate, drogowskazEntities db)
         {
+            int dzienTyg = (int)dateShift.DayOfWeek;
+            if (!czyDodacDlaDniaTygodnia(r, dzienTyg))
+                return;
+
+            if (!czyDodacDlaTygodniaWMiesiacu(r, dateShift))
+                return;
+
             bool hit = CyclesUtilitiess.isInCycle(dateShift, r.Cycle.Name);
             if (hit)
                 AddMass(r, db, currentDate);
@@ -110,7 +119,7 @@ namespace WebApplication1.Helpers
             if (ostatniTydzien && r.WeekLast == true)
                 return true;
 
-            int weekOfMonth = dzienMiesiaca / 7 + 1;
+            int weekOfMonth = (int)Math.Ceiling(dzienMiesiaca / 7.0);
             switch (weekOfMonth)
             {
                 case 1:
