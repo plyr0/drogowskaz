@@ -56,15 +56,14 @@ namespace WebApplication1.Helpers
         public static string[] cyclesNames = {
             "Adwent",
             "Okres Bożonarodzeniowy",
-            "Okres Zwykły (I)",
             "Wielki Post",
             "Triduum Paschalne",
             "Okres Zmartwychwstania Pańskiego",
-            "Okres Zwykły (II)",
             "Czas letni",
             "Czas zimowy",
             "Wakacje",
             "Rok Szkolny",
+            "Okres Zwykły",
         };
 
         public static Func<int, DateTime>[] functionsHoliday = {
@@ -103,15 +102,14 @@ namespace WebApplication1.Helpers
         public static CycleFunc<int, DateTime, DateTime>[] functionsCycles = {
             GenerateCycle.Adwent,
             GenerateCycle.OkresBozonarodzeniowy,
-            GenerateCycle.OkresZwykly1,
             GenerateCycle.WielkiPost,
             GenerateCycle.TriduumPaschalne,
             GenerateCycle.OkresZmartwychwstaniaPanskiego,
-            GenerateCycle.OkresZwykly2,
             GenerateCycle.CzasLetni,
             GenerateCycle.CzasZimowy,
             GenerateCycle.Wakacje,
             GenerateCycle.RokSzkolny,
+            GenerateCycle.OkresZwykly2,
         };
         
         public static string GenerujSwieto(DateTime dateShift)
@@ -128,11 +126,25 @@ namespace WebApplication1.Helpers
 
         public static bool isInCycle(DateTime dateShift, string name)
         {
+            DateTime start;
+            DateTime end;
+
+            if (name == "Okres Zwykły")
+            {
+                GenerateCycle.OkresZwykly1(dateShift.Year, out start, out end);
+                if (dateShift >= start && dateShift < end)
+                    return true;
+                GenerateCycle.OkresZwykly2(dateShift.Year, out start, out end);
+                if (dateShift >= start && dateShift < end)
+                    return true;
+
+                return false;
+            }
+
             CycleFunc<int, DateTime, DateTime> func;
             cycleNamesToFuncs.TryGetValue(name, out func);
 
-            DateTime start;
-            DateTime end;
+            
             if (name == "Okres Bożonarodzeniowy" && (dateShift.Month == 1 || dateShift.Month == 2))
             {
                 func(dateShift.Year - 1, out start, out end);
@@ -176,13 +188,34 @@ namespace WebApplication1.Helpers
             StringBuilder sb = new StringBuilder();
             DateTime start;
             DateTime end;
-            for (int i = 0; i < cyclesNames.Length; i++)
+            CycleFunc<int, DateTime, DateTime> cf;
+            for (int i = 0; i < cyclesNames.Length-1; i++)
             {
-                CycleFunc<int, DateTime, DateTime> cf = functionsCycles[i];
+                cf = functionsCycles[i];
                 cf(year, out start, out end);
                 sb.Append(cyclesNames[i]).Append(" : ").Append(start.ToString("d")).Append(" - ")
                     .Append(end.ToString("d")).Append(sep);
             }
+            cf = GenerateCycle.OkresZwykly1;
+            cf(year, out start, out end);
+            sb.Append(" OkresZwykły: ").Append(start.ToString("d")).Append(" - ")
+                .Append(end.ToString("d"));
+
+            cf = GenerateCycle.OkresZwykly2;
+            cf(year, out start, out end);
+            sb.Append(" oraz ").Append(start.ToString("d")).Append(" - ")
+                .Append(end.ToString("d")).Append(sep);
+
+            cf = GenerateCycle.OkresZwykly1;
+            cf(year+1, out start, out end);
+            sb.Append(" OkresZwykły 2018: ").Append(start.ToString("d")).Append(" - ")
+                .Append(end.ToString("d"));
+
+            cf = GenerateCycle.OkresZwykly2;
+            cf(year+1, out start, out end);
+            sb.Append(" oraz ").Append(start.ToString("d")).Append(" - ")
+                .Append(end.ToString("d"));
+
             return sb.ToString();
         }
     }
