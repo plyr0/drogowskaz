@@ -548,8 +548,10 @@
         $('#weekDaysAll').click(function () {
             if ($('#weekDaysAll').prop('checked')) {
                 $('#panelWeekDay input:checkbox').prop('checked', true);
+                $('#panelWeekDay input:checkbox')[1].checked = false;
             } else {
                 $('#panelWeekDay input:checkbox').prop('checked', false);
+                $('#panelWeekDay input:checkbox')[1].checked = false;
             }
         })
         $('#monthsAll').click(function () {
@@ -569,11 +571,14 @@
 
         $('#weekMonFri').click(function () {
             if ($('#weekMonFri').prop('checked')) {
+                $('#panelWeekDay input:checkbox')[0].checked = false;
                 $('#panelWeekDay input:checkbox')[2].checked = true;
                 $('#panelWeekDay input:checkbox')[3].checked = true;
                 $('#panelWeekDay input:checkbox')[4].checked = true;
                 $('#panelWeekDay input:checkbox')[5].checked = true;
                 $('#panelWeekDay input:checkbox')[6].checked = true;
+                $('#panelWeekDay input:checkbox')[7].checked = false;
+                $('#panelWeekDay input:checkbox')[8].checked = false;
             } else {
                 $('#panelWeekDay input:checkbox')[2].checked = false;
                 $('#panelWeekDay input:checkbox')[3].checked = false;
