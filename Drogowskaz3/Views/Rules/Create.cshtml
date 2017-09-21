@@ -609,6 +609,12 @@
                     $('#panelPowtarzanie').hide();
                     $('#intPrzesuniecie').hide();
                     break;
+                case "@MassHelper.CYCLE_TYPE_REPEAT_DAYS":
+                    $('#panelPowtarzanie').show();
+                    break;
+                case "@MassHelper.CYCLE_TYPE_REPEAT_DAY_IN_MONTH":
+                    $('#panelPowtarzanie').show();
+                    break;
             }
         })
     </script>
