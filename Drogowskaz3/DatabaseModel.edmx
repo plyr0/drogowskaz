@@ -83,10 +83,7 @@
     <Property Name="DateEnd" Type="datetime" Nullable="true" />
     <Property Name="Hour" Type="time" Nullable="false" />
     <Property Name="DateShift" Type="int" Nullable="true" />
-    <Property Name="RepeatDateFirst" Type="datetime" Nullable="true" />
-    <Property Name="RepeatEveryDays" Type="int" Nullable="true" />
-    <Property Name="RepeatEveryDayInMonth" Type="int" Nullable="true" />
-    <Property Name="RepeatType" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="Repeat" Type="int" Nullable="true" />
     <Property Name="ChurchId" Type="bigint" Nullable="false" />
     <Property Name="CycleId" Type="bigint" Nullable="false" />
     <Property Name="HolidayId" Type="bigint" Nullable="false" />
@@ -99,7 +96,6 @@
     <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="DateAndTime" Type="datetime" Nullable="false" />
     <Property Name="RuleId" Type="bigint" Nullable="false" />
-    <Property Name="MassType" Type="nvarchar(max)" Nullable="true" />
     <Property Name="ChurchId" Type="bigint" Nullable="false" />
   </EntityType>
   <EntityType Name="Cycles">
@@ -108,8 +104,6 @@
     </Key>
     <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="DateStart" Type="datetime" Nullable="true" />
-    <Property Name="DateEnd" Type="datetime" Nullable="true" />
   </EntityType>
   <EntityType Name="ExceptionsRules">
     <Key>
@@ -125,7 +119,6 @@
     </Key>
     <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="Date" Type="datetime" Nullable="true" />
     <Property Name="Category" Type="nvarchar(max)" Nullable="true" />
   </EntityType>
   <Association Name="RuleChurch">
@@ -284,10 +277,7 @@
           <Property Name="DateEnd" Type="DateTime" Nullable="true" Precision="3" />
           <Property Name="Hour" Type="Time" Nullable="false" />
           <Property Name="DateShift" Type="Int32" Nullable="true" />
-          <Property Name="RepeatDateFirst" Type="DateTime" Nullable="true" />
-          <Property Name="RepeatEveryDays" Type="Int32" Nullable="true" />
-          <Property Name="RepeatEveryDayInMonth" Type="Int32" Nullable="true" />
-          <Property Name="RepeatType" Type="String" Nullable="true" />
+          <Property Name="Repeat" Type="Int32" Nullable="true" />
           <NavigationProperty Name="Church" Relationship="drogowskazModel.RuleChurch" FromRole="Rule" ToRole="Church" />
           <Property Name="ChurchId" Type="Int64" Nullable="false" />
           <NavigationProperty Name="Masses" Relationship="drogowskazModel.MassRule" FromRole="Rule" ToRole="Mass" />
@@ -306,7 +296,6 @@
           <Property Name="DateAndTime" Type="DateTime" Nullable="false" />
           <NavigationProperty Name="Rule" Relationship="drogowskazModel.MassRule" FromRole="Mass" ToRole="Rule" />
           <Property Name="RuleId" Type="Int64" Nullable="false" />
-          <Property Name="MassType" Type="String" Nullable="true" />
           <NavigationProperty Name="Church" Relationship="drogowskazModel.MassChurch" FromRole="Mass" ToRole="Church" />
           <Property Name="ChurchId" Type="Int64" Nullable="false" />
         </EntityType>
@@ -317,8 +306,6 @@
           <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
           <NavigationProperty Name="Rules" Relationship="drogowskazModel.RuleCycle" FromRole="Cycle" ToRole="Rule" />
-          <Property Name="DateStart" Type="DateTime" Nullable="true" />
-          <Property Name="DateEnd" Type="DateTime" Nullable="true" />
         </EntityType>
         <EntityType Name="ExceptionsRules">
           <Key>
@@ -396,7 +383,6 @@
           <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <NavigationProperty Name="Rules" Relationship="drogowskazModel.HolidayRule" FromRole="Holiday" ToRole="Rule" />
           <Property Name="Name" Type="String" Nullable="false" />
-          <Property Name="Date" Type="DateTime" Nullable="true" />
           <Property Name="Category" Type="String" Nullable="true" />
         </EntityType>
         <Association Name="HolidayRule">
@@ -463,10 +449,7 @@
           <ScalarProperty Name="DateEnd" ColumnName="DateEnd" />
           <ScalarProperty Name="Hour" ColumnName="Hour" />
           <ScalarProperty Name="DateShift" ColumnName="DateShift" />
-          <ScalarProperty Name="RepeatDateFirst" ColumnName="RepeatDateFirst" />
-          <ScalarProperty Name="RepeatEveryDays" ColumnName="RepeatEveryDays" />
-          <ScalarProperty Name="RepeatEveryDayInMonth" ColumnName="RepeatEveryDayInMonth" />
-          <ScalarProperty Name="RepeatType" ColumnName="RepeatType" />
+          <ScalarProperty Name="Repeat" ColumnName="Repeat" />
           <ScalarProperty Name="ChurchId" ColumnName="ChurchId" />
           <ScalarProperty Name="CycleId" ColumnName="CycleId" />
           <ScalarProperty Name="HolidayId" ColumnName="HolidayId" />
@@ -480,7 +463,6 @@
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="DateAndTime" ColumnName="DateAndTime" />
           <ScalarProperty Name="RuleId" ColumnName="RuleId" />
-          <ScalarProperty Name="MassType" ColumnName="MassType" />
           <ScalarProperty Name="ChurchId" ColumnName="ChurchId" />
         </MappingFragment>
       </EntityTypeMapping>
@@ -490,8 +472,6 @@
         <MappingFragment StoreEntitySet="Cycles">
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="Name" ColumnName="Name" />
-          <ScalarProperty Name="DateStart" ColumnName="DateStart" />
-          <ScalarProperty Name="DateEnd" ColumnName="DateEnd" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -509,7 +489,6 @@
         <MappingFragment StoreEntitySet="Holidays">
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="Name" ColumnName="Name" />
-          <ScalarProperty Name="Date" ColumnName="Date" />
           <ScalarProperty Name="Category" ColumnName="Category" />
         </MappingFragment>
       </EntityTypeMapping>

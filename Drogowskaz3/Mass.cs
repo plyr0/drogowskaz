@@ -17,7 +17,6 @@ namespace WebApplication1
         public long Id { get; set; }
         public System.DateTime DateAndTime { get; set; }
         public long RuleId { get; set; }
-        public string MassType { get; set; }
         public long ChurchId { get; set; }
     
         public virtual Rule Rule { get; set; }

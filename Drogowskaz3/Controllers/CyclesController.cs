@@ -23,98 +23,18 @@ namespace WebApplication1.Controllers
             return View(db.Cycles.ToList());
         }
 
-        // GET: Cycles/Details/5
-        [AllowAnonymous]
-        public ActionResult Details(long? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Cycle cycle = db.Cycles.Find(id);
-            if (cycle == null)
-            {
-                return HttpNotFound();
-            }
-            return View(cycle);
-        }
-
-        // GET: Cycles/Create
-        public ActionResult Create()
+        // GET: Cycles/Delete/5
+        public ActionResult Delete()
         {
             return View();
-        }
-
-        // POST: Cycles/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Name,DateStart,DateEnd")] Cycle cycle)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Cycles.Add(cycle);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-
-            return View(cycle);
-        }
-
-        // GET: Cycles/Edit/5
-        public ActionResult Edit(long? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Cycle cycle = db.Cycles.Find(id);
-            if (cycle == null)
-            {
-                return HttpNotFound();
-            }
-            return View(cycle);
-        }
-
-        // POST: Cycles/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Name,DateStart,DateEnd")] Cycle cycle)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Entry(cycle).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            return View(cycle);
-        }
-
-        // GET: Cycles/Delete/5
-        public ActionResult Delete(long? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Cycle cycle = db.Cycles.Find(id);
-            if (cycle == null)
-            {
-                return HttpNotFound();
-            }
-            return View(cycle);
         }
 
         // POST: Cycles/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(long id)
+        public ActionResult DeleteConfirmed()
         {
-            Cycle cycle = db.Cycles.Find(id);
-            db.Cycles.Remove(cycle);
+            db.Cycles.RemoveRange(db.Cycles);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

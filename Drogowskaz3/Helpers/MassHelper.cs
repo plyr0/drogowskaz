@@ -146,7 +146,6 @@ namespace WebApplication1.Helpers
                 Church = r.Church,
                 DateAndTime = ((DateTime)date).AddMinutes(r.Hour.TotalMinutes),
                 ChurchId = r.ChurchId,
-                MassType = r.MassType,
                 RuleId = r.Id,
                 Rule = r
             };

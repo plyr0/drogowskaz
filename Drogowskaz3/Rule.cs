@@ -78,10 +78,7 @@ namespace WebApplication1
         public Nullable<System.DateTime> DateEnd { get; set; }
         public System.TimeSpan Hour { get; set; }
         public Nullable<int> DateShift { get; set; }
-        public Nullable<System.DateTime> RepeatDateFirst { get; set; }
-        public Nullable<int> RepeatEveryDays { get; set; }
-        public Nullable<int> RepeatEveryDayInMonth { get; set; }
-        public string RepeatType { get; set; }
+        public Nullable<int> Repeat { get; set; }
         public long ChurchId { get; set; }
         public long CycleId { get; set; }
         public long HolidayId { get; set; }

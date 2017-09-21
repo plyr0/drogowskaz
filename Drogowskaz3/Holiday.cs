@@ -22,7 +22,6 @@ namespace WebApplication1
     
         public long Id { get; set; }
         public string Name { get; set; }
-        public Nullable<System.DateTime> Date { get; set; }
         public string Category { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

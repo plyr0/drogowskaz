@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 09/21/2017 17:35:56
+-- Date Created: 09/21/2017 18:50:48
 -- Generated from EDMX file: C:\Users\plyr0\git\drogowskaz\Drogowskaz3\DatabaseModel.edmx
 -- --------------------------------------------------
 
@@ -107,10 +107,7 @@ CREATE TABLE [dbo].[Rules] (
     [DateEnd] datetime  NULL,
     [Hour] time  NOT NULL,
     [DateShift] int  NULL,
-    [RepeatDateFirst] datetime  NULL,
-    [RepeatEveryDays] int  NULL,
-    [RepeatEveryDayInMonth] int  NULL,
-    [RepeatType] nvarchar(max)  NULL,
+    [Repeat] int  NULL,
     [ChurchId] bigint  NOT NULL,
     [CycleId] bigint  NOT NULL,
     [HolidayId] bigint  NOT NULL,
@@ -123,7 +120,6 @@ CREATE TABLE [dbo].[Masses] (
     [Id] bigint IDENTITY(1,1) NOT NULL,
     [DateAndTime] datetime  NOT NULL,
     [RuleId] bigint  NOT NULL,
-    [MassType] nvarchar(max)  NULL,
     [ChurchId] bigint  NOT NULL
 );
 GO
@@ -131,9 +127,7 @@ GO
 -- Creating table 'Cycles'
 CREATE TABLE [dbo].[Cycles] (
     [Id] bigint IDENTITY(1,1) NOT NULL,
-    [Name] nvarchar(max)  NOT NULL,
-    [DateStart] datetime  NULL,
-    [DateEnd] datetime  NULL
+    [Name] nvarchar(max)  NOT NULL
 );
 GO
 
@@ -149,7 +143,6 @@ GO
 CREATE TABLE [dbo].[Holidays] (
     [Id] bigint IDENTITY(1,1) NOT NULL,
     [Name] nvarchar(max)  NOT NULL,
-    [Date] datetime  NULL,
     [Category] nvarchar(max)  NULL
 );
 GO

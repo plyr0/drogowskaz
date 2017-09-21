@@ -38,7 +38,7 @@
                     <div class="col-sm-4">
                         @*{ Html.EnableClientValidation(false); }*@
                         @Html.EditorFor(model => model.DateBegin, new { htmlAttributes = new { @class = "form-control datetimepicker",
-                            @type = "datetime", @Value = DateTime.Today.ToString("yyyy.MM.dd") } })
+                                @type = "datetime", @Value = DateTime.Today.ToString("yyyy.MM.dd") } })
                         @{ Html.EnableClientValidation(true); }
                         @*Html.ValidationMessageFor(model => model.DateBegin, "", new { @class = "text-danger" })*@
                     </div>
@@ -469,35 +469,14 @@
                 <h3 class="panel-title">Powtarzanie</h3>
             </div>
             <div class="form-group">
-                @Html.LabelFor(model => model.RepeatDateFirst, "Od daty", htmlAttributes: new { @class = "control-label col-md-2" })
+                @Html.LabelFor(model => model.Repeat, "Powtarzaj", htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    @Html.EditorFor(model => model.RepeatDateFirst, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.RepeatDateFirst, "", new { @class = "text-danger" })
-                </div>
-            </div>
-            <div class="form-group">
-                @Html.LabelFor(model => model.RepeatEveryDays, "Co ile dni", htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.RepeatEveryDays, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.RepeatEveryDays, "", new { @class = "text-danger" })
-                </div>
-            </div>
-            <div class="form-group">
-                @Html.LabelFor(model => model.RepeatEveryDayInMonth, "Dzień miesiąca", htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.RepeatEveryDayInMonth, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.RepeatEveryDayInMonth, "", new { @class = "text-danger" })
-                </div>
-            </div>
-            <div class="form-group">
-                @Html.LabelFor(model => model.RepeatType, "(RODZAJ POWTARZANIA)", htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.RepeatType, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.RepeatType, "", new { @class = "text-danger" })
+                    @Html.EditorFor(model => model.Repeat, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Repeat, "", new { @class = "text-danger" })
                 </div>
             </div>
         </div>
-
+            
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
             @Html.LabelFor(model => model.MassType, "Rodzaj mszy", htmlAttributes: new { @class = "control-label col-md-2" })
@@ -522,7 +501,7 @@
             </div>
         </div>
     </div>
-                            }
+}
 
 <div>
     @Html.ActionLink("Back to List", "Index")

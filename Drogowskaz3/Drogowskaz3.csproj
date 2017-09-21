@@ -325,10 +325,7 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Views\Cycles\Create.cshtml" />
     <Content Include="Views\Cycles\Delete.cshtml" />
-    <Content Include="Views\Cycles\Details.cshtml" />
-    <Content Include="Views\Cycles\Edit.cshtml" />
     <Content Include="Views\Cycles\Index.cshtml" />
     <Content Include="Views\Masses\Delete.cshtml" />
     <Content Include="Views\Masses\Details.cshtml" />
@@ -344,10 +341,7 @@
     <Content Include="Views\Churches\Details.cshtml" />
     <Content Include="Views\Churches\Edit.cshtml" />
     <Content Include="Views\Churches\Index.cshtml" />
-    <Content Include="Views\Holidays\Create.cshtml" />
     <Content Include="Views\Holidays\Delete.cshtml" />
-    <Content Include="Views\Holidays\Details.cshtml" />
-    <Content Include="Views\Holidays\Edit.cshtml" />
     <Content Include="Views\Holidays\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>

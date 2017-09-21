@@ -22,99 +22,19 @@ namespace WebApplication1.Controllers
         {
             return View(db.Holidays.ToList());
         }
-
-        // GET: Holidays/Details/5
-        [AllowAnonymous]
-        public ActionResult Details(long? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Holiday holiday = db.Holidays.Find(id);
-            if (holiday == null)
-            {
-                return HttpNotFound();
-            }
-            return View(holiday);
-        }
-
-        // GET: Holidays/Create
-        public ActionResult Create()
+        
+        // GET: Holidays/Delete/5
+        public ActionResult Delete()
         {
             return View();
-        }
-
-        // POST: Holidays/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Name,Date")] Holiday holiday)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Holidays.Add(holiday);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-
-            return View(holiday);
-        }
-
-        // GET: Holidays/Edit/5
-        public ActionResult Edit(long? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Holiday holiday = db.Holidays.Find(id);
-            if (holiday == null)
-            {
-                return HttpNotFound();
-            }
-            return View(holiday);
-        }
-
-        // POST: Holidays/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Name,Date")] Holiday holiday)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Entry(holiday).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            return View(holiday);
-        }
-
-        // GET: Holidays/Delete/5
-        public ActionResult Delete(long? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Holiday holiday = db.Holidays.Find(id);
-            if (holiday == null)
-            {
-                return HttpNotFound();
-            }
-            return View(holiday);
         }
 
         // POST: Holidays/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(long id)
+        public ActionResult DeleteConfirmed()
         {
-            Holiday holiday = db.Holidays.Find(id);
-            db.Holidays.Remove(holiday);
+            db.Holidays.RemoveRange(db.Holidays);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
