@@ -79,7 +79,7 @@
     <Property Name="Week5" Type="bit" Nullable="false" DefaultValue="true" />
     <Property Name="WeekLast" Type="bit" Nullable="false" DefaultValue="true" />
     <Property Name="CycleType" Type="nvarchar(max)" Nullable="true" />
-    <Property Name="DateBegin" Type="datetime" Nullable="true" />
+    <Property Name="DateBegin" Type="datetime" Nullable="false" />
     <Property Name="DateEnd" Type="datetime" Nullable="true" />
     <Property Name="Hour" Type="time" Nullable="false" />
     <Property Name="DateShift" Type="int" Nullable="true" />
@@ -126,6 +126,7 @@
     <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Date" Type="datetime" Nullable="true" />
+    <Property Name="Category" Type="nvarchar(max)" Nullable="true" />
   </EntityType>
   <Association Name="RuleChurch">
     <End Role="Rule" Type="drogowskazModel.Store.Rules" Multiplicity="*" />
@@ -279,7 +280,7 @@
           <Property Name="Week5" Type="Boolean" Nullable="false" DefaultValue="True" />
           <Property Name="WeekLast" Type="Boolean" Nullable="false" DefaultValue="True" />
           <Property Name="CycleType" Type="String" Nullable="true" MaxLength="Max" Unicode="true" FixedLength="false" />
-          <Property Name="DateBegin" Type="DateTime" Nullable="true" Precision="3" />
+          <Property Name="DateBegin" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="DateEnd" Type="DateTime" Nullable="true" Precision="3" />
           <Property Name="Hour" Type="Time" Nullable="false" />
           <Property Name="DateShift" Type="Int32" Nullable="true" />
@@ -396,6 +397,7 @@
           <NavigationProperty Name="Rules" Relationship="drogowskazModel.HolidayRule" FromRole="Holiday" ToRole="Rule" />
           <Property Name="Name" Type="String" Nullable="false" />
           <Property Name="Date" Type="DateTime" Nullable="true" />
+          <Property Name="Category" Type="String" Nullable="true" />
         </EntityType>
         <Association Name="HolidayRule">
           <End Type="drogowskazModel.Holiday" Role="Holiday" Multiplicity="1" />
@@ -508,6 +510,7 @@
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="Name" ColumnName="Name" />
           <ScalarProperty Name="Date" ColumnName="Date" />
+          <ScalarProperty Name="Category" ColumnName="Category" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

@@ -60,14 +60,16 @@ namespace WebApplication1.Controllers
                 MassHelper.CYCLE_TYPE_MONTH,
                 MassHelper.CYCLE_TYPE_CYCLE,
                 MassHelper.CYCLE_TYPE_HOLIDAY,
-                MassHelper.CYCLE_TYPE_SINGULAR
+                MassHelper.CYCLE_TYPE_SINGULAR,
+                MassHelper.CYCLE_TYPE_REPEAT_DAYS,
+                MassHelper.CYCLE_TYPE_REPEAT_DAY_IN_MONTH
             };
 
-            ViewBag.HolidayId = new SelectList(db.Holidays, "Id", "Name");
+            ViewBag.HolidayId = new SelectList(db.Holidays, "Id", "Name", "Category", null, null);
             ViewBag.CycleId = new SelectList(db.Cycles, "Id", "Name");
             return View();
         }
-
+        
         // POST: Rules/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.

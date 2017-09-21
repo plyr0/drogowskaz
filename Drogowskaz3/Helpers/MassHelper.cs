@@ -9,6 +9,8 @@ namespace WebApplication1.Helpers
         public const string CYCLE_TYPE_CYCLE = "Okres";
         public const string CYCLE_TYPE_HOLIDAY = "Święto";
         public const string CYCLE_TYPE_SINGULAR = "Pojedyncza";
+        public const string CYCLE_TYPE_REPEAT_DAYS = "Powtarzaj(co ile dni)";
+        public const string CYCLE_TYPE_REPEAT_DAY_IN_MONTH = "Powtarzaj(dzień miesiąca)";
 
         public static void GenerateMasses(drogowskazEntities db, DateTime currentDate)
         {
