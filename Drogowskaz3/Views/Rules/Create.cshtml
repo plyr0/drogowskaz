@@ -1,5 +1,7 @@
 ﻿@model WebApplication1.Rule
 
+@using WebApplication1.Helpers
+
 @{
     ViewBag.Title = "Create";
 }
@@ -591,7 +593,7 @@
         $('#CycleType').change(function () {
             //console.log($( "#CycleType option:selected" ).text());
             switch ($("#CycleType option:selected").text()) {
-                case "Miesiące":
+                case "@MassHelper.CYCLE_TYPE_MONTH":
                     $('#panelCycle').hide();
                     $("#panelHoliday").hide();
                     $('#panelWeekDay').show();
@@ -600,7 +602,7 @@
                     $('#panelPowtarzanie').hide();
                     $('#intPrzesuniecie').show();
                     break;
-                case "Okres":
+                case "@MassHelper.CYCLE_TYPE_CYCLE":
                     $('#panelCycle').show();
                     $("#panelHoliday").hide();
                     $('#panelWeekDay').show();
@@ -609,7 +611,7 @@
                     $('#panelPowtarzanie').hide();
                     $('#intPrzesuniecie').show();
                     break;
-                case "Święto":
+                case "@MassHelper.CYCLE_TYPE_HOLIDAY":
                     $('#panelCycle').hide();
                     $("#panelHoliday").show();
                     $('#panelWeekDay').hide();
@@ -618,7 +620,7 @@
                     $('#panelPowtarzanie').hide();
                     $('#intPrzesuniecie').show();
                     break;
-                case "Pojedyncza":
+                case "@MassHelper.CYCLE_TYPE_SINGULAR":
                     $('#panelCycle').hide();
                     $("#panelHoliday").hide();
                     $('#panelWeekDay').hide();
