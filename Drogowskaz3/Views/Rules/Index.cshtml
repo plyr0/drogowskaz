@@ -1,40 +1,66 @@
 ﻿@model IEnumerable<WebApplication1.Rule>
 
+@using WebApplication1.Helpers
+
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Reguły";
 }
 
-<h2>Index</h2>
+<h2>Lista reguł</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Dodaj", "Create")
 </p>
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.MassType)
+
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Monday)
+            Kościół
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Tuesday)
+            Rodzaj reguły
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Wednesday)
+            Okres
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Thursday)
+            Święto
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Friday)
+            Data (początkowa)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Saturday)
+            Data końcowa
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Sunday)
+            Godzina
         </th>
+        <th>
+            Pn
+        </th>
+        <th>
+            Wt
+        </th>
+        <th>
+            Śr
+        </th>
+        <th>
+            Cz
+        </th>
+        <th>
+            Pt
+        </th>
+        <th>
+            Sb
+        </th>
+        <th>
+            Nd
+        </th>
+
+        <th></th>
+
         <th>
             @Html.DisplayNameFor(model => model.I)
         </th>
@@ -71,63 +97,68 @@
         <th>
             @Html.DisplayNameFor(model => model.XII)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Week1)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Week2)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Week3)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Week4)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Week5)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.WeekLast)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CycleType)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DateBegin)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DateEnd)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Hour)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DateShift)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Repeat)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Church.Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Cycle.Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Holiday.Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Comment)
-        </th>
-
 
         <th></th>
+
+        <th>
+            T1
+        </th>
+        <th>
+            T2
+        </th>
+        <th>
+            T3
+        </th>
+        <th>
+            T4
+        </th>
+        <th>
+            T5
+        </th>
+        <th>
+            TO
+        </th>
+        <th>
+            Przesunięcie
+        </th>
+        <th>
+            Powtarzaj
+        </th>
+        <th>
+            Rodzaj mszy
+        </th>
+        <th>
+            Komentarz
+        </th>
     </tr>
 
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.MassType)
+            @Html.ActionLink("Pokaż", "Details", new { id = item.Id }) 
+            @Html.ActionLink("Edytuj", "Edit", new { id = item.Id }) 
+            @Html.ActionLink("Usuń", "Delete", new { id = item.Id })
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Church.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CycleType)
+        </td>
+        <td>
+            @if (item.CycleType == MassHelper.CYCLE_TYPE_CYCLE) { @Html.DisplayFor(modelItem => item.Cycle.Name); }
+        </td>
+        <td>
+            @if (item.CycleType == MassHelper.CYCLE_TYPE_HOLIDAY) { @Html.DisplayFor(modelItem => item.Holiday.Name); }
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DateBegin)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DateEnd)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Hour)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Monday)
@@ -150,6 +181,9 @@
         <td>
             @Html.DisplayFor(modelItem => item.Sunday)
         </td>
+        
+        <td></td>
+        
         <td>
             @Html.DisplayFor(modelItem => item.I)
         </td>
@@ -186,6 +220,9 @@
         <td>
             @Html.DisplayFor(modelItem => item.XII)
         </td>
+
+        <td></td>
+
         <td>
             @Html.DisplayFor(modelItem => item.Week1)
         </td>
@@ -205,39 +242,16 @@
             @Html.DisplayFor(modelItem => item.WeekLast)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.CycleType)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DateBegin)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DateEnd)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Hour)
-        </td>
-        <td>
             @Html.DisplayFor(modelItem => item.DateShift)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Repeat)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Church.Name)
+            @Html.DisplayFor(modelItem => item.MassType)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Cycle.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Holiday.Name)
-        </td>
-        <th>
             @Html.DisplayFor(model => item.Comment)
-        </th>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
         </td>
     </tr>
 }

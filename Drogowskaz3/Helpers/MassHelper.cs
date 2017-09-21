@@ -24,7 +24,7 @@ namespace WebApplication1.Helpers
         {
             if (r.DateBegin != null && currentDate < r.DateBegin)
                 return;
-            if (r.DateEnd != null && currentDate > r.DateEnd)
+            if (r.DateEnd != null && currentDate >= r.DateEnd)
                 return;
             DateTime dateAndTime = currentDate.AddMinutes(r.Hour.TotalMinutes); //TODO: przesunąć do switcha, kasować msze o niższym priorytecie
             if (db.Masses.Where(m => m.DateAndTime == dateAndTime && m.ChurchId == r.ChurchId).Any())
