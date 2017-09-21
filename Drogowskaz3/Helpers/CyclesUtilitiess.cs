@@ -65,7 +65,7 @@ namespace WebApplication1.Helpers
             "Rok Szkolny",
             "Okres Zwykły",
         };
-
+        
         public static Func<int, DateTime>[] functionsHoliday = {
             GenerateDate.NowyRok,
             GenerateDate.TrzechKroli,
@@ -111,7 +111,40 @@ namespace WebApplication1.Helpers
             GenerateCycle.RokSzkolny,
             GenerateCycle.OkresZwykly2,
         };
-        
+
+        public static Dictionary<string, string> holidayCategories = new Dictionary<string, string>() {
+            { "Świętej Bożej Rodzicielki", "Okres Bożonarodzeniowy" },
+            { "Objawienie Pańskie", "Okres Bożonarodzeniowy" },
+            { "Ofiarowanie Pańskie", "Okres Zwykły " },
+            { "Środa Popielcowa", "Wielki Post" },
+            { "Uroczystość św. Józefa", "Wielki Post" },
+            { "Zwiastowanie Pańskie", "Wielki Post" },
+            { "Święto św. Wojciecha", "Okres Zmartwychwstania Pańskiego" },
+            { "Wielki Czwartek", "Okres Zmartwychwstania Pańskiego" },
+            { "Wielki Piątek", "Okres Zmartwychwstania Pańskiego" },
+            { "Wigilia Paschalna", "Okres Zmartwychwstania Pańskiego" },
+            { "Niedziela Wielkanocna", "Okres Zmartwychwstania Pańskiego" },
+            { "Poniedziałek Wielkanocny", "Okres Zmartwychwstania Pańskiego" },
+            { "Wniebowstąpienie", "Okres Zmartwychwstania Pańskiego" },
+            { "Zesłanie Ducha Świętego", "Okres Zmartwychwstania Pańskiego" },
+            { "Najświętszej Maryi Panny, Matki Kościoła", "Okres Zwykły" },
+            { "Najświętszego Ciała i Krwi Pańskiej", "Okres Zwykły" },
+            { "Uroczystość Najświętszego Serca Pana Jezusa", "Okres Zwykły" },
+            { "Najświętszej Maryi Panny Królowej Polski", "Okres Zwykły" },
+            { "Uroczystość św. Piotra i Pawła", "Okres Zwykły" },
+            { "Wniebowzięcie Najświętszej Maryi Panny", "Okres Zwykły" },
+            { "Matki Boskiej Częstochowskiej", "Okres Zwykły" },
+            { "Wszystkich Świętych", "Okres Zwykły" },
+            { "Zaduszki", "Okres Zwykły" },
+            { "Uroczystość Niepokalanego Poczęcia Najświetszej Maryi Panny", "Adwent" },
+            { "Wigilia Bożego Narodzenia", "Adwent" },
+            { "Boże Narodzenie",  "Okres Bożonarodzeniowy " },
+            { "Św. Szczepana", "Okres Bożonarodzeniowy " },
+            { "Sylwester", "Okres Bożonarodzeniowy " },
+            { "Pierwszy Dzień Szkoły", "Szkoła" },
+            { "Ostatni Dzień Szkoły", "Szkoła" }
+        };
+
         public static string GenerujSwieto(DateTime dateShift)
         {
             for (int i = 0; i < holidayNames.Length; i++)
@@ -128,7 +161,6 @@ namespace WebApplication1.Helpers
         {
             DateTime start;
             DateTime end;
-
             if (name == "Okres Zwykły")
             {
                 GenerateCycle.OkresZwykly1(dateShift.Year, out start, out end);
@@ -143,8 +175,6 @@ namespace WebApplication1.Helpers
 
             CycleFunc<int, DateTime, DateTime> func;
             cycleNamesToFuncs.TryGetValue(name, out func);
-
-            
             if (name == "Okres Bożonarodzeniowy" && (dateShift.Month == 1 || dateShift.Month == 2))
             {
                 func(dateShift.Year - 1, out start, out end);

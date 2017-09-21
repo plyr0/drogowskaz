@@ -22,7 +22,8 @@ namespace WebApplication1.Helpers
                 {
                     holiday = new Holiday()
                     {
-                        Name = name                    
+                        Name = name,                
+                        Category = CyclesUtilitiess.holidayCategories[name]
                     };
                     context.Holidays.Add(holiday);
                     context.SaveChanges();
