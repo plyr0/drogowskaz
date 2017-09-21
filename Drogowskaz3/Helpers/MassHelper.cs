@@ -20,6 +20,8 @@ namespace WebApplication1.Helpers
 
         private static void GenerateMassesFromOneRule(Rule r, drogowskazEntities db, DateTime currentDate)
         {
+            if (currentDate < r.DateBegin || currentDate > r.DateEnd)
+                return;
             DateTime dateAndTime = currentDate.AddMinutes(r.Hour.TotalMinutes);
             if (db.Masses.Where(m => m.DateAndTime == dateAndTime && m.ChurchId == r.ChurchId).Any())
             {
