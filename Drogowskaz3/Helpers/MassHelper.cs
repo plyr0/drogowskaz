@@ -145,10 +145,6 @@ namespace WebApplication1.Helpers
 
 //TODO: okresy
 //TODO: powtarzalna
-//TODO: okres kolędowy
-//TODO: święta dni wolne od pracy
-//TODO: święta dni robocze
-//TODO: dzień zaduszny?
-//TODO: kopiowanie reguły do kilku kościołów
-//TODO: Church name w Masses
+//TODO: kopiowanie reguły do kilku kościołów - zostawiam Ci
+
 

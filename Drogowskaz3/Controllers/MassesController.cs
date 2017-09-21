@@ -21,7 +21,7 @@ namespace WebApplication1.Controllers
         [AllowAnonymous]
         public ActionResult Index()
         {
-            var masses = db.Masses.Include(m => m.Rule).Include(m => m.Church);
+            var masses = db.Masses.Include(m => m.Rule).Include(m => m.Church).OrderBy(m=>m.DateAndTime);
             return View(masses.ToList());
         }
 

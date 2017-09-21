@@ -141,7 +141,11 @@ namespace WebApplication1.Helpers
             {
                 func(dateShift.Year - 1, out start, out end);
             }
-            else //TODO: czas zimowy, 2 okresy zwykłe na -> 1
+            else if (name == "Czas zimowy" && dateShift.Month >= 1 && dateShift.Month <= 3)
+            {
+                func(dateShift.Year - 1, out start, out end);
+            }
+            else 
             {
                 func(dateShift.Year, out start, out end);
             }
