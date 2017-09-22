@@ -17,65 +17,107 @@
         <h4>Rule</h4>
         <hr />
 
-        <div class="panel panel-primary">
-            <div class="panel-body">
-                <div class="form-group">
-                    @Html.LabelFor(model => model.ChurchId, "Kościół", htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-sm-4">
-                        @if (ViewBag.FixedChurch)
-                        {
-                            @Html.DropDownList("ChurchId", null, htmlAttributes: new { @class = "form-control", @disabled = "disabled" })
-                        }
-                        else
-                        {
-                            @Html.DropDownList("ChurchId", null, htmlAttributes: new { @class = "form-control" })
-                        }
-                        @Html.ValidationMessageFor(model => model.ChurchId, "", new { @class = "text-danger" })
+        <div class="row">
+            <div class="col-md-7">
+
+                <div class="panel panel-primary">
+                    <div class="panel-body">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.ChurchId, "Kościół", htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-sm-4">
+                                @if (ViewBag.FixedChurch)
+                                {
+                                    @Html.DropDownList("ChurchId", null, htmlAttributes: new { @class = "form-control", @disabled = "disabled" })
+                                }
+                                else
+                                {
+                                    @Html.DropDownList("ChurchId", null, htmlAttributes: new { @class = "form-control" })
+                                }
+                                @Html.ValidationMessageFor(model => model.ChurchId, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.DateBegin, "Data początkowa", htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-sm-4">
+                                @*{ Html.EnableClientValidation(false); }*@
+                                @Html.EditorFor(model => model.DateBegin, new
+                           {
+                               htmlAttributes = new
+                               {
+                                   @class = "form-control datetimepicker",
+                                   @type = "datetime",
+                                   @Value = DateTime.Today.ToString("yyyy.MM.dd")
+                               }
+                           })
+                                @{ Html.EnableClientValidation(true); }
+                                @*Html.ValidationMessageFor(model => model.DateBegin, "", new { @class = "text-danger" })*@
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.DateEnd, "Data końcowa", htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-sm-4">
+                                @{ Html.EnableClientValidation(false); }
+                                @Html.EditorFor(model => model.DateEnd, new { htmlAttributes = new { @class = "form-control datetimepicker", @type = "datetime" } })
+                                @{ Html.EnableClientValidation(true); }
+                                @Html.ValidationMessageFor(model => model.DateEnd, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Hour, "Godzina", htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-sm-4">
+                                @Html.EditorFor(model => model.Hour, new { htmlAttributes = new { @class = "form-control timepicker", @type = "time" } })
+                                @Html.ValidationMessageFor(model => model.Hour, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group" id="intPrzesuniecie">
+                            @Html.LabelFor(model => model.DateShift, "Przesunięcie", htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-sm-4">
+                                @Html.EditorFor(model => model.DateShift, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.DateShift, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.CycleType, "Rodzaj reguły", htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-sm-4">
+
+
+
+
+
+
+
+                                <!--@Html.EditorFor(model => model.CycleType, new { htmlAttributes = new { @class = "form-control" } })-->
+                                @Html.DropDownList("CycleType", new SelectList(ViewBag.CycleType), htmlAttributes: new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.CycleType, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="form-group">
-                    @Html.LabelFor(model => model.DateBegin, "Data początkowa", htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-sm-4">
-                        @*{ Html.EnableClientValidation(false); }*@
-                        @Html.EditorFor(model => model.DateBegin, new { htmlAttributes = new { @class = "form-control datetimepicker",
-                                @type = "datetime", @Value = DateTime.Today.ToString("yyyy.MM.dd") } })
-                        @{ Html.EnableClientValidation(true); }
-                        @*Html.ValidationMessageFor(model => model.DateBegin, "", new { @class = "text-danger" })*@
-                    </div>
-                </div>
-                <div class="form-group">
-                    @Html.LabelFor(model => model.DateEnd, "Data końcowa", htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-sm-4">
-                        @{ Html.EnableClientValidation(false); }
-                        @Html.EditorFor(model => model.DateEnd, new { htmlAttributes = new { @class = "form-control datetimepicker", @type = "datetime" } })
-                        @{ Html.EnableClientValidation(true); }
-                        @Html.ValidationMessageFor(model => model.DateEnd, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-                <div class="form-group">
-                    @Html.LabelFor(model => model.Hour, "Godzina", htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-sm-4">
-                        @Html.EditorFor(model => model.Hour, new { htmlAttributes = new { @class = "form-control timepicker", @type = "time" } })
-                        @Html.ValidationMessageFor(model => model.Hour, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-                <div class="form-group" id="intPrzesuniecie">
-                    @Html.LabelFor(model => model.DateShift, "Przesunięcie", htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-sm-4">
-                        @Html.EditorFor(model => model.DateShift, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.DateShift, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-                <div class="form-group">
-                    @Html.LabelFor(model => model.CycleType, "Rodzaj reguły", htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-sm-4">
-                        <!--@Html.EditorFor(model => model.CycleType, new { htmlAttributes = new { @class = "form-control" } })-->
-                        @Html.DropDownList("CycleType", new SelectList(ViewBag.CycleType), htmlAttributes: new { @class = "form-control" })
-                        @Html.ValidationMessageFor(model => model.CycleType, "", new { @class = "text-danger" })
+            </div>
+
+
+
+            <div class="col-md-5">
+                <div class="panel panel-primary" id="panelGodzin">
+                    <div class="panel-body">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Godziny mszy</h3>
+                        </div>
+                        <input type="text" id="usr">
+                        <button onclick="appendText()">Ilość godzin</button>
+                        <div id="godziny">
+                            <!--dodawane godziny-->
+
+
+
+
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
+
+
 
         <div class="panel panel-primary" id="panelCycle" hidden>
             <div class="panel-heading">
@@ -476,7 +518,7 @@
                 </div>
             </div>
         </div>
-            
+
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
             @Html.LabelFor(model => model.MassType, "Rodzaj mszy", htmlAttributes: new { @class = "control-label col-md-2" })
@@ -501,7 +543,7 @@
             </div>
         </div>
     </div>
-}
+                                    }
 
 <div>
     @Html.ActionLink("Back to List", "Index")
@@ -510,7 +552,19 @@
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script type="text/javascript">
+                    function appendText() {
+                        $("#godziny").empty();
+                        var ile = document.getElementById("usr").value;
+                        for (var l = 0; l < ile; l++) {
+                            var txt1 = " <input type=\"text\"  id=\"new" + l + "\">";              // Create text with HTML
+                            // Create text with DOM
+
+                            $("#godziny").append(txt1);
+                        }
+                    }
+
         $('.datetimepicker').datetimepicker({
             format: "YYYY-MM-DD",
             stepping: 30,
