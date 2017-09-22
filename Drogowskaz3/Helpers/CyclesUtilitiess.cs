@@ -239,9 +239,11 @@ namespace WebApplication1.Helpers
             for (int i = 0; i < holidayFunctions.Length; i++)
             {
                 var x = holidayIsFree[holidayNames[i]];
-                sb.Append(holidayNames[i]).Append(" : ").Append(x? " (wolne) " : " (pracujące) ")
-                .Append(holidayFunctions[i](year)
-                .ToString("d")).Append(sep);
+                sb.Append(holidayNames[i])
+                .Append(" : ")
+                .Append(holidayFunctions[i](year).ToString("d"))
+                .Append(x ? " (wolne) " : " (pracujące) ")
+                .Append(sep);
             }
             return sb.ToString();
         }

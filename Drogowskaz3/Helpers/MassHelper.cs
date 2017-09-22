@@ -49,13 +49,31 @@ namespace WebApplication1.Helpers
                     ruleCycle(r, dateShift, currentDate, db);
                     break;
                 case CYCLE_TYPE_REPEAT_DAYS:
-                    //TODO:
+                    ruleRepeatDays(r, dateShift, currentDate, db);
                     break;
                 case CYCLE_TYPE_REPEAT_DAY_IN_MONTH:
-                    //TODO:
+                    ruleRepeatDayInMonth(r, dateShift, currentDate, db);
                     break;
                 default:
                     throw new Exception("Nieznany typ mszy");
+            }
+        }
+
+        private static void ruleRepeatDayInMonth(Rule r, DateTime dateShift, DateTime currentDate, drogowskazEntities db)
+        {
+            if(dateShift.Day == r.Repeat)
+            {
+                AddMass(r, db, currentDate);
+            }
+        }
+
+        private static void ruleRepeatDays(Rule r, DateTime dateShift, DateTime currentDate, drogowskazEntities db)
+        {
+            
+            TimeSpan roznica = dateShift.Date - r.DateBegin;
+            if(roznica.TotalDays % r.Repeat == 0)
+            {
+                AddMass(r, db, currentDate);
             }
         }
 
