@@ -76,7 +76,7 @@ namespace WebApplication1
         public bool WeekLast { get; set; }
         public string CycleType { get; set; }
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
-        public System.DateTime DateBegin { get; set; }
+        public Nullable<System.DateTime> DateBegin { get; set; }
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public Nullable<System.DateTime> DateEnd { get; set; }
         public System.TimeSpan Hour { get; set; }

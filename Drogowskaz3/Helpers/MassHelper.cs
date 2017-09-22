@@ -69,8 +69,9 @@ namespace WebApplication1.Helpers
 
         private static void ruleRepeatDays(Rule r, DateTime dateShift, DateTime currentDate, drogowskazEntities db)
         {
-            
-            TimeSpan roznica = dateShift.Date - r.DateBegin;
+            if(r.DateBegin == null)
+                return;
+            TimeSpan roznica = dateShift.Date - r.DateBegin.Value;
             if(roznica.TotalDays % r.Repeat == 0)
             {
                 AddMass(r, db, currentDate);
