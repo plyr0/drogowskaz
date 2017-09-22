@@ -233,11 +233,15 @@ namespace WebApplication1.Helpers
 
         public static string holidaysAllToString(int year)
         {
+            
             string sep = "</br>";
             StringBuilder sb = new StringBuilder();
             for (int i = 0; i < holidayFunctions.Length; i++)
             {
-                sb.Append(holidayNames[i]).Append(" : ").Append(holidayFunctions[i](year).ToString("d")).Append(sep);
+                var x = holidayIsFree[holidayNames[i]];
+                sb.Append(holidayNames[i]).Append(" : ").Append(x? " (wolne) " : " (pracujące) ")
+                .Append(holidayFunctions[i](year)
+                .ToString("d")).Append(sep);
             }
             return sb.ToString();
         }
