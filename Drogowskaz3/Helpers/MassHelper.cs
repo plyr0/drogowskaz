@@ -162,6 +162,6 @@ namespace WebApplication1.Helpers
     }
 }
 
-//TODO: okresy
+
 //TODO: powtarzalna
-//TODO: kopiowanie reguły do kilku kościołów - zostawiam Ci
+//TODO: kopiowanie reguły do jednego kościoła - zostawiam Ci

@@ -20,6 +20,9 @@
             Kościół
         </th>
         <th>
+            Komentarz
+        </th>
+        <th>
             Rodzaj reguły
         </th>
         <th>
@@ -127,9 +130,7 @@
         <th>
             Rodzaj mszy
         </th>
-        <th>
-            Komentarz
-        </th>
+        
     </tr>
 
 @foreach (var item in Model) {
@@ -141,6 +142,9 @@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Church.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(model => item.Comment)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.CycleType)
@@ -250,9 +254,7 @@
         <td>
             @Html.DisplayFor(modelItem => item.MassType)
         </td>
-        <td>
-            @Html.DisplayFor(model => item.Comment)
-        </td>
+        
     </tr>
 }
 

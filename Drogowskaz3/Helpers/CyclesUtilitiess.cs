@@ -58,7 +58,8 @@ namespace WebApplication1.Helpers
             "Sylwester", 
             "Pierwszy Dzień Szkoły",
             "Ostatni Dzień Szkoły",
-            "Święta wolne od pracy"
+            "Święta wolne od pracy",
+            "Święta w dni robocze",
         };
 
         public static string[] cyclesNames = {
@@ -171,7 +172,16 @@ namespace WebApplication1.Helpers
             {
                 foreach (var sw in holidayIsFree)
                 {
-                    if (sw.Value && isInHoliday(dateShift, sw.Key)) //TODO: czy niedziele?
+                    if (sw.Value && isInHoliday(dateShift, sw.Key)) 
+                        return true;
+                }
+                return false;
+            }
+            else if (name == "Święta w dni robocze")
+            {
+                foreach (var sw in holidayIsFree)
+                {
+                    if (!sw.Value && isInHoliday(dateShift, sw.Key) && dateShift.DayOfWeek != DayOfWeek.Sunday) 
                         return true;
                 }
                 return false;
