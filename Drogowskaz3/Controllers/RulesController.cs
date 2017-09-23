@@ -130,6 +130,48 @@ namespace WebApplication1.Controllers
             return View(rule);
         }
 
+
+        
+        public ActionResult Copy(long? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Rule rule = db.Rules.Find(id);
+            if (rule == null)
+            {
+                return HttpNotFound();
+            }
+            ViewBag.ChurchId = new SelectList(db.Churches, "Id", "Name", rule.ChurchId);
+            ViewBag.CycleId = new SelectList(db.Cycles, "Id", "Name", rule.CycleId);
+            ViewBag.HolidayId = new SelectList(db.Holidays, "Id", "Name", rule.HolidayId);
+            var cycleType = new List<String>(){
+                MassHelper.CYCLE_TYPE_MONTH,
+                MassHelper.CYCLE_TYPE_CYCLE,
+                MassHelper.CYCLE_TYPE_HOLIDAY,
+                MassHelper.CYCLE_TYPE_SINGULAR,
+                MassHelper.CYCLE_TYPE_REPEAT_DAYS,
+                MassHelper.CYCLE_TYPE_REPEAT_DAY_IN_MONTH
+            };
+            ViewBag.CycleType = new SelectList(cycleType, rule.CycleType);
+            return View("Edit", rule);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Copy([Bind(Include = "Id,MassType,Monday,Tuesday,Wednesday,Thursday,Friday,Saturday,Sunday,I,II,III,IV,V,VI,VII,VIII,IX,X,XI,XII,Week1,Week2,Week3,Week4,Week5,WeekLast,CycleType,DateBegin,DateEnd,Hour,DateShift,Repeat,ChurchId,CycleId,HolidayId,Comment")] Rule rule)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Rules.Add(rule);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return View(rule);
+        }
+       
+
         // GET: Rules/Delete/5
         public ActionResult Delete(long? id)
         {

@@ -137,9 +137,10 @@
     @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.ActionLink("Pokaż", "Details", new { id = item.Id }) 
-            @Html.ActionLink("Edytuj", "Edit", new { id = item.Id }) 
-            @Html.ActionLink("Usuń", "Delete", new { id = item.Id })
+            @Html.ActionLink("Pokaż", "Details", new { id = item.Id })
+            @Html.ActionLink("Edytuj", "Edit", new { id = item.Id })
+            @Html.ActionLink("Kopiuj", "Copy", new { id = item.Id })
+            @Html.ActionLink("Usuń", "Delete", new { id = item.Id }) 
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Church.Name)
