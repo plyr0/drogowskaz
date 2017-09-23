@@ -94,16 +94,14 @@
 
             <div class="col-md-5">
                 <div class="panel panel-primary" id="panelGodzin">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Dodatkowe godziny mszy</h3>
+                    </div>
                     <div class="panel-body">
-                        <div class="panel-heading">
-                            <h3 class="panel-title">Godziny mszy</h3>
-                        </div>
-                        <input type="text" id="usr" maxlength="2" placeholder="Ilość godzin" >
-                        <button   id="dodaj" name="dodaj">Potwierdzam</button>
-                        
+                        <input type="number" id="usr" maxlength="2" placeholder="Ilość godzin" />
+                        <button id="dodaj" name="dodaj" type="button">Zatwierdź</button>
                         <div id="godziny">
-                          <!--Inputy godzin-->
-
+                            <!--Inputy godzin-->
                         </div>
                     </div>
                 </div>
@@ -544,26 +542,35 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
-
  
- <script type="text/javascript">
+    <script type="text/javascript">
+        var godzinyFunkcja = function () {
+            var hoursAll = document.getElementById("usr").value;
+            if (hoursAll < 0 || hoursAll > 23)
+                return;
+            $("#godziny").empty();
+            for (var l = 0; l < hoursAll; l++) {
+                var x = document.createElement("DIV");
+                var t = document.createElement("INPUT");
+                t.setAttribute("type", "time");
+                t.setAttribute("class", "form-control timepicker")
+                //t.setAttribute("required", "Wpisz godzinę")
+                t.required = true;
+                t.setAttribute("id", "new" + l);
+                x.appendChild(t);
+                document.getElementById("godziny").appendChild(x);
+                $('.timepicker').datetimepicker(timePickerOptions);
+            }
+        };
+        $('#dodaj').click(godzinyFunkcja);
+        //$('#usr').change(godzinyFunkcja);
 
-    $('#dodaj').click(function () {
-        $("#godziny").empty();
-        for (var l = 0; l < document.getElementById("usr").value; l++) {
-            var x = document.createElement("DIV");
-
-            var t = document.createElement("INPUT");
-            t.setAttribute("type", "time");
-            t.setAttribute("class", "form-control timepicker")
-            //t.setAttribute("required", "Wpisz godzinę")
-            t.required = true;
-            t.setAttribute("id", "new"+l);
-            x.appendChild(t);
-            document.getElementById("godziny").appendChild(x);
-            
-        }
-    });
+        $('#usr').bind("keypress", function (e) {
+            if (e.keyCode == 13) {
+                e.preventDefault();
+                return false;
+            }
+        });
 
         $('.datetimepicker').datetimepicker({
             format: "YYYY-MM-DD",
@@ -575,12 +582,14 @@
             showClose: true,
             showClear: true,
         });
-        $('.timepicker').datetimepicker({
+
+        var timePickerOptions = {
             format: 'HH:mm',
             locale: "PL",
             showClose: true,
             showClear: true,
-        });
+        };
+        $('.timepicker').datetimepicker(timePickerOptions);
         $('#weekDaysAll').click(function () {
             if ($('#weekDaysAll').prop('checked')) {
                 $('#panelWeekDay input:checkbox').prop('checked', true);
@@ -664,12 +673,24 @@
                     $('#intPrzesuniecie').hide();
                     break;
                 case "@MassHelper.CYCLE_TYPE_REPEAT_DAYS":
+                    $('#panelCycle').hide();
+                    $("#panelHoliday").hide();
+                    $('#panelWeekDay').hide();
+                    $('#panelMonths').hide();
+                    $('#panelWeeks').hide();
                     $('#panelPowtarzanie').show();
+                    $('#intPrzesuniecie').hide();
                     break;
                 case "@MassHelper.CYCLE_TYPE_REPEAT_DAY_IN_MONTH":
+                    $('#panelCycle').hide();
+                    $("#panelHoliday").hide();
+                    $('#panelWeekDay').hide();
+                    $('#panelMonths').hide();
+                    $('#panelWeeks').hide();
                     $('#panelPowtarzanie').show();
+                    $('#intPrzesuniecie').hide();
                     break;
             }
         })
-</script>
+    </script>
 }
