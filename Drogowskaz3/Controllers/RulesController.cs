@@ -83,10 +83,6 @@ namespace WebApplication1.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-
-            ViewBag.ChurchId = new SelectList(db.Churches, "Id", "Name", rule.ChurchId);
-            ViewBag.CycleId = new SelectList(db.Cycles, "Id", "Name", rule.CycleId);
-            ViewBag.HolidayId = new SelectList(db.Holidays, "Id", "Name", rule.HolidayId);
             return View(rule);
         }
 
@@ -105,6 +101,16 @@ namespace WebApplication1.Controllers
             ViewBag.ChurchId = new SelectList(db.Churches, "Id", "Name", rule.ChurchId);
             ViewBag.CycleId = new SelectList(db.Cycles, "Id", "Name", rule.CycleId);
             ViewBag.HolidayId = new SelectList(db.Holidays, "Id", "Name", rule.HolidayId);
+
+            var cycleType = new List<String>(){
+                MassHelper.CYCLE_TYPE_MONTH,
+                MassHelper.CYCLE_TYPE_CYCLE,
+                MassHelper.CYCLE_TYPE_HOLIDAY,
+                MassHelper.CYCLE_TYPE_SINGULAR,
+                MassHelper.CYCLE_TYPE_REPEAT_DAYS,
+                MassHelper.CYCLE_TYPE_REPEAT_DAY_IN_MONTH
+            };
+            ViewBag.CycleType = new SelectList(cycleType, rule.CycleType);
             return View(rule);
         }
 
@@ -121,9 +127,6 @@ namespace WebApplication1.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.ChurchId = new SelectList(db.Churches, "Id", "Name", rule.ChurchId);
-            ViewBag.CycleId = new SelectList(db.Cycles, "Id", "Name", rule.CycleId);
-            ViewBag.HolidayId = new SelectList(db.Holidays, "Id", "Name", rule.HolidayId);
             return View(rule);
         }
 
