@@ -41,7 +41,7 @@
             @Html.DisplayFor(modelItem => item.Diocese)
         </td>
         <td>
-            @Html.ActionLink("Reguły", "Index", "Rules", new { churchId = item.Id }, null) |
+            @Html.ActionLink("Reguły", "Index", "Rules", new { id = item.Id }, null) |
             @Html.ActionLink("Dodaj regułę", "Create", "Rules", new { id = item.Id }, null) |
             @Html.ActionLink("Właściwości", "Details", new { id=item.Id }) |
             @Html.ActionLink("Edytuj", "Edit", new { id=item.Id }) |

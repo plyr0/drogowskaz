@@ -9,6 +9,7 @@
 <h2>Lista reguł</h2>
 
 <p>
+    @Html.ActionLink("Wszystkie kościoły", "Index", new { id = string.Empty }) |
     @Html.ActionLink("Dodaj", "Create")
 </p>
 <table class="table">
@@ -133,7 +134,7 @@
         
     </tr>
 
-@foreach (var item in Model) {
+    @foreach (var item in Model) {
     <tr>
         <td>
             @Html.ActionLink("Pokaż", "Details", new { id = item.Id }) 
@@ -164,6 +165,10 @@
         <td>
             @Html.DisplayFor(modelItem => item.Hour)
         </td>
+
+
+        @if (item.CycleType == MassHelper.CYCLE_TYPE_CYCLE || item.CycleType == MassHelper.CYCLE_TYPE_MONTH)
+        {
         <td>
             @Html.DisplayFor(modelItem => item.Monday)
         </td>
@@ -185,9 +190,12 @@
         <td>
             @Html.DisplayFor(modelItem => item.Sunday)
         </td>
-        
+        } else { <td></td><td></td><td></td><td></td><td></td><td></td><td></td> }
+
         <td></td>
-        
+
+        @if (item.CycleType == MassHelper.CYCLE_TYPE_MONTH)
+        {
         <td>
             @Html.DisplayFor(modelItem => item.I)
         </td>
@@ -224,9 +232,13 @@
         <td>
             @Html.DisplayFor(modelItem => item.XII)
         </td>
+        } else {  <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td> }
 
         <td></td>
 
+
+        @if (item.CycleType == MassHelper.CYCLE_TYPE_CYCLE || item.CycleType == MassHelper.CYCLE_TYPE_MONTH)
+        {
         <td>
             @Html.DisplayFor(modelItem => item.Week1)
         </td>
@@ -245,10 +257,16 @@
         <td>
             @Html.DisplayFor(modelItem => item.WeekLast)
         </td>
+        } else { <td></td><td></td><td></td><td></td><td></td><td></td> }
+
         <td>
             @Html.DisplayFor(modelItem => item.DateShift)
         </td>
         <td>
+            @if (item.CycleType == MassHelper.CYCLE_TYPE_REPEAT_DAYS || item.CycleType == MassHelper.CYCLE_TYPE_REPEAT_DAY_IN_MONTH)
+            { 
+                @Html.DisplayFor(modelItem => item.Repeat);
+            }
             @Html.DisplayFor(modelItem => item.Repeat)
         </td>
         <td>

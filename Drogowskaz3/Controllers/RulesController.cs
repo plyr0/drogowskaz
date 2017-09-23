@@ -18,13 +18,13 @@ namespace WebApplication1.Controllers
 
         // GET: Rules
         [AllowAnonymous]
-        public ActionResult Index(long? churchId)
+        public ActionResult Index(long? id)
         {
             IQueryable<Rule> rules;
-            if(churchId == null) {
+            if(id == null) {
                 rules = db.Rules.Include(r => r.Church).Include(r => r.Cycle).Include(r => r.Holiday);
             } else {
-                rules = db.Rules.Where(r => r.ChurchId == churchId).Include(r => r.Church).Include(r => r.Cycle)
+                rules = db.Rules.Where(r => r.ChurchId == id).Include(r => r.Church).Include(r => r.Cycle)
                     .Include(r => r.Holiday);
             }
             return View(rules.ToList());

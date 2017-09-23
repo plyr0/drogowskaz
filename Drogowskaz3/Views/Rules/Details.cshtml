@@ -1,79 +1,139 @@
 ﻿@model WebApplication1.Rule
 
+@using WebApplication1.Helpers
+
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Szczegóły";
 }
 
-<h2>Details</h2>
-
+<h2>Reguła - szczegóły</h2>
 <div>
-    <h4>Rule</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.MassType)
+            Kościół
         </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Church.Name)
+        </dd>
 
+        <dt>
+            Komentarz
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Comment)
+        </dd>
+
+        <dt>
+            Rodzaj reguły
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.CycleType)
+        </dd>
+
+        @if (Model.CycleType == MassHelper.CYCLE_TYPE_HOLIDAY)
+        {
+        <dt>
+            Święto
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Holiday.Name)
+        </dd>
+        }
+
+        @if (Model.CycleType == MassHelper.CYCLE_TYPE_CYCLE)
+        {
+        <dt>
+            Okres
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Cycle.Name)
+        </dd>
+        }
+
+        <dt>
+            Data początkowa
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.DateBegin)
+        </dd>
+
+        <dt>
+            Data końcowa
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.DateEnd)
+        </dd>
+
+        <dt>
+            Godzina
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Hour)
+        </dd>
+
+        <dt>
+            Rodzaj mszy
+        </dt>
         <dd>
             @Html.DisplayFor(model => model.MassType)
         </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Monday)
-        </dt>
 
+        @if (Model.CycleType == MassHelper.CYCLE_TYPE_CYCLE || Model.CycleType == MassHelper.CYCLE_TYPE_MONTH)
+        {
+        <dt>
+            Poniedziałek
+        </dt>
         <dd>
             @Html.DisplayFor(model => model.Monday)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Tuesday)
+            Wtorek
         </dt>
-
         <dd>
             @Html.DisplayFor(model => model.Tuesday)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Wednesday)
+            Środa
         </dt>
-
         <dd>
             @Html.DisplayFor(model => model.Wednesday)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Thursday)
+            Czwartek
         </dt>
-
         <dd>
             @Html.DisplayFor(model => model.Thursday)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Friday)
+            Piątek
         </dt>
-
         <dd>
             @Html.DisplayFor(model => model.Friday)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Saturday)
+            Sobota
         </dt>
 
         <dd>
             @Html.DisplayFor(model => model.Saturday)
         </dd>
-
         <dt>
-            @Html.DisplayNameFor(model => model.Sunday)
+            Niedziela
         </dt>
-
         <dd>
             @Html.DisplayFor(model => model.Sunday)
         </dd>
+        }
 
+        @if (Model.CycleType == MassHelper.CYCLE_TYPE_MONTH)
+        {
         <dt>
             @Html.DisplayNameFor(model => model.I)
         </dt>
@@ -169,9 +229,13 @@
         <dd>
             @Html.DisplayFor(model => model.XII)
         </dd>
+        }
 
+
+        @if (Model.CycleType == MassHelper.CYCLE_TYPE_CYCLE || Model.CycleType == MassHelper.CYCLE_TYPE_MONTH)
+        {
         <dt>
-            @Html.DisplayNameFor(model => model.Week1)
+            1 Tydzień
         </dt>
 
         <dd>
@@ -179,7 +243,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Week2)
+            2 Tydzień
         </dt>
 
         <dd>
@@ -187,7 +251,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Week3)
+            3 Tydzień
         </dt>
 
         <dd>
@@ -195,7 +259,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Week4)
+            4 Tydzień
         </dt>
 
         <dd>
@@ -203,7 +267,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Week5)
+            5 Tydzień
         </dt>
 
         <dd>
@@ -211,94 +275,35 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.WeekLast)
+            Ostatni Tydzień
         </dt>
-
         <dd>
             @Html.DisplayFor(model => model.WeekLast)
         </dd>
+        }
 
         <dt>
-            @Html.DisplayNameFor(model => model.CycleType)
+            Przesunięcie
         </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.CycleType)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.DateBegin)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.DateBegin)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.DateEnd)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.DateEnd)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Hour)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Hour)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.DateShift)
-        </dt>
-
         <dd>
             @Html.DisplayFor(model => model.DateShift)
         </dd>
-
+        
+        @if (Model.CycleType == MassHelper.CYCLE_TYPE_REPEAT_DAYS || Model.CycleType == MassHelper.CYCLE_TYPE_REPEAT_DAY_IN_MONTH)
+        {
         <dt>
-            @Html.DisplayNameFor(model => model.Repeat)
+            Powtarzaj
         </dt>
-
         <dd>
             @Html.DisplayFor(model => model.Repeat)
         </dd>
+        }
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Church.Name)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Church.Name)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Cycle.Name)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Cycle.Name)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Holiday.Name)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Holiday.Name)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Comment)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Comment)
-        </dd>
 
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Edytuj", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Usuń", "Delete", new { id = Model.Id }) |
+    @Html.ActionLink("Wróć do listy", "Index", new { id = Model.ChurchId })
 </p>
