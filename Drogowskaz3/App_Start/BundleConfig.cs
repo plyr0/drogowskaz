@@ -23,10 +23,12 @@ namespace WebApplication1
                       "~/Scripts/moment-with-locales.min.js",
                       "~/Scripts/bootstrap.min.js",
                       "~/Scripts/bootstrap-datetimepicker.min.js",
+                      "~/Scripts/select2.min.js",
                       "~/Scripts/respond.min.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
+                      "~/Content/css/select2.min.css",
                       "~/Content/bootstrap-datetimepicker.min.css",
                       "~/Content/site.css"));
         }
