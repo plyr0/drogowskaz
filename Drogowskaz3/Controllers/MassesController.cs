@@ -60,12 +60,13 @@ namespace WebApplication1.Controllers
             return RedirectToAction("Index");
         }
         
-
+        [AllowAnonymous]
         public ActionResult Calendar()
         {
             return View();
         }
 
+        [AllowAnonymous]
         public ActionResult Backend()
         {
             return new Dpm().CallBack(this);
