@@ -109,6 +109,8 @@ namespace WebApplication1.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(long id)
         {
+            db.Masses.RemoveRange(db.Masses.Where(m => m.ChurchId == id));
+            db.Rules.RemoveRange(db.Rules.Where(r => r.ChurchId == id));
             Church church = db.Churches.Find(id);
             db.Churches.Remove(church);
             db.SaveChanges();
