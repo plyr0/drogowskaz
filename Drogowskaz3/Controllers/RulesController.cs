@@ -6,7 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using WebApplication1;
+using WebApplication1.Models;
 using WebApplication1.Helpers;
 
 namespace WebApplication1.Controllers
@@ -75,15 +75,23 @@ namespace WebApplication1.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,MassType,Monday,Tuesday,Wednesday,Thursday,Friday,Saturday,Sunday,I,II,III,IV,V,VI,VII,VIII,IX,X,XI,XII,Week1,Week2,Week3,Week4,Week5,WeekLast,CycleType,DateBegin,DateEnd,Hour,DateShift,Repeat,ChurchId,CycleId,HolidayId,Comment")] Rule rule)
+        public ActionResult Create([Bind(Include = "Id,MassType,Monday,Tuesday,Wednesday,Thursday,Friday,Saturday,Sunday,I,II,III,IV,V,VI,VII,VIII,IX,X,XI,XII,Week1,Week2,Week3,Week4,Week5,WeekLast,CycleType,DateBegin,DateEnd,Hour,DateShift,Repeat,ChurchId,CycleId,HolidayId,Comment,Hours")] RuleViewModel viewModel)
         {
             if (ModelState.IsValid)
             {
-                db.Rules.Add(rule);
+                viewModel.Hours.Add(viewModel.Hour);
+                viewModel.Hours = viewModel.Hours.Distinct().ToList();
+                viewModel.Hours.Sort();
+                foreach (var h in viewModel.Hours)
+                {
+                    Rule rule = viewModel.ToRule();
+                    rule.Hour = h;
+                    db.Rules.Add(rule);
+                }
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(rule);
+            return View(viewModel);
         }
 
         // GET: Rules/Edit/5

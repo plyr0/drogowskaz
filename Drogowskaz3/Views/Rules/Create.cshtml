@@ -1,4 +1,4 @@
-﻿@model WebApplication1.Rule
+﻿@model WebApplication1.Models.RuleViewModel
 
 @using WebApplication1.Helpers
 
@@ -555,6 +555,7 @@
                 //t.setAttribute("required", "Wpisz godzinę")
                 t.required = true;
                 t.setAttribute("id", "new" + l);
+                t.setAttribute("name", "Hours[" + l + "]");
                 x.appendChild(t);
                 document.getElementById("godziny").appendChild(x);
                 $('.timepicker').datetimepicker(timePickerOptions);
