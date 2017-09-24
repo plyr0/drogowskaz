@@ -125,7 +125,7 @@ namespace WebApplication1.Controllers
                         Id = m.Id,
                         Start = m.DateAndTime,
                         End = m.DateAndTime.AddHours(1),
-                        Text = m.DateAndTime.TimeOfDay + " " + m.Rule.MassType
+                        Text = m.DateAndTime.ToString("HH:mm") + " " + m.Rule.MassType
                     };
                     list.Add(i);
                 }
