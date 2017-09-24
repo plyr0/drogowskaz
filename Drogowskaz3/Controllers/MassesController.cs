@@ -1,14 +1,14 @@
-﻿using DrogowskazSerwer.Helpers;
+﻿using DayPilot.Web.Mvc;
+using DayPilot.Web.Mvc.Events.Month;
 using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
-using System.Net;
-using System.Web;
 using System.Web.Mvc;
-using WebApplication1;
 using WebApplication1.Helpers;
+using System.Collections;
+using System.Collections.Generic;
+using DayPilot.Web.Mvc.Enums;
 
 namespace WebApplication1.Controllers
 {
@@ -59,6 +59,80 @@ namespace WebApplication1.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
+        
+
+        public ActionResult Calendar()
+        {
+            return View();
+        }
+
+        public ActionResult Backend()
+        {
+            return new Dpm().CallBack(this);
+        }
+
+        class Dpm : DayPilotMonth
+        {
+            protected override void OnInit(InitArgs e)
+            {
+                var db = new drogowskazEntities();
+                Events = createEvents(db.Masses);
+                DataIdField = "Id";
+                DataTextField = "Text";
+                DataStartField = "Start";
+                DataEndField = "End";
+                Update();
+            }
+
+            protected override void OnCommand(CommandArgs e)
+            {
+                switch (e.Command)
+                {
+                    case "previous":
+                        StartDate = StartDate.AddMonths(-1);
+                        break;
+                    case "next":
+                        StartDate = StartDate.AddMonths(1);
+                        break;
+                    case "today":
+                        StartDate = DateTime.Today;
+                        break;
+                }
+                var db = new drogowskazEntities();
+                Events = createEvents(db.Masses);
+                DataIdField = "Id";
+                DataTextField = "Text";
+                DataStartField = "Start";
+                DataEndField = "End";
+                Update(CallBackUpdateType.Full);
+            }
+
+            class IntermediateMass
+            {
+                public long Id { get; set; }
+                public string Text { get; set; }
+                public DateTime Start { get; set; }
+                public DateTime End { get; set; }
+            }
+
+            private IEnumerable createEvents(DbSet<Mass> masses)
+            {
+                List<IntermediateMass> list = new List<IntermediateMass>();
+                foreach(Mass m in masses)
+                {
+                    IntermediateMass i = new IntermediateMass()
+                    {
+                        Id = m.Id,
+                        Start = m.DateAndTime,
+                        End = m.DateAndTime.AddHours(1),
+                        Text = m.DateAndTime.TimeOfDay + " " + m.Rule.MassType
+                    };
+                    list.Add(i);
+                }
+                return list;
+            }
+        }
+        
         
         protected override void Dispose(bool disposing)
         {

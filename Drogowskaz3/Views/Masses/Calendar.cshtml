@@ -1,0 +1,25 @@
+﻿@model IEnumerable<Mass>
+
+@using DayPilot.Web.Mvc
+
+@{
+    ViewBag.Title = "Calendar";
+}
+
+<h2>Kalendarz</h2>
+
+<div class="space">
+    Week:
+    <a href='javascript:dp.commandCallBack("previous");'>Previous</a>
+    |
+    <a href="javascript:dp.commandCallBack('today');">Today</a>
+    |
+    <a href='javascript:dp.commandCallBack("next");'>Next</a>
+</div>
+
+<script src="@Url.Content("~/Scripts/daypilot-all.min.js")" type="text/javascript"></script>
+
+@Html.DayPilotMonth("dp", new DayPilotMonthConfig
+{
+    BackendUrl = Url.Content("~/Masses/Backend")
+})
