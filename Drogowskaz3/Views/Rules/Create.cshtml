@@ -584,7 +584,7 @@
             
             var x = document.createElement("DIV");
             var newlabel = document.createElement("label");
-            newlabel.innerHTML = "Godziny:";
+            newlabel.innerHTML = "Godzina:";
             document.getElementById("godziny").appendChild(newlabel);
             for (var l = 0; l < hoursAll; l++) {
                 var x = document.createElement("DIV");
@@ -609,9 +609,9 @@
                 var x = document.createElement("DIV");
                 var t = document.createElement("INPUT");
                 t.setAttribute("type", "text");
+                t.setAttribute("placeholder", "Zwykła");
                 t.style.width = '200px';
                 t.setAttribute("class", "form-control text-box single-line");
-                t.required = true;
                 t.setAttribute("id", "typ" + l);
                 t.setAttribute("name", "Types[" + l + "]");
                 x.appendChild(t);
