@@ -15,9 +15,32 @@ namespace WebApplication1.Controllers
         private drogowskazEntities db = new drogowskazEntities();
 
         // GET: Churches
-        public ActionResult Index()
+        public ActionResult Index(IEnumerable <Mass> model)
         {
-            return View(db.Churches.ToList());
+            if (model != null)
+                return View(model);
+            else
+                return View(db.Churches.ToList());
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Index( string search )
+        {
+            IQueryable<Church> query;
+            if(string.IsNullOrEmpty(search))
+            {
+                query = from p in db.Churches
+                        select p;
+            }
+            else
+            {
+                query = from p in db.Churches
+                        where p.Name.Contains(search) 
+                        select p;
+            }
+            
+            return View(query.ToList());
         }
 
         // GET: Churches/Details/5
