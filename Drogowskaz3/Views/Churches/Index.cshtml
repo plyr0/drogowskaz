@@ -9,6 +9,17 @@
 <p>
     @Html.ActionLink("Utwórz nowy", "Create")
 </p>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="text" name="search" id="search"/>
+            <input type="submit" value="Szukaj" class="btn btn-default" />
+        </div>
+    </div>
+}
 <table class="table">
     <tr>
         <th>
