@@ -60,7 +60,7 @@
                                 @Html.ValidationMessageFor(model => model.DateEnd, "", new { @class = "text-danger" })
                             </div>
                         </div>
-                        <div class="form-group" >
+                        <div class="form-group">
                             @Html.LabelFor(model => model.Hour, "Godzina", htmlAttributes: new { @class = "control-label col-md-2" })
                             <div class="col-sm-4">
                                 @Html.EditorFor(model => model.Hour, new { htmlAttributes = new { @class = "form-control timepicker", @type = "time" } })
@@ -98,27 +98,27 @@
                     <div class="row">
                         <div class="col-md-5 col-md-offset-1 ">
                             <input type="number" id="usr" maxlength="2" placeholder="Ilość godzin" class="form-control text-box single-line" />
-                            </div>
+                        </div>
                         <div class="col-md-5 col-md-offset-1">
                             <button id="dodaj" name="dodaj" type="button" class="btn btn-default">Zatwierdź</button>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="panel-body">
-                                <div class="col-md-6">
-                                    <div id="godziny">
-                                        <!--Inputy godzin-->
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div id="typy">
-                                        <!--Inputy godzin-->
-                                    </div>
-                                </div>
-
-                            </div>
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="panel-body">
+                            <div class="col-md-6">
+                                <div id="godziny">
+                                    <!--Inputy godzin-->
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div id="typy">
+                                    <!--Inputy godzin-->
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -556,7 +556,7 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
- 
+
     <script type="text/javascript">
         var godzinyFunkcja = function () {
             var hoursAll = document.getElementById("usr").value;
@@ -597,7 +597,6 @@
                 t.setAttribute("name", "types[" + l + "]");
                 x.appendChild(t);
                 document.getElementById("typy").appendChild(x);
-                $('.timepicker').datetimepicker(timePickerOptions);
             }
         };
         $('#dodaj').click(godzinyFunkcja);
