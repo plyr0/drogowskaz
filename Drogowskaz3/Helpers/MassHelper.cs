@@ -26,13 +26,13 @@ namespace WebApplication1.Helpers
                 return;
             if (r.DateEnd != null && currentDate >= r.DateEnd)
                 return;
-            DateTime dateAndTime = currentDate.AddMinutes(r.Hour.TotalMinutes); //TODO: przesunąć do switcha, kasować msze o niższym priorytecie
+            DateTime dateAndTime = currentDate.AddMinutes(r.Hour.TotalMinutes); 
             if (db.Masses.Where(m => m.DateAndTime == dateAndTime && m.ChurchId == r.ChurchId).Any())
             {
                 return;
             }
             int shift = r.DateShift ?? 0;
-            DateTime dateShift = currentDate.AddDays(shift);
+            DateTime dateShift = currentDate.AddDays(-shift);
             DateTime? dateBegin = r.DateBegin;
             switch (r.CycleType)
             {
@@ -61,7 +61,8 @@ namespace WebApplication1.Helpers
 
         private static void ruleRepeatDayInMonth(Rule r, DateTime dateShift, DateTime currentDate, drogowskazEntities db)
         {
-            if(dateShift.Day == r.Repeat)
+
+            if( r.DateBegin != null && dateShift.Day == r.DateBegin.Value.Day)
             {
                 AddMass(r, db, currentDate);
             }
@@ -182,5 +183,5 @@ namespace WebApplication1.Helpers
 }
 
 
-//TODO: powtarzalna
-//TODO: kopiowanie reguły do jednego kościoła - zostawiam Ci
+
+
