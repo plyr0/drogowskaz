@@ -60,7 +60,7 @@
                                 @Html.ValidationMessageFor(model => model.DateEnd, "", new { @class = "text-danger" })
                             </div>
                         </div>
-                        <div class="form-group" >
+                        <div class="form-group">
                             @Html.LabelFor(model => model.Hour, "Godzina", htmlAttributes: new { @class = "control-label col-md-2" })
                             <div class="col-sm-4">
                                 @Html.EditorFor(model => model.Hour, new { htmlAttributes = new { @class = "form-control timepicker", @type = "time" } })
@@ -95,11 +95,27 @@
                     <div class="panel-heading">
                         <h3 class="panel-title">Dodatkowe godziny mszy</h3>
                     </div>
-                    <div class="panel-body">
-                        <input type="number" id="usr" maxlength="2" placeholder="Ilość godzin" />
-                        <button id="dodaj" name="dodaj" type="button">Zatwierdź</button>
-                        <div id="godziny">
-                            <!--Inputy godzin-->
+                    <div class="row">
+                        <div class="col-md-5 col-md-offset-1 ">
+                            <input type="number" id="usr" maxlength="2" placeholder="Ilość godzin" class="form-control text-box single-line" />
+                        </div>
+                        <div class="col-md-5 col-md-offset-1">
+                            <button id="dodaj" name="dodaj" type="button" class="btn btn-default">Zatwierdź</button>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="panel-body">
+                            <div class="col-md-6">
+                                <div id="godziny">
+                                    <!--Inputy godzin-->
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div id="typy">
+                                    <!--Inputy godzin-->
+                                </div>
+                            </div>
+
                         </div>
                     </div>
                 </div>
@@ -540,25 +556,49 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
- 
+
     <script type="text/javascript">
         var godzinyFunkcja = function () {
             var hoursAll = document.getElementById("usr").value;
-            if (hoursAll < 0 || hoursAll > 23)
-                return;
             $("#godziny").empty();
+            $("#typy").empty();
+            if (hoursAll < 1 || hoursAll > 23)
+                return;
+            
+            var x = document.createElement("DIV");
+            var newlabel = document.createElement("label");
+            newlabel.innerHTML = "Godziny:";
+            document.getElementById("godziny").appendChild(newlabel);
             for (var l = 0; l < hoursAll; l++) {
                 var x = document.createElement("DIV");
                 var t = document.createElement("INPUT");
                 t.setAttribute("type", "time");
+                t.style.width = '200px';
                 t.setAttribute("class", "form-control timepicker")
-                //t.setAttribute("required", "Wpisz godzinę")
                 t.required = true;
                 t.setAttribute("id", "new" + l);
                 t.setAttribute("name", "Hours[" + l + "]");
                 x.appendChild(t);
                 document.getElementById("godziny").appendChild(x);
                 $('.timepicker').datetimepicker(timePickerOptions);
+            }
+
+            
+            var x = document.createElement("DIV");
+            var labelTyp = document.createElement("label");
+            labelTyp.innerHTML = "Typ mszy:";
+            document.getElementById("typy").appendChild(labelTyp);
+            for (var l = 0; l < hoursAll; l++) {
+                var x = document.createElement("DIV");
+                var t = document.createElement("INPUT");
+                t.setAttribute("type", "text");
+                t.style.width = '200px';
+                t.setAttribute("class", "form-control text-box single-line");
+                t.required = true;
+                t.setAttribute("id", "typ" + l);
+                t.setAttribute("name", "types[" + l + "]");
+                x.appendChild(t);
+                document.getElementById("typy").appendChild(x);
             }
         };
         $('#dodaj').click(godzinyFunkcja);
