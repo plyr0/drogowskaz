@@ -560,9 +560,11 @@
     <script type="text/javascript">
         var godzinyFunkcja = function () {
             var hoursAll = document.getElementById("usr").value;
-            if (hoursAll < 0 || hoursAll > 23)
-                return;
             $("#godziny").empty();
+            $("#typy").empty();
+            if (hoursAll < 1 || hoursAll > 23)
+                return;
+            
             var x = document.createElement("DIV");
             var newlabel = document.createElement("label");
             newlabel.innerHTML = "Godziny:";
@@ -581,7 +583,7 @@
                 $('.timepicker').datetimepicker(timePickerOptions);
             }
 
-            $("#typy").empty();
+            
             var x = document.createElement("DIV");
             var labelTyp = document.createElement("label");
             labelTyp.innerHTML = "Typ mszy:";
