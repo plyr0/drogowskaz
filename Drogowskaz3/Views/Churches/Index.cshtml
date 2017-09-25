@@ -56,7 +56,8 @@
             @Html.ActionLink("Dodaj regułę", "Create", "Rules", new { id = item.Id }, null) |
             @Html.ActionLink("Właściwości", "Details", new { id=item.Id }) |
             @Html.ActionLink("Edytuj", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Usuń", "Delete", new { id=item.Id })
+            @Html.ActionLink("Usuń", "Delete", new { id=item.Id }) |
+            @Html.ActionLink("Kalendarz", "Calendar", "Calendar", new { id = item.Id }, null)
         </td>
     </tr>
 }
