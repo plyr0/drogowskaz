@@ -182,6 +182,7 @@
       <DependentUpon>DatabaseModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\CalendarController.cs" />
     <Compile Include="Controllers\ChurchesController.cs" />
     <Compile Include="Controllers\CyclesController.cs" />
     <Compile Include="Controllers\HolidaysController.cs" />
@@ -400,6 +401,7 @@
     <Content Include="Views\Holidays\Delete.cshtml" />
     <Content Include="Views\Holidays\Index.cshtml" />
     <Content Include="Views\Masses\Calendar.cshtml" />
+    <Content Include="Views\Calendar\Calendar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
