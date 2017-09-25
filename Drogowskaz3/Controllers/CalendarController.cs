@@ -13,28 +13,29 @@ namespace WebApplication1.Controllers
     public class CalendarController : Controller
     {
         [AllowAnonymous]
-        public ActionResult Calendar(long? id)
+        public ActionResult Calendar(long? id, long? ruleId)
         {
-            System.Diagnostics.Debug.WriteLine("id " + id);
+            ViewBag.ruleId = ruleId;
             ViewBag.id = id;
             return View();
         }
 
         [AllowAnonymous]
-        public ActionResult Backend(long? id)
+        public ActionResult Backend(long? id, long? ruleId)
         {
-            System.Diagnostics.Debug.WriteLine(" backend id " + id);
-            return new Dpm(id).CallBack(this);
+            
+            return new Dpm(id, ruleId).CallBack(this);
         }
 
         class Dpm : DayPilotMonth
         {
-            long? Id;
+            long? IdChurch;
+            long? ruleId;
 
-            public Dpm(long? id)
+            public Dpm(long? id, long? ruleId)
             {
-                Id = id;
-                System.Diagnostics.Debug.WriteLine("id " + id);
+                IdChurch = id;
+                this.ruleId = ruleId;
             }
 
             protected override void OnInit(InitArgs e)
@@ -81,8 +82,22 @@ namespace WebApplication1.Controllers
 
             private IEnumerable createEvents(DbSet<Mass> masses)
             {
+                IQueryable<Mass> query;
+                if(ruleId != null && IdChurch != null)
+                {
+                     query = masses.Where(m => m.ChurchId == IdChurch && m.RuleId == ruleId);
+
+                }
+                else if(ruleId != null )
+                {
+                    query = masses.Where(m => m.RuleId == ruleId);
+                }
+                else
+                {
+                     query = masses.Where(m => m.ChurchId == IdChurch);
+                }
                 List<IntermediateMass> list = new List<IntermediateMass>();
-                foreach (Mass m in masses.Where(m=> m.ChurchId == Id))
+                foreach (Mass m in query )
                 {
                     IntermediateMass i = new IntermediateMass()
                     {

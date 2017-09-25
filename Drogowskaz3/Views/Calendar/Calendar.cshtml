@@ -21,6 +21,6 @@
 
 @Html.DayPilotMonth("dp", new DayPilotMonthConfig
 {
-    BackendUrl = Url.Content("~/Calendar/Backend/" + ViewBag.Id)
+    BackendUrl = Url.Content("~/Calendar/Backend/" + ViewBag.Id + "?ruleId=" + ViewBag.ruleId)
 })
 
