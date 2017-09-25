@@ -110,7 +110,7 @@ namespace WebApplication1.Controllers
             }
             ViewBag.ChurchId = new SelectList(db.Churches, "Id", "Name", rule.ChurchId);
             ViewBag.CycleId = new SelectList(db.Cycles, "Id", "Name", rule.CycleId);
-            ViewBag.HolidayId = new SelectList(db.Holidays, "Id", "Name", rule.HolidayId);
+            ViewBag.HolidayId = new SelectList(db.Holidays, "Id", "Name", "Category", rule.HolidayId, null);
 
             var cycleType = new List<String>(){
                 MassHelper.CYCLE_TYPE_MONTH,
