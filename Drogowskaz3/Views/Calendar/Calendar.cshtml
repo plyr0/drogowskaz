@@ -21,6 +21,7 @@
 
 @Html.DayPilotMonth("dp", new DayPilotMonthConfig
 {
-    BackendUrl = Url.Content("~/Calendar/Backend/" + ViewBag.Id + "?ruleId=" + ViewBag.ruleId)
+    BackendUrl = Url.Content("~/Calendar/Backend/" + ViewBag.Id + "?ruleId=" + ViewBag.ruleId),
+    EventClickHandling = DayPilot.Web.Mvc.Events.Month.EventClickHandlingType.CallBack
 })
 

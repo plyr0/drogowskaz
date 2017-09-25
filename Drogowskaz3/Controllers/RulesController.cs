@@ -41,10 +41,22 @@ namespace WebApplication1.Controllers
 
         // GET: Rules/Details/5
         [AllowAnonymous]
-        public ActionResult Details(long? id)
+        public ActionResult Details(long? id, long? massId)
         {
             if (id == null)
             {
+                if(massId != null)
+                {
+                    Mass mass = db.Masses.Where(m => m.Id == massId).FirstOrDefault();
+                    if (mass != null)
+                    {
+                        var rl = db.Rules.FirstOrDefault(r => r.Id == mass.RuleId);
+                        if (rl != null)
+                        {
+                            return View(rl);
+                        }
+                    }
+                }
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Rule rule = db.Rules.Find(id);

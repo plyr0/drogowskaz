@@ -49,6 +49,11 @@ namespace WebApplication1.Controllers
                 Update();
             }
 
+            protected override void OnEventClick(EventClickArgs e)
+            {
+                Redirect("~/Rules/Details?massId=" + e.Id);
+            }
+
             protected override void OnCommand(CommandArgs e)
             {
                 switch (e.Command)
@@ -92,9 +97,13 @@ namespace WebApplication1.Controllers
                 {
                     query = masses.Where(m => m.RuleId == ruleId);
                 }
-                else
+                else if (IdChurch != null)
                 {
                      query = masses.Where(m => m.ChurchId == IdChurch);
+                }
+                else
+                {
+                    query = masses;
                 }
                 List<IntermediateMass> list = new List<IntermediateMass>();
                 foreach (Mass m in query )
