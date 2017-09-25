@@ -596,7 +596,7 @@
                 t.setAttribute("class", "form-control timepicker")
                 t.required = true;
                 t.setAttribute("id", "new" + l);
-                t.setAttribute("name", "Hours[" + l + "]");
+                t.setAttribute("name", "AdditionalMasses[" + l + "].Hour");
                 x.appendChild(t);
                 document.getElementById("godziny").appendChild(x);
                 $('.timepicker').datetimepicker(timePickerOptions);
@@ -604,6 +604,7 @@
 
 
             var x = document.createElement("DIV");
+            x.setAttribute("id", "typyMszy");
             var labelTyp = document.createElement("label");
             labelTyp.innerHTML = "Typ mszy:";
             document.getElementById("typy").appendChild(labelTyp);
@@ -611,11 +612,17 @@
                 var x = document.createElement("DIV");
                 var t = document.createElement("INPUT");
                 t.setAttribute("type", "text"); 
-                t.setAttribute("placeholder", "Zwykła");
+                t.setAttribute("value", "Zwykła");
                 t.style.width = '200px';
                 t.setAttribute("class", "form-control text-box single-line");
                 t.setAttribute("id", "typ" + l);
-                t.setAttribute("name", "Types[" + l + "]");
+                t.setAttribute("name", "AdditionalMasses[" + l + "].MassType");
+                t.onfocus = function () {
+                    if (this.value == "Zwykła") this.value = "";
+                };
+                t.onblur = function () {
+                    if (this.value == "") this.value = "Zwykła";
+                };
                 x.appendChild(t);
                 document.getElementById("typy").appendChild(x);
             }

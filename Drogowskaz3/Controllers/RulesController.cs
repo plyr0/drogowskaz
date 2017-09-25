@@ -4,7 +4,6 @@ using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
 using WebApplication1.Models;
 using WebApplication1.Helpers;
@@ -75,17 +74,20 @@ namespace WebApplication1.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,MassType,Monday,Tuesday,Wednesday,Thursday,Friday,Saturday,Sunday,I,II,III,IV,V,VI,VII,VIII,IX,X,XI,XII,Week1,Week2,Week3,Week4,Week5,WeekLast,CycleType,DateBegin,DateEnd,Hour,DateShift,Repeat,ChurchId,CycleId,HolidayId,Comment,Hours")] RuleViewModel viewModel)
+        public ActionResult Create([Bind(Include = "Id,MassType,Monday,Tuesday,Wednesday,Thursday,Friday,Saturday,Sunday,I,II,III,IV,V,VI,VII,VIII,IX,X,XI,XII,Week1,Week2,Week3,Week4,Week5,WeekLast,CycleType,DateBegin,DateEnd,Hour,DateShift,Repeat,ChurchId,CycleId,HolidayId,Comment,AdditionalMasses")] RuleViewModel viewModel)
         {
             if (ModelState.IsValid)
             {
-                viewModel.Hours.Add(viewModel.Hour);
-                viewModel.Hours = viewModel.Hours.Distinct().ToList();
-                viewModel.Hours.Sort();
-                foreach (var h in viewModel.Hours)
+                viewModel.AdditionalMasses.Add(new Envelope {
+                    Hour = viewModel.Hour, MassType = viewModel.MassType
+                });
+                //viewModel.AdditionalMasses = viewModel.AdditionalMasses.DistinctBy(e => e.Hour).ToList();
+                viewModel.AdditionalMasses.Sort((e1,e2) => { return TimeSpan.Compare(e1.Hour, e2.Hour); });
+                foreach (var h in viewModel.AdditionalMasses)
                 {
                     Rule rule = viewModel.ToRule();
-                    rule.Hour = h;
+                    rule.Hour = h.Hour;
+                    rule.MassType = h.MassType;
                     db.Rules.Add(rule);
                 }
                 db.SaveChanges();

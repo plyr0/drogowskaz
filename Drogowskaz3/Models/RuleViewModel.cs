@@ -3,9 +3,15 @@ using System.Collections.Generic;
 
 namespace WebApplication1.Models
 {
+    public class Envelope
+    {
+        public TimeSpan Hour { get; set; }
+        public string MassType { get; set; }
+    }
+
     public class RuleViewModel : Rule
     {
-        public List<TimeSpan> Hours { get; set; } = new List<TimeSpan>();
+        public List<Envelope> AdditionalMasses { get; set; } = new List<Envelope>();
 
         public Rule ToRule()
         {
