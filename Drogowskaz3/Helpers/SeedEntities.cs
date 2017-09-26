@@ -38,8 +38,7 @@ namespace WebApplication1.Helpers
             { "Sylwester", "Okres Bożonarodzeniowy " },
             { "Pierwszy Dzień Szkoły", "Inne" },
             { "Ostatni Dzień Szkoły", "Inne" },
-            { "Święta wolne od pracy", "Inne" },
-            { "Święta w dni robocze", "Inne"}
+            
         };
 
         public void InitializeDatabase(drogowskazEntities context)

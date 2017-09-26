@@ -58,8 +58,7 @@ namespace WebApplication1.Helpers
             "Sylwester", 
             "Pierwszy Dzień Szkoły",
             "Ostatni Dzień Szkoły",
-            "Święta wolne od pracy",
-            "Święta w dni robocze",
+            
         };
 
         public static string[] cyclesNames = {
@@ -72,7 +71,9 @@ namespace WebApplication1.Helpers
             "Czas zimowy",
             "Wakacje",
             "Rok Szkolny",
-            "Okres Zwykły"
+            "Okres Zwykły",
+            "Święta wolne od pracy",
+            "Święta w dni robocze",
         };
         
         public static HolidayFunc<int, DateTime>[] holidayFunctions = {
@@ -168,11 +169,17 @@ namespace WebApplication1.Helpers
 
         public static bool isInHoliday(DateTime dateShift, string name)
         {
+           
+            return holidayNameToFunc[name](dateShift.Year) == dateShift;
+        }
+
+        public static bool isInCycle(DateTime dateShift, string name)
+        {
             if (name == "Święta wolne od pracy")
             {
                 foreach (var sw in holidayIsFree)
                 {
-                    if (sw.Value && isInHoliday(dateShift, sw.Key)) 
+                    if (sw.Value && isInHoliday(dateShift, sw.Key))
                         return true;
                 }
                 return false;
@@ -181,16 +188,12 @@ namespace WebApplication1.Helpers
             {
                 foreach (var sw in holidayIsFree)
                 {
-                    if (!sw.Value && isInHoliday(dateShift, sw.Key) && dateShift.DayOfWeek != DayOfWeek.Sunday) 
+                    if (!sw.Value && isInHoliday(dateShift, sw.Key) && dateShift.DayOfWeek != DayOfWeek.Sunday)
                         return true;
                 }
                 return false;
             }
-            return holidayNameToFunc[name](dateShift.Year) == dateShift;
-        }
 
-        public static bool isInCycle(DateTime dateShift, string name)
-        {
             DateTime start;
             DateTime end;
             if (name == "Okres Zwykły")
@@ -272,16 +275,7 @@ namespace WebApplication1.Helpers
             sb.Append(" oraz ").Append(start.ToString("d")).Append(" - ")
                 .Append(end.ToString("d")).Append(sep);
 
-            cf = GenerateCycle.OkresZwykly1;
-            cf(year+1, out start, out end);
-            sb.Append(" OkresZwykły 2018: ").Append(start.ToString("d")).Append(" - ")
-                .Append(end.ToString("d"));
-
-            cf = GenerateCycle.OkresZwykly2;
-            cf(year+1, out start, out end);
-            sb.Append(" oraz ").Append(start.ToString("d")).Append(" - ")
-                .Append(end.ToString("d"));
-
+           
             return sb.ToString();
         }
     }
