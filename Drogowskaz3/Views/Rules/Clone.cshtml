@@ -36,8 +36,7 @@
                                htmlAttributes = new
                                {
                                    @class = "form-control datetimepicker",
-                                   @type = "datetime",
-                                   @Value = DateTime.Today.ToString("yyyy.MM.dd")
+                                   @type = "datetime"
                                }
                            })
                                 @{ Html.EnableClientValidation(true); }
@@ -645,7 +644,6 @@
         $('.datetimepicker').datetimepicker({
             format: "YYYY-MM-DD",
             stepping: 30,
-            useCurrent: true,
             locale: "PL",
             calendarWeeks: true,
             showTodayButton: true,
