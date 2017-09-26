@@ -28,9 +28,11 @@ namespace WebApplication1.Helpers
             if (r.DateEnd != null && currentDate >= r.DateEnd)
                 return;
 
-
-            
-
+            DateTime dateAndTime = currentDate.AddMinutes(r.Hour.TotalMinutes);
+            if (db.Masses.Where(m => m.DateAndTime == dateAndTime && m.ChurchId == r.ChurchId).Any())
+            {
+                return; //TODO: kiedyś zrobić
+            }
 
             int shift = r.DateShift ?? 0;
             DateTime dateShift = currentDate.AddDays(-shift);
@@ -167,45 +169,6 @@ namespace WebApplication1.Helpers
 
         private static void AddMass(Rule r, drogowskazEntities db, DateTime? date)
         {
-
-
-            IQueryable<Mass> masses;
-
-            switch (r.CycleType)
-            {
-                case CYCLE_TYPE_SINGULAR:
-                   masses = db.Masses.Where(m => DbFunctions.TruncateTime(m.DateAndTime) == date  
-                                     && m.ChurchId == r.ChurchId 
-                                     && m.Rule.CycleType != CYCLE_TYPE_SINGULAR);
-
-                    db.Masses.RemoveRange(masses);
-                    db.SaveChanges();
-                    break;
-
-                case CYCLE_TYPE_HOLIDAY:
-                   masses = db.Masses.Where(m => DbFunctions.TruncateTime(m.DateAndTime) == date
-                                    && m.ChurchId == r.ChurchId 
-                                    && m.Rule.CycleType != CYCLE_TYPE_HOLIDAY
-                                    && m.Rule.CycleType != CYCLE_TYPE_SINGULAR);
-                    db.Masses.RemoveRange(masses);
-                    db.SaveChanges();
-                    break;
-
-                default:
-                    var exist = db.Masses.Where(m => DbFunctions.TruncateTime(m.DateAndTime) == date
-                                     && m.ChurchId == r.ChurchId).Any();
-                    if (exist)
-                        return;
-                    break;
-            }
-            
-
-            DateTime dateAndTime = ((DateTime)date).AddMinutes(r.Hour.TotalMinutes);
-            if (db.Masses.Where(m => m.DateAndTime == dateAndTime && m.ChurchId == r.ChurchId).Any())
-            {
-                return;
-            }
-
             Mass msza = new Mass()
             {
                 Church = r.Church,
