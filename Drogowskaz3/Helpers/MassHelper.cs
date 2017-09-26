@@ -191,6 +191,12 @@ namespace WebApplication1.Helpers
                     db.SaveChanges();
                     break;
 
+                default:
+                    var exist = db.Masses.Where(m => DbFunctions.TruncateTime(m.DateAndTime) == date
+                                     && m.ChurchId == r.ChurchId).Any();
+                    if (exist)
+                        return;
+                    break;
             }
             
 
